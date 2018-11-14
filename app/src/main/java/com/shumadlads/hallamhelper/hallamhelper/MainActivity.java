@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = getSupportActionBar();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         toolbar.setTitle("Navigate");
         loadFragment(new Navigate());
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener OnNavigationItemSelectedListener
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
