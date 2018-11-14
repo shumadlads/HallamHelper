@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.shumadlads.hallamhelper.hallamhelper.Navigate;
 
 
 
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(OnNavigationItemSelectedListener);
 
         toolbar.setTitle("Navigate");
+        loadFragment(new Navigate());
+
 
 
 
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_navigate:
                     toolbar.setTitle("Navigate");
+                    fragment = new Navigate();
+                    loadFragment(fragment);
                     return true;
                 case R.id.action_timetable:
                     toolbar.setTitle("Timetables");
