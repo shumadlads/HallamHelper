@@ -12,10 +12,6 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
-import com.shumadlads.hallamhelper.hallamhelper.Navigate;
-
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.action_timetable:
                     toolbar.setTitle("Timetables");
+                    fragment = new Timetables();
+                    loadFragment(fragment);
                     return true;
                 case R.id.action_slack:
                     toolbar.setTitle("Don't Slack!");
+                    fragment = new StopSlack();
+                    loadFragment(fragment);
                     return true;
             }
             return false;
