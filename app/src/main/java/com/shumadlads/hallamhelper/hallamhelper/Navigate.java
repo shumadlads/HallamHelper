@@ -34,4 +34,10 @@ public class Navigate extends Fragment {
         return inflater.inflate(R.layout.fragment_navigate, container, false);
     }
 
+
+
+
+
+
+
 }
