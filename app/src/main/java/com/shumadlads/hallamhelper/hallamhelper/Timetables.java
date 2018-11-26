@@ -3,6 +3,7 @@ package com.shumadlads.hallamhelper.hallamhelper;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 
 
 public class Timetables extends Fragment {
+
+    FloatingActionButton fab;
 
     public Timetables() {
         // Required empty public constructor
@@ -25,6 +28,7 @@ public class Timetables extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -33,5 +37,7 @@ public class Timetables extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_timetables, container, false);
     }
+
+
 
 }

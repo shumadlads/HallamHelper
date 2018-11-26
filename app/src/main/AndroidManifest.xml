@@ -26,8 +26,13 @@
             android:parentActivityName=".MainActivity">
             >
         </activity>
+        <activity android:name=".HelpActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".HelpActivity"
+            android:name=".NewActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".QRActivity"
             android:parentActivityName=".MainActivity"></activity>
     </application>
 

@@ -3,6 +3,9 @@ package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -11,11 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.support.design.widget.BottomSheetDialogFragment;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private ActionBar toolbar;
+    FloatingActionButton fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = getSupportActionBar();
 
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
         toolbar.setTitle("Navigate");
         loadFragment(new Navigate());
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
 
-
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExampleBottomSheetDialog bottomSheet = new ExampleBottomSheetDialog();
+                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+            }
+        });
 
     }
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,21 +60,27 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
+            FloatingActionButton fab = findViewById(R.id.fab);
             switch (item.getItemId()) {
                 case R.id.action_navigate:
                     toolbar.setTitle("Navigate");
                     fragment = new Navigate();
                     loadFragment(fragment);
+                    fab.setVisibility(View.INVISIBLE);
                     return true;
+
                 case R.id.action_timetable:
                     toolbar.setTitle("Timetables");
                     fragment = new Timetables();
                     loadFragment(fragment);
+                    fab.setVisibility(View.VISIBLE);
                     return true;
+
                 case R.id.action_slack:
                     toolbar.setTitle("Don't Slack!");
                     fragment = new StopSlack();
                     loadFragment(fragment);
+                    fab.setVisibility(View.INVISIBLE);
                     return true;
             }
             return false;
