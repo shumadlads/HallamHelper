@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:paddingLeft="24dp"
-    android:paddingTop="40dp"
-    android:paddingRight="24dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
     tools:context=".Navigate">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,8 +17,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shadowbackground"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/shadowbackground"
 
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="40dp">
@@ -39,6 +39,7 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:hint="From" />
         </android.support.design.widget.TextInputLayout>
 
@@ -66,7 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
             android:text="Find Room"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -110,8 +112,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
             android:text="Select Building"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
