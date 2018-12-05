@@ -4,6 +4,7 @@
     <string name="log_out">Logout</string>
     <string name="hint">test hint</string>
     <string name="help">Help</string>
+    <string name="route_debug">RouteDebug</string>
     <string name="pathfinder">Navigate</string>
     <string name="schedule">Timetables</string>
     <string name="Antislack">Stop The Slack</string>
