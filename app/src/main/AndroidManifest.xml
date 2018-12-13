@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shumadlads.hallamhelper.hallamhelper">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
     <application
         android:name = ".AppConfig"
         android:allowBackup="true"
@@ -17,6 +21,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity">
+            >
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".MainActivity">
+            >
+        </activity>
+        <activity android:name=".HelpActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".NewActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".QRActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
