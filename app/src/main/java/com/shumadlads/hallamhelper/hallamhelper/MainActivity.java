@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity  {
 
     private ActionBar toolbar;
     FloatingActionButton fab;
+    FloatingActionButton fabslack;
+
 
 
     @Override
@@ -42,11 +44,21 @@ public class MainActivity extends AppCompatActivity  {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
 
+        FloatingActionButton fabslack = findViewById(R.id.fabslack);
+        fab.setVisibility(View.GONE);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ExampleBottomSheetDialog bottomSheet = new ExampleBottomSheetDialog();
                 bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+            }
+        });
+
+        fabslack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -61,12 +73,15 @@ public class MainActivity extends AppCompatActivity  {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             FloatingActionButton fab = findViewById(R.id.fab);
+            FloatingActionButton fabslack = findViewById(R.id.fabslack);
+
             switch (item.getItemId()) {
                 case R.id.action_navigate:
                     toolbar.setTitle("Navigate");
                     fragment = new Navigate();
                     loadFragment(fragment);
                     fab.setVisibility(View.INVISIBLE);
+                    fabslack.setVisibility(View.INVISIBLE);
                     return true;
 
                 case R.id.action_timetable:
@@ -74,6 +89,7 @@ public class MainActivity extends AppCompatActivity  {
                     fragment = new Timetables();
                     loadFragment(fragment);
                     fab.setVisibility(View.VISIBLE);
+                    fabslack.setVisibility(View.INVISIBLE);
                     return true;
 
                 case R.id.action_slack:
@@ -81,6 +97,7 @@ public class MainActivity extends AppCompatActivity  {
                     fragment = new StopSlack();
                     loadFragment(fragment);
                     fab.setVisibility(View.INVISIBLE);
+                    fabslack.setVisibility(View.VISIBLE);
                     return true;
             }
             return false;
