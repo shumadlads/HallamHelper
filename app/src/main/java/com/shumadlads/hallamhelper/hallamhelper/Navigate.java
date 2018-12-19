@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 public class Navigate extends Fragment {
 
+
+
     public Navigate() {
         // Required empty public constructor
     }
@@ -50,11 +52,30 @@ public class Navigate extends Fragment {
             @Override
             public void onClick(View v)
             {
-                Context context = getActivity().getApplicationContext();
-                Toast toast = Toast.makeText(context, ("Showing " + fromTextView.getText() +
-                        " to " + toTextView.getText()), Toast.LENGTH_LONG);
-                toast.show();// do something
-                swapFragment();
+                /* Toast is currently taking place on MapView - Earmarked for removal 19/12/2018 GS
+
+                */
+
+                if(!(toTextView.getText().toString().matches(""))){
+                    int roomToInt = Integer.parseInt(toTextView.getText().toString());
+                    if(roomToInt != 0){
+                        int roomFromInt;
+                        if(!(fromTextView.getText().toString().matches(""))){
+                            roomFromInt = Integer.parseInt(fromTextView.getText().toString());
+                        }else
+                            roomFromInt = 9999; //known empty
+                        swapFragment(roomFromInt, roomToInt);
+                    }
+                    else {
+                        errorToast();
+                    }
+                }
+                else{
+                    errorToast();
+                }
+
+
+
             }
         });
         //onSwapTextfieldsClick
@@ -66,21 +87,30 @@ public class Navigate extends Fragment {
                 toTextView.setText(fromTextView.getText()); //set fromText
                 fromTextView.setText(temp);
 
-
-
             }
         });
         return view;
     }
 
-    private void swapFragment(){
+    private void swapFragment(int from, int to){
         MapFragment mapFragment = new MapFragment();
+        Bundle b = new Bundle();
+        b.putInt("RoomTo", to);
+        b.putInt("RoomFrom", from);
+        mapFragment.setArguments(b);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_container, mapFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
+
+    private void errorToast(){
+        Context context = getActivity().getApplicationContext();
+        Toast toast = Toast.makeText(context, "Please enter valid room number", Toast.LENGTH_LONG);
+        toast.show();// do something
+    }
+
 
 
 

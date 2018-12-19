@@ -1,12 +1,12 @@
 <vector android:height="24dp" android:viewportHeight="164.39445"
     android:viewportWidth="139.34723" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillAlpha="1" android:fillColor="#b5004f"
+    <path android:fillAlpha="1" android:fillColor="#b5004f" android:name="3104"
         android:pathData="M0,0.353h25.4v32.456h-25.4z" android:strokeWidth="0.26458332"/>
-    <path android:fillAlpha="1" android:fillColor="#b5004f"
+    <path android:fillAlpha="1" android:fillColor="#b5004f" android:name="3105"
         android:pathData="M26.458,0.353h25.4v32.456h-25.4z" android:strokeWidth="0.26458332"/>
-    <path android:fillAlpha="1" android:fillColor="#b5004f"
+    <path android:fillAlpha="1" android:fillColor="#b5004f" android:name="3106"
         android:pathData="M52.917,0h24.694v32.808h-24.694z" android:strokeWidth="0.26458332"/>
-    <path android:fillAlpha="1" android:fillColor="#b5004f"
+    <path android:fillAlpha="1" android:fillColor="#b5004f" android:name="3107"
         android:pathData="M78.669,0.353h25.4v32.456h-25.4z" android:strokeWidth="0.26458332"/>
     <path android:fillAlpha="1" android:fillColor="#b5004f"
         android:pathData="M103.717,39.511h35.631v32.456h-35.631z" android:strokeWidth="0.26458332"/>
@@ -48,7 +48,7 @@
         android:pathData="m1.058,110.772 l15.279,0.014 0.189,1.323 25.891,3.591 4.968,-19.038h31.284v-7.761l8.114,0.353v20.461h15.875v12.347L99.483,122.061L99.483,164.394L1.058,164.394Z"
         android:strokeAlpha="1" android:strokeColor="#00000000"
         android:strokeLineCap="butt" android:strokeLineJoin="miter" android:strokeWidth="0.26458332"/>
-    <path android:fillAlpha="1" android:fillColor="#780039"
+    <path android:fillAlpha="1" android:fillColor="#780039" android:name="3114"
         android:pathData="m103.717,72.672v26.106h35.631L139.347,72.672Z"
         android:strokeAlpha="1" android:strokeColor="#00000000"
         android:strokeLineCap="butt" android:strokeLineJoin="miter" android:strokeWidth="0.26458332"/>
