@@ -26,21 +26,24 @@
 
         <android.support.design.widget.TextInputLayout
 
-            android:id="@+id/findRoomFromInputLayout2"
+            android:id="@+id/findRoomFromInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="126dp"
             android:layout_height="56dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
+
+            app:boxStrokeColor="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
 
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/textInputFrom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:hint="From" />
+                android:layout_height="wrap_content"
+                android:hint="@string/from" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -52,14 +55,18 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
             android:layout_marginBottom="32dp"
+
+            app:boxStrokeColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/findRoomFromInputLayout2"
+            app:layout_constraintStart_toEndOf="@+id/findRoomFromInputLayout"
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/textInputTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="To" />
+                android:hint="@string/to" />
+
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -68,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Find Room"
+            android:text="@string/find_room"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +85,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="44dp"
+            android:contentDescription="@string/switch_icon_context"
+            android:tint="@color/colorAccent"
             android:src="@drawable/ic_baseline_shuffle_24px"
             app:layout_constraintEnd_toStartOf="@+id/searchFindIcon"
             app:layout_constraintStart_toEndOf="@+id/findRoomToInputLayout"
@@ -88,7 +97,10 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="44dp"
+            android:contentDescription="@string/search_find_icon_context"
+            android:tint="@color/colorAccent"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_baseline_search_24px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -115,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Select Building"
+            android:text="@string/select_building"
             android:textSize="16sp"
 
             app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +139,8 @@
             android:layout_height="40dp"
             android:layout_marginTop="34dp"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/search_explore_icon_context"
+            android:tint="@color/colorAccent"
             android:src="@drawable/ic_baseline_search_24px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

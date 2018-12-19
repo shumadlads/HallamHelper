@@ -16,10 +16,12 @@ public class RouteNavigationTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_navigation_test);
         final MapView mapView = findViewById(R.id.mapView);
-        mapView.requestLayout();
+        //mapView.requestLayout();
 
         populateButton = findViewById(R.id.populateButton);
         navigateButton = findViewById(R.id.navigateButton);
+        mapView.onPopulate();
+        String text = mapView.Astar();
         populateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
