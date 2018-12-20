@@ -43,13 +43,16 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
-                android:hint="@string/from" />
+                android:hint="@string/from"
+                android:inputType="number"
+                />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
 
             android:id="@+id/findRoomToInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
             android:layout_width="126dp"
             android:layout_height="56dp"
             android:layout_marginStart="8dp"
@@ -65,7 +68,10 @@
                 android:id="@+id/textInputTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/to" />
+                android:hint="@string/to"
+                android:inputType="number"
+                />
+
 
         </android.support.design.widget.TextInputLayout>
 
