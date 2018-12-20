@@ -42,4 +42,5 @@ dependencies {
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
     implementation 'me.dm7.barcodescanner:zxing:1.9'
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
 }
