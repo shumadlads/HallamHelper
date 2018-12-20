@@ -57,11 +57,11 @@ public class MapView extends View {
             paint.setStyle(Paint.Style.FILL);
             if(v.x==start_x&&v.y==start_y) {
                 paint.setColor(Color.GREEN);
-                canvas.drawCircle((float) v.x, (float) v.y, radius, paint);
+                canvas.drawCircle((float) v.x, (float) v.y, radius, paint); //comment out when all node drawn debug is uncommented
             }
             if(v.x==stop_x&&v.y==stop_y) {
                 paint.setColor(Color.RED);
-                canvas.drawCircle((float) v.x, (float) v.y, radius, paint);
+                canvas.drawCircle((float) v.x, (float) v.y, radius, paint); //comment out when all node drawn debug is uncommented
             }
 
             //canvas.drawCircle((float) v.x, (float) v.y, radius, paint); //debug draws circles on all nodes
@@ -117,7 +117,15 @@ public class MapView extends View {
         //3114 Door Node
         graph.addNode(counter, 750, 625);
         counter++;
-
+        //9999 Door/Entrance to level 2
+        graph.addNode(counter, 50, 750);
+        counter++;
+        //3118 Corridor Node
+        graph.addNode(counter, 300, 750);
+        counter++;
+        //middle corridor left node
+        graph.addNode(counter, 325, 470);
+        counter++;
 
         switch (stopRoom) {
             case 3114: {
@@ -162,37 +170,17 @@ public class MapView extends View {
                 break;
             }
             case 9999:{
+                start_x = 50;
+                start_y = 750;
                 break;
             }
             default:{
                 break;
             }
         }
-        //edge1
+        //setup empty node;
         Node n;
 
-        /*Node n= getNode(500,250);
-        if(n!=null){
-            edgeStart=n;
-        }
-        n= getNode(250, 775);
-        if (n!=null){
-            edgeStop=n;
-        }
-        graph.addStep(edgeStart, edgeStop, 2);
-
-        //edge2
-
-        n= getNode(250, 775);
-        if(v!=null){
-            edgeStart=v;
-        }
-        n= getNode(500, 1200);
-        if (v!=null){
-            edgeStop=v;
-        }
-        graph.addStep(edgeStart, edgeStop, 2);
-*/
 
         //3105 Door to Corridor
         n= getNode(350,250);
@@ -252,6 +240,36 @@ public class MapView extends View {
             edgeStart=n;
         }
         n= getNode(750, 625);
+        if (n!=null){
+            edgeStop=n;
+        }
+        graph.addStep(edgeStart, edgeStop, 1);
+        //9999 Door/Entrance/Exit to 3118 Corridor Node
+        n= getNode(50, 750);
+        if(n!=null){
+            edgeStart=n;
+        }
+        n= getNode(300, 750);
+        if (n!=null){
+            edgeStop=n;
+        }
+        graph.addStep(edgeStart, edgeStop, 1);
+        //3118 Corridor Node to middle corridor left node
+        n= getNode(300, 750);
+        if(n!=null){
+            edgeStart=n;
+        }
+        n= getNode(325, 470);
+        if (n!=null){
+            edgeStop=n;
+        }
+        graph.addStep(edgeStart, edgeStop, 1);
+        //middle corridor left node to 3105 corridor node
+        n= getNode(325, 470);
+        if(n!=null){
+            edgeStart=n;
+        }
+        n= getNode(350, 300);
         if (n!=null){
             edgeStop=n;
         }
