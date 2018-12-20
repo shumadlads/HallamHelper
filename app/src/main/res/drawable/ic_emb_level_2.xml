@@ -48,7 +48,7 @@
         android:pathData="m1.058,110.772 l15.279,0.014 0.189,1.323 25.891,3.591 4.968,-19.038h31.284v-7.761l8.114,0.353v20.461h15.875v12.347L99.483,122.061L99.483,164.394L1.058,164.394Z"
         android:strokeAlpha="1" android:strokeColor="#00000000"
         android:strokeLineCap="butt" android:strokeLineJoin="miter" android:strokeWidth="0.26458332"/>
-    <path android:fillAlpha="1" android:fillColor="#780039" android:name="3114"
+    <path android:fillAlpha="1" android:fillColor="#b5004f" android:name="3114"
         android:pathData="m103.717,72.672v26.106h35.631L139.347,72.672Z"
         android:strokeAlpha="1" android:strokeColor="#00000000"
         android:strokeLineCap="butt" android:strokeLineJoin="miter" android:strokeWidth="0.26458332"/>

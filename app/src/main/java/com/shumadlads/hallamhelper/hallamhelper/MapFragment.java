@@ -1,13 +1,18 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.devs.vectorchildfinder.VectorChildFinder;
+import com.devs.vectorchildfinder.VectorDrawableCompat;
 
 
 public class MapFragment extends Fragment {
@@ -42,13 +47,24 @@ public class MapFragment extends Fragment {
         super.onStart();
         int tempFrom = getArguments().getInt("RoomFrom");
         int tempTo = getArguments().getInt("RoomTo");
-        Context context = getActivity().getApplicationContext();
+        /*Context context = getActivity().getApplicationContext();
         Toast toast = Toast.makeText(context, tempFrom + " " + tempTo, Toast.LENGTH_LONG);
         toast.show();// do something
+        */
         MapView mapView = getActivity().findViewById(R.id.mapView);
         mapView.onPopulate(tempFrom, tempTo);
+        changeRoomColour(tempTo);
         String text = mapView.Astar();
 
+    }
+
+    public void changeRoomColour(int roomTo){
+        ImageView map = getActivity().findViewById(R.id.backgroundImageView);
+        String roomToString = Integer.toString(roomTo);
+        VectorChildFinder vector = new VectorChildFinder(getActivity().getApplicationContext(),
+                R.drawable.ic_emb_level_2, map);
+        VectorDrawableCompat.VFullPath changePathTo = vector.findPathByName(roomToString);
+        changePathTo.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
 }
