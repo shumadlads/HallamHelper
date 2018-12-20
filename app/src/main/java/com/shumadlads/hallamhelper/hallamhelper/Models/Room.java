@@ -96,6 +96,9 @@ public class Room extends BaseModel {
     public void setNode(com.shumadlads.hallamhelper.hallamhelper.Models.Node node) {
         Node = node;
     }
-
+    @Override
+    public String toString() {
+        return RoomName;
+    }
 
 }

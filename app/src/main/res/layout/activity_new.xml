@@ -17,164 +17,130 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/shadowbackground"
+        android:paddingBottom="8dp"
 
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="40dp">
 
 
-        <android.support.design.widget.TextInputLayout
-
-            android:id="@+id/sessionNameInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="348dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="30dp"
-
+        <Spinner
+            android:id="@+id/Module_Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/Module_TextView" />
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:hint="Session Name" />
-        </android.support.design.widget.TextInputLayout>
+        <Spinner
+            android:id="@+id/Room_Spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Room_TextView" />
 
         <TextView
-            android:id="@+id/textViewSession"
+            android:id="@+id/Module_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Session"
-            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:text="Module"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.027"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.design.widget.TextInputLayout
-
-            android:id="@+id/timeFromInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="171dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="90dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:hint="From" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-
-            android:id="@+id/timeToInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="170dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="90dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="To" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-
-            android:id="@+id/roomInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="171dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="150dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Room Number" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-
-            android:id="@+id/dateInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="170dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="150dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Date" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-
-            android:id="@+id/lecturerInput"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="348dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="210dp"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Lecturer" />
-        </android.support.design.widget.TextInputLayout>
 
         <TextView
-            android:id="@+id/textViewRecurring"
+            android:id="@+id/Room_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="280dp"
-            android:layout_marginBottom="25dp"
-            android:text="Recurring Session?"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/reccuringSwitch"
-            android:layout_width="169dp"
-            android:layout_height="64dp"
-            android:layout_centerHorizontal="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="250dp"
-            android:layout_marginEnd="16dp"
-            android:checked="false"
-            android:gravity="center"
-            android:paddingTop="18dp"
-            android:textColor="#000000"
-            android:textOff="Off"
-
-            android:textOn="On"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="Room"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"></Switch>
+            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Module_Spinner" />
+
+        <EditText
+            android:id="@+id/Date_EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:focusable="true"
+            android:clickable="true"
+            android:hint="Date"
+            android:inputType="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Room_Spinner" />
+
+        <EditText
+            android:id="@+id/Start_EditText"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:focusable="true"
+            android:clickable="true"
+            android:inputType="none"
+            android:hint="Start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Date_EditText" />
+
+        <EditText
+            android:id="@+id/End_EditText"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:focusable="true"
+            android:clickable="true"
+            android:inputType="none"
+            android:hint="End"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Date_EditText" />
+
+        <EditText
+            android:id="@+id/Type_EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="Type"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/End_EditText" />
 
     </android.support.constraint.ConstraintLayout>
 
-
-
+    <Button
+        android:id="@+id/AddSession_Button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Add Session"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </LinearLayout>

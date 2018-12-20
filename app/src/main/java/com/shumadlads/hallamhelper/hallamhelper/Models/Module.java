@@ -66,4 +66,9 @@ public class Module extends BaseModel {
 
     public Module() {
     }
+
+    @Override
+    public String toString() {
+        return ModuleName;
+    }
 }
