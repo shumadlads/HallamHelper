@@ -3,9 +3,7 @@ package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.support.design.widget.BottomSheetDialogFragment;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -44,8 +41,8 @@ public class MainActivity extends AppCompatActivity  {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
 
-        FloatingActionButton fabslack = findViewById(R.id.fabslack);
-        fab.setVisibility(View.GONE);
+        FloatingActionButton fabSlack = findViewById(R.id.fabSlack);
+        fabSlack.setVisibility(View.GONE);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-        fabslack.setOnClickListener(new View.OnClickListener() {
+        fabSlack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity  {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             FloatingActionButton fab = findViewById(R.id.fab);
-            FloatingActionButton fabslack = findViewById(R.id.fabslack);
+            FloatingActionButton fabslack = findViewById(R.id.fabSlack);
 
             switch (item.getItemId()) {
                 case R.id.action_navigate:

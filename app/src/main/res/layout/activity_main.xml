@@ -54,7 +54,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabslack"
+            android:id="@+id/fabSlack"
             android:backgroundTint="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
