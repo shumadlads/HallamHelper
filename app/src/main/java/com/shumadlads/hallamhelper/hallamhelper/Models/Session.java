@@ -8,14 +8,14 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.shumadlads.hallamhelper.hallamhelper.HallamHelperDB;
 
-@Table(database = HallamHelperDB.class, name = "Classes")
+@Table(database = HallamHelperDB.class, name = "Sessions")
 public class Session extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
-    int ClassId;
+    int SessionId;
 
     @Column
-    String ClassType;
+    String Type;
 
     @Column
     String Date;
@@ -35,21 +35,23 @@ public class Session extends BaseModel {
     public Session() {
     }
 
-    public int getClassId() {
-        return ClassId;
+
+    public int getSessionId() {
+        return SessionId;
     }
 
-    public void setClassId(int classId) {
-        ClassId = classId;
+    public void setSessionId(int sessionId) {
+        SessionId = sessionId;
     }
 
-    public String getClassType() {
-        return ClassType;
+    public String getType() {
+        return Type;
     }
 
-    public void setClassType(String classType) {
-        ClassType = classType;
+    public void setType(String type) {
+        Type = type;
     }
+
 
     public String getDate() {
         return Date;

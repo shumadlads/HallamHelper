@@ -23,6 +23,18 @@ public class Module extends BaseModel {
     @Column
     String ModuleLeader;
 
+    public String getModuleNickname() {
+        return ModuleNickname;
+    }
+
+    public void setModuleNickname(String moduleNickname) {
+        ModuleNickname = moduleNickname;
+    }
+
+    @Column
+    String ModuleNickname;
+
+
    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "Sessions")
     public List<Session> getSessions() {
        if (Sessions == null || Sessions.isEmpty()) {

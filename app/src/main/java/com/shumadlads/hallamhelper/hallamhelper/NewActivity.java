@@ -155,7 +155,7 @@ public class NewActivity extends AppCompatActivity {
                                 if (validate(Start_EditText.getText().toString())) {
                                     if (validate(End_EditText.getText().toString())) {
                                         if (!Type_EditText.getText().toString().isEmpty()) {
-                                            newSession.setClassType(Type_EditText.getText().toString());
+                                            newSession.setType(Type_EditText.getText().toString());
                                             newSession.setDate(Date_EditText.getText().toString());
                                             newSession.setStartTime(Start_EditText.getText().toString());
                                             newSession.setEndTime(End_EditText.getText().toString());
