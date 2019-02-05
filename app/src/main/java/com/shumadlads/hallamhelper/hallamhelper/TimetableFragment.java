@@ -1,8 +1,10 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewParent;
 import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -88,7 +91,7 @@ public class TimetableFragment extends Fragment implements TimeTableRecyclerView
         if (user != null) {
             TimeTable = FindUserSessions();
         }
-        TimeTableAdapter = new TimeTableRecyclerViewAdapter(getActivity().getApplicationContext(), TimeTable , this);
+        TimeTableAdapter = new TimeTableRecyclerViewAdapter(getActivity().getApplicationContext(), TimeTable, this);
     }
 
     @Override
@@ -121,8 +124,9 @@ public class TimetableFragment extends Fragment implements TimeTableRecyclerView
 
     @Override
     public void OnSessionClick(int pos) {
-        Intent intent = new Intent(getActivity().getApplicationContext() , TimeTableDetailActivity.class);
-        intent.putExtra("Id",TimeTable.get(pos).getId());
-        startActivity(intent);
+        Intent intent = new Intent(getActivity().getApplicationContext(), TimeTableDetailActivity.class);
+        intent.putExtra("Id", TimeTable.get(pos).getId());
+
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
     }
 }
