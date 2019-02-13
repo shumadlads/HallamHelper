@@ -1,22 +1,28 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.app.ActivityOptions;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewParent;
+import android.support.v7.widget.SearchView;
+import android.widget.DatePicker;
 import android.widget.Toast;
+import android.app.DatePickerDialog.OnDateSetListener;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Session;
@@ -30,12 +36,14 @@ import com.shumadlads.hallamhelper.hallamhelper.TimeTable.TimeTableRecyclerViewA
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
 
 public class TimetableFragment extends Fragment implements TimeTableRecyclerViewListener {
 
+    DatePickerDialog Date_Dialog;
     FloatingActionButton fab;
     static int CurrentUser = 1;
     SimpleDateFormat DateFormat;
@@ -92,12 +100,55 @@ public class TimetableFragment extends Fragment implements TimeTableRecyclerView
             TimeTable = FindUserSessions();
         }
         TimeTableAdapter = new TimeTableRecyclerViewAdapter(getActivity().getApplicationContext(), TimeTable, this);
+
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.timetable_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem search = menu.findItem(R.id.action_item_one);
+        if (search != null) {
+            SearchView searchView = (SearchView) search.getActionView();
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Toast.makeText(getActivity().getApplicationContext(), "change", Toast.LENGTH_SHORT).show();
+                    TimeTableAdapter.getFilter().filter(newText);
+                    return true;
+                }
+            });
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_item_one:
+                Toast.makeText(getActivity().getApplicationContext(), "action one", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_item_two:
+
+                Date_Dialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                            }
+                        }, 0, 0, 0);
+                Date_Dialog.show();
+
+                break;
+
+
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
     public ArrayList<TimeTableRecyclerViewModel> FindUserSessions() {

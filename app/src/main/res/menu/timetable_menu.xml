@@ -6,11 +6,12 @@
         android:id="@+id/action_item_one"
         android:title="Search"
         android:icon="@drawable/ic_baseline_search_24px"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
 
     <item
         android:id="@+id/action_item_two"
-        android:title="Settings"
+        android:title="Date"
         android:icon="@drawable/ic_baseline_event_24px"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

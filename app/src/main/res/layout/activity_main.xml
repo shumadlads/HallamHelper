@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom" />
+        app:menu="@menu/bottom"
+        android:isScrollContainer="false"/>
 
 </android.support.design.widget.CoordinatorLayout>
