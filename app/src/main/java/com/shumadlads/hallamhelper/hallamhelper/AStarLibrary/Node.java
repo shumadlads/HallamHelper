@@ -4,6 +4,7 @@ import java.util.*;
 public class Node implements Comparable<Node>{
     public int id;
     public Node parent=null;
+    public String name;
     public double d_value=Double.POSITIVE_INFINITY;
     public LinkedList<Step> steps =new LinkedList<Step>();
     public boolean discovered = false;
@@ -15,7 +16,8 @@ public class Node implements Comparable<Node>{
     public double f_value=Double.POSITIVE_INFINITY;//(f_value=d_value+h_value)
 
 
-    public Node(int id, double x, double y){
+    public Node(String name, int id, double x, double y){
+        this.name=name;
         this.id=id;
         this.x=x;
         this.y=y;
@@ -25,6 +27,21 @@ public class Node implements Comparable<Node>{
     public int compareTo(Node o) {
         return Double.compare(this.d_value,o.d_value);
     }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+
 
 
 

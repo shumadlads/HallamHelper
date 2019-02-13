@@ -14,6 +14,9 @@ import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Step;
 import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Graph;
 import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Node;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MapView extends View {
     int animationtime=500;
@@ -82,66 +85,66 @@ public class MapView extends View {
                     canvas.drawLine((float) v1.x, (float) v1.y, (float) v2.x, (float) v2.y, paint);
                 }
             }
-
-
-
-
-
         }
-
-
     }
 
     public boolean onPopulate(int startRoom, int stopRoom){
 
+        //This will be removed when nodes are added to the database
+        List<Node> embLevel2 = new ArrayList<Node>();
+        embLevel2.add(new Node("3105Door", counter, 350, 250));
+        embLevel2.add(new Node("3105Corridor", counter, 350, 300));
+        embLevel2.add(new Node("3106Door", counter, 500, 250));
+        embLevel2.add(new Node("3106Corridor", counter, 500, 300));
+        embLevel2.add(new Node("NorthEastCornerCorridor", counter, 700, 300));
+        embLevel2.add(new Node("3114Door", counter, 750, 625));
+        embLevel2.add(new Node("3114Corridor", counter, 700, 625));
+        embLevel2.add(new Node("9999DoorEntrance", counter, 50, 750));
+        embLevel2.add(new Node("3118Corridor", counter, 300, 750));
+        embLevel2.add(new Node("MiddleCorridorWest", counter, 325, 470));
 
-
-        //3105 Door Node
-        graph.addNode(counter, 350, 250);
-        counter++;
-        //3105 Corridor Node
-        graph.addNode(counter, 350, 300);
-        counter++;
-        //3106 Door Node
-        graph.addNode(counter, 500, 250);
-        counter++;
-        //3106 Corridor Node
-        graph.addNode(counter, 500, 300);
-        counter++;
-        //EMB Level 2 Corner Corridor Node
-        graph.addNode(counter, 700, 300);
-        counter++;
-        //3114 Corridor Node
-        graph.addNode(counter, 700, 625);
-        counter++;
-        //3114 Door Node
-        graph.addNode(counter, 750, 625);
-        counter++;
-        //9999 Door/Entrance to level 2
-        graph.addNode(counter, 50, 750);
-        counter++;
-        //3118 Corridor Node
-        graph.addNode(counter, 300, 750);
-        counter++;
-        //middle corridor left node
-        graph.addNode(counter, 325, 470);
-        counter++;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            Node temp = embLevel2.get(i);
+            graph.addNode(embLevel2.get(i));
+        }
 
         switch (stopRoom) {
             case 3114: {
-                stop_x = 750;
-                stop_y = 625;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3114Door".equals(embLevel2.get(i).getName()))
+                    {
+                        stop_x = (float)embLevel2.get(i).getX();
+                        stop_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
 
             case 3106:{
-                stop_x = 500;
-                stop_y = 250;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3106Door".equals(embLevel2.get(i).getName()))
+                    {
+                        stop_x = (float)embLevel2.get(i).getX();
+                        stop_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
             case 3105:{
-                stop_x = 350;
-                stop_y = 250;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3105Door".equals(embLevel2.get(i).getName()))
+                    {
+                        stop_x = (float)embLevel2.get(i).getX();
+                        stop_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
             case 9999:{
@@ -154,24 +157,52 @@ public class MapView extends View {
 
         switch (startRoom) {
             case 3114: {
-                start_x = 750;
-                start_y = 625;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3114Door".equals(embLevel2.get(i).getName()))
+                    {
+                        start_x = (float)embLevel2.get(i).getX();
+                        start_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
 
             case 3106:{
-                start_x = 500;
-                start_y = 250;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3106Door".equals(embLevel2.get(i).getName()))
+                    {
+                        start_x = (float)embLevel2.get(i).getX();
+                        start_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
             case 3105:{
-                start_x = 350;
-                start_y = 250;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3105Door".equals(embLevel2.get(i).getName()))
+                    {
+                        start_x = (float)embLevel2.get(i).getX();
+                        start_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
             case 9999:{
-                start_x = 50;
-                start_y = 750;
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("9999DoorEntrance".equals(embLevel2.get(i).getName()))
+                    {
+                        start_x = (float)embLevel2.get(i).getX();
+                        start_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
                 break;
             }
             default:{
@@ -179,99 +210,152 @@ public class MapView extends View {
             }
         }
         //setup empty node;
-        Node n;
+        Node n = null;
 
 
-        //3105 Door to Corridor
-        n= getNode(350,250);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3105Door".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(350, 300);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3105Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //3105 Corridor to 3106 Corridor
-        n= getNode(350, 300);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3105Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(500, 300);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3106Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //3106 Door to Corridor
 
-        n= getNode(500,250);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3106Door".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(500, 300);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3106Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
 
         //3106 Corridor to Corner
-        n= getNode(500, 300);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3106Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(700, 300);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("NorthEastCornerCorridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //Corner to 3114 Corridor
-        n= getNode(700, 300);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("NorthEastCornerCorridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(700, 625);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3114Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //3114 Corridor to Door
-        n= getNode(700, 625);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3114Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(750, 625);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3114Door".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //9999 Door/Entrance/Exit to 3118 Corridor Node
-        n= getNode(50, 750);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("9999DoorEntrance".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(300, 750);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3118Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //3118 Corridor Node to middle corridor left node
-        n= getNode(300, 750);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3118Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(325, 470);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("MiddleCorridorWest".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //middle corridor left node to 3105 corridor node
-        n= getNode(325, 470);
-        if(n!=null){
-            edgeStart=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("MiddleCorridorWest".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStart = n;
+            }
         }
-        n= getNode(350, 300);
-        if (n!=null){
-            edgeStop=n;
+        for (int i = 0; i < embLevel2.size(); i++)
+        {
+            if ("3105Corridor".equals(embLevel2.get(i).getName())) {
+                n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                edgeStop = n;
+            }
         }
         graph.addStep(edgeStart, edgeStop, 1);
         //render

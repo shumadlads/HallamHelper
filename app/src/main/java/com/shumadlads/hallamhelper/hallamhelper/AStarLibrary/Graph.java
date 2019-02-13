@@ -5,8 +5,7 @@ public class Graph {
 
     public ArrayList<Node> nodes =new ArrayList<Node>();
 
-    public void addNode(int id, double x, double y){
-        Node n1 = new Node(id,x,y);
+    public void addNode(Node n1){
         nodes.add(n1);
     }
     public void addStep(Node source, Node destination, double weight){
