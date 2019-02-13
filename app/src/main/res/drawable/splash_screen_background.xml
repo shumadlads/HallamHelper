@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@color/colorPrimary"/>
+
+
+        <item android:drawable="@drawable/ic_hallamhelperwhiteshadesnobg"
+            android:gravity="center" android:height="74.064dp" android:width="150dp"
+            />
+
+
+</layer-list>
