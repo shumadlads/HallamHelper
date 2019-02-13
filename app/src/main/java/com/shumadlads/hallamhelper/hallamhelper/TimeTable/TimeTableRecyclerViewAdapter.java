@@ -76,7 +76,7 @@ public class TimeTableRecyclerViewAdapter extends RecyclerView.Adapter<TimeTable
 
     @Override
     public void onBindViewHolder(@NonNull TimeTableRecyclerViewHolder timeTableRecyclerViewHolder, int i) {
-        timeTableRecyclerViewHolder.Icon.setImageResource(R.drawable.homeimage);
+        timeTableRecyclerViewHolder.Icon.setImageResource(R.drawable.newshu);
         timeTableRecyclerViewHolder.Title.setText(Model.get(i).ModuleNickName);
         timeTableRecyclerViewHolder.Subtitle.setText(Model.get(i).StartTime + "-" + Model.get(i).EndTime);
         timeTableRecyclerViewHolder.Meta.setText(Model.get(i).Room);

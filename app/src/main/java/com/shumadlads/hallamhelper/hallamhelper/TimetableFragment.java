@@ -98,6 +98,9 @@ public class TimetableFragment extends Fragment implements TimeTableRecyclerView
         TimeTable = new ArrayList<TimeTableRecyclerViewModel>();
         if (user != null) {
             TimeTable = FindUserSessions();
+            TimeTable.addAll(FindUserSessions());
+            TimeTable.addAll(FindUserSessions());
+            TimeTable.addAll(FindUserSessions());
         }
         TimeTableAdapter = new TimeTableRecyclerViewAdapter(getActivity().getApplicationContext(), TimeTable, this);
 
