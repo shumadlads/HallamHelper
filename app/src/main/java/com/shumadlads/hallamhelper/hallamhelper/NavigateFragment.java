@@ -1,5 +1,6 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,7 @@ public class NavigateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_navigate, container, false);
-        View view = inflater.inflate(R.layout.fragment_navigate, container, false);
+        View view = inflater.inflate(R.layout.navigate_fragment, container, false);
         ImageView searchFindIcon = view.findViewById(R.id.searchFindIcon);
         ImageView switchIcon = view.findViewById(R.id.switchIcon);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
@@ -99,7 +100,6 @@ public class NavigateFragment extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
-        return inflater.inflate(R.layout.navigate_fragment, container, false);
     }
 
     private void errorToast(){

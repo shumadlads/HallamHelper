@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null && extras.getInt("LoadDefaultFragment") == TIMETABLE_FRAGMENT)
             loadFragment(new TimetableFragment());
         else
-            loadFragment(new TimetableFragment());//loadFragment(new NavigateFragment());
+            loadFragment(new NavigateFragment());
     }
 
 
