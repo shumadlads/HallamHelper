@@ -1,5 +1,5 @@
 package com.shumadlads.hallamhelper.hallamhelper.TimeTable;
 
-public interface TimeTableRecyclerViewListener {
+public interface TimetableRecyclerViewListener {
      void OnSessionClick(int pos);
 }

@@ -1,7 +1,5 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class StopSlack extends Fragment {
+public class StopTheSlackFragment extends Fragment {
 
-    public StopSlack() {
+    public StopTheSlackFragment() {
         // Required empty public constructor
     }
 
-    public static StopSlack newInstance(String param1, String param2) {
-        StopSlack fragment = new StopSlack();
+    public static StopTheSlackFragment newInstance(String param1, String param2) {
+        StopTheSlackFragment fragment = new StopTheSlackFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -31,7 +29,7 @@ public class StopSlack extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stop_slack, container, false);
+        return inflater.inflate(R.layout.stoptheslack_fragment, container, false);
     }
 
 }

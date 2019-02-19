@@ -14,13 +14,22 @@ import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int TIMETABLE_FRAGMENT = 0;
+    public static final int NAVIAGTE_FRAGMENT = 1;
+    public static final int SLACK_FRAGMENT = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadFragment(new Navigate());
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.getInt("LoadDefaultFragment") == TIMETABLE_FRAGMENT)
+            loadFragment(new TimetableFragment());
+        else
+            loadFragment(new TimetableFragment());//loadFragment(new NavigateFragment());
     }
 
 
@@ -32,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.action_navigate:
-                    fragment = new Navigate();
+                    fragment = new NavigateFragment();
                     loadFragment(fragment);
                     return true;
 
@@ -42,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.action_slack:
-                    fragment = new StopSlack();
+                    fragment = new StopTheSlackFragment();
                     loadFragment(fragment);
                     return true;
             }

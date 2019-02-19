@@ -1,6 +1,8 @@
 package com.shumadlads.hallamhelper.hallamhelper.TimeTable;
 
-public class TimeTableRecyclerViewModel {
+import com.raizlabs.android.dbflow.data.Blob;
+
+public class TimetableRecyclerViewModel {
 
     public int getId() {
         return Id;
@@ -8,13 +10,15 @@ public class TimeTableRecyclerViewModel {
 
     private int Id;
     public String ModuleNickName;
+    public Blob ModuleImage;
     public String Type;
     public String StartTime;
     public String EndTime;
     public String Room;
 
-    public TimeTableRecyclerViewModel(int id , String module, String type, String startTime, String endTime, String room) {
+    public TimetableRecyclerViewModel(int id , String module,Blob image, String type, String startTime, String endTime, String room) {
         Id = id;
+        ModuleImage = image;
         ModuleNickName = module;
         Type = type;
         StartTime = startTime;

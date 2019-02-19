@@ -35,13 +35,13 @@
         <activity android:name=".HelpActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
-            android:name=".NewActivity"
+            android:name=".TimetableNewSessionActivity"
             android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".QRActivity"
             android:parentActivityName=".MainActivity"></activity>
 
-        <activity android:name=".TimeTableDetailActivity"
+        <activity android:name=".TimetableDetailActivity"
         android:parentActivityName=".MainActivity"></activity>
         <meta-data
             android:name="preloaded_fonts"

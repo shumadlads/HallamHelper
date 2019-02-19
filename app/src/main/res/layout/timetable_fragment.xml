@@ -2,79 +2,77 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timetable_fragment_CoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".TimetableFragment">
 
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/timetable_fragment_AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+            android:id="@+id/timetable_fragment_CollapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:id="@+id/main.backdrop"
+                android:id="@+id/timetable_fragment_ImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/newshu"
+                android:src="@drawable/timetable_toolbar_image"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/TopBar"
+                android:id="@+id/timetable_fragment_Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin" />
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
-
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/timetable_fragment_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        android:background="@color/colorPrimary"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="55dp">
 
         <TextView
-            android:id="@+id/textView2"
-           android:layout_margin="16dp"
-            android:gravity="center_vertical"
+            android:id="@+id/timetable_fragment_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wednesday 13th February 2019"
+            android:layout_margin="16dp"
             android:elevation="10dp"
-
-           />
+            android:gravity="center_vertical"
+            android:text="Wednesday 13th February 2019"
+            />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/collapsing_toolbar_recycler_view"
+            android:id="@+id/timetable_fragment_RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-         >
+            android:background="@color/colorPrimaryDark">
 
         </android.support.v7.widget.RecyclerView>
-
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/timetable_fragment_FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_add_24px"
-        app:layout_anchor="@id/main.appbar"
+        app:layout_anchor="@id/timetable_fragment_AppBarLayout"
         app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>

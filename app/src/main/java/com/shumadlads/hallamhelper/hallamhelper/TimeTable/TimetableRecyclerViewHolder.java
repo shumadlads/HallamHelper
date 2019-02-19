@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import com.shumadlads.hallamhelper.hallamhelper.R;
 
-public class TimeTableRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class TimetableRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView Title;
     TextView Subtitle;
     ImageView Icon;
     TextView Meta;
     ConstraintLayout Parent;
-    TimeTableRecyclerViewListener Listener;
+    TimetableRecyclerViewListener Listener;
 
-    public TimeTableRecyclerViewHolder(@NonNull View itemView, TimeTableRecyclerViewListener timeTableRecyclerViewListener) {
+    public TimetableRecyclerViewHolder(@NonNull View itemView, TimetableRecyclerViewListener timeTableRecyclerViewListener) {
         super(itemView);
         Listener = timeTableRecyclerViewListener;
         Title = itemView.findViewById(R.id.Title_TextView);

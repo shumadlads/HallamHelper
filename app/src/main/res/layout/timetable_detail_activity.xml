@@ -3,17 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/timetable_detail_activity_CoordinatorLayout">
 
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/DetailBar_AB"
+        android:id="@+id/timetable_detail_activity_AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/DetailToolbar_TB"
+            android:id="@+id/timetable_detail_activity_Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="8dp"
@@ -25,30 +26,33 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/timetable_detail_activity_NestedScrollView">
 
         <android.support.design.card.MaterialCardView
-            android:id="@+id/DetailCard_CV"
+            android:id="@+id/timetable_detail_activity_MaterialCardView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/timetable_detail_activity_ConstraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/ModuleImage_IV"
+                    android:id="@+id/timetable_detail_activity_ImageView"
                     android:layout_width="0dp"
                     android:layout_height="194dp"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/newshu" />
+                    app:srcCompat="@drawable/timetable_toolbar_image" />
 
                 <TextView
-                    android:id="@+id/Title_TV"
+                    android:id="@+id/title_timetable_detail_activity_TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -59,10 +63,10 @@
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ModuleImage_IV" />
+                    app:layout_constraintTop_toBottomOf="@+id/timetable_detail_activity_ImageView" />
 
                 <TextView
-                    android:id="@+id/SubTitle_TV"
+                    android:id="@+id/subtitle_timetable_detail_activity_TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -71,10 +75,10 @@
                     android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Title_TV" />
+                    app:layout_constraintTop_toBottomOf="@+id/title_timetable_detail_activity_TextView" />
 
                 <TextView
-                    android:id="@+id/SecondTitle_TV"
+                    android:id="@+id/secondtitle_timetable_detail_activity_TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -83,10 +87,10 @@
                     android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/SubTitle_TV" />
+                    app:layout_constraintTop_toBottomOf="@+id/subtitle_timetable_detail_activity_TextView" />
 
                 <TextView
-                    android:id="@+id/MainContent_TV"
+                    android:id="@+id/content_timetable_detail_activity_TextView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -95,10 +99,10 @@
                     android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/SecondTitle_TV" />
+                    app:layout_constraintTop_toBottomOf="@+id/secondtitle_timetable_detail_activity_TextView" />
 
                 <View
-                    android:id="@+id/Divider_V"
+                    android:id="@+id/divider_timetable_detail_activity_View"
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
@@ -107,36 +111,20 @@
                     android:background="#90909090"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/MainContent_TV" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pretium, tellus sed tristique pellentesque, erat dolor semper urna, sit amet scelerisque augue est non nulla. Integer vitae fermentum quam. Etiam sit amet tellus lobortis, ornare sapien nec, ultrices neque. Etiam viverra ligula odio, sit amet blandit neque convallis vel. Quisque interdum neque id fermentum gravida. Mauris at tincidunt massa. Etiam rutrum at mi vitae ultricies. Vivamus sapien erat, egestas a felis id, bibendum vulputate dui. Integer a pellentesque erat. Aenean imperdiet aliquam dui sed molestie. Morbi ut maximus eros.
-
-Cras semper risus ac pellentesque iaculis. Morbi lacinia nunc quis massa ullamcorper, ut faucibus lectus tincidunt. Nullam ullamcorper nisi nec semper dapibus. Phasellus quis tristique tortor. In ultrices mattis sodales. Proin laoreet sed nisi id vulputate. Morbi enim odio, commodo a varius ornare, placerat ut sem. Sed rhoncus lobortis nulla quis volutpat.
-
-Curabitur suscipit velit a eleifend convallis. Praesent ut risus eget metus varius ultricies eu nec lorem. Nam venenatis orci lobortis tortor semper feugiat. Sed pellentesque purus a feugiat fermentum. Aliquam pharetra nulla eget elit congue, scelerisque commodo dolor congue. Maecenas et nibh eu metus sollicitudin elementum ac nec purus. Ut at tellus et augue gravida ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In a accumsan elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam sit amet mi vitae mi faucibus vehicula viverra a nisl. Etiam ultricies ipsum nec lacus cursus dictum.
-
-Nulla sit amet metus ac tellus elementum ullamcorper. Integer et ex at eros auctor efficitur. Nunc dictum magna at augue iaculis iaculis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer sodales turpis id odio molestie, at vehicula augue consequat. Donec id orci iaculis, porta massa ac, tincidunt ligula. Nam sit amet aliquet tellus.
-
-Nullam fringilla, ligula vel venenatis bibendum, libero est rhoncus est, et aliquet leo dolor vitae augue. Vestibulum blandit nibh eget volutpat vulputate. Donec sit amet dui nunc. Sed vitae tellus arcu. Aliquam commodo erat nec elit interdum tempus. Morbi lacinia euismod ligula eu egestas. Donec aliquam tempor metus, eu volutpat odio lobortis ut. Morbi malesuada sapien ac nisl aliquet faucibus. Nullam pretium tempor nisi, eu vehicula magna cursus ut. Vestibulum pulvinar pharetra libero vitae scelerisque. Curabitur aliquet in nulla eu pellentesque. Donec sagittis ornare sem et dictum."
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Route_B" />
+                    app:layout_constraintTop_toBottomOf="@+id/content_timetable_detail_activity_TextView" />
 
                 <Button
-                    android:id="@+id/Route_B"
+                    android:id="@+id/route_timetable_detail_activity_Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:text="Route"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Divider_V" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider_timetable_detail_activity_View" />
 
                 <Button
-                    android:id="@+id/Remove_B"
+                    android:id="@+id/remove_timetable_detail_activity_Button"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginStart="8dp"
@@ -146,8 +134,8 @@ Nullam fringilla, ligula vel venenatis bibendum, libero est rhoncus est, et aliq
                     android:text="Remove"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/Route_B"
-                    app:layout_constraintTop_toBottomOf="@+id/Divider_V" />
+                    app:layout_constraintStart_toEndOf="@+id/route_timetable_detail_activity_Button"
+                    app:layout_constraintTop_toBottomOf="@+id/divider_timetable_detail_activity_View" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -155,13 +143,13 @@ Nullam fringilla, ligula vel venenatis bibendum, libero est rhoncus est, et aliq
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/Edit_FAB"
+        android:id="@+id/timetable_detail_activity_FloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_create_24px"
         android:tint="@android:color/white"
-        app:layout_anchor="@id/ModuleImage_IV"
+        app:layout_anchor="@id/timetable_detail_activity_ImageView"
         app:layout_anchorGravity="bottom|end" />
 
 </android.support.design.widget.CoordinatorLayout>

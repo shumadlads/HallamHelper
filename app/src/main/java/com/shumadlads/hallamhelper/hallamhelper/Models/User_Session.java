@@ -26,6 +26,9 @@ public class User_Session extends BaseModel {
     )
     Session session;
 
+    public User_Session() {
+    }
+
     public final long getId() {
         return _id;
     }

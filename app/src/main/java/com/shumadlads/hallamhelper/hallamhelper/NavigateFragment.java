@@ -1,7 +1,5 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,14 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class Navigate extends Fragment {
+public class NavigateFragment extends Fragment {
 
-    public Navigate() {
+    public NavigateFragment() {
         // Required empty public constructor
     }
 
-    public static Navigate newInstance(String param1, String param2) {
-        Navigate fragment = new Navigate();
+    public static NavigateFragment newInstance(String param1, String param2) {
+        NavigateFragment fragment = new NavigateFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -31,7 +29,7 @@ public class Navigate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigate, container, false);
+        return inflater.inflate(R.layout.navigate_fragment, container, false);
     }
 
 
