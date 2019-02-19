@@ -47,4 +47,5 @@ dependencies {
     implementation 'me.dm7.barcodescanner:zxing:1.9'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
 }

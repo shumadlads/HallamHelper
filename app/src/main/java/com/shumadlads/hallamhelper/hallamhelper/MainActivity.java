@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.widget.ImageView;
 
 
 
@@ -84,8 +87,16 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.routedebug:
+                intent = new Intent(this, RouteNavigationTestActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void onClick(View view) {
+    }
+
 }
