@@ -2,18 +2,19 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timetable_newsession_activity_coordinatorlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/DetailBar_AB"
+        android:id="@+id/timetable_newsession_activity_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/DetailToolbar_TB"
+            android:id="@+id/timetable_newsession_activity_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="8dp"
@@ -22,98 +23,169 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/timetable_newsession_activity_NestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Spinner
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/timetable_newsession_activity_MaterialCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Module_Spinner"></Spinner>
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="16dp">
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Room_Spinner"></Spinner>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/Date_TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/Date_TextInputEditText"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/timetable_newsession_activity_ConstraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/Start_TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                <Spinner
+                    android:id="@+id/Module_Spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:hint="Module"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></Spinner>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/Start_TextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/Room_Spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:hint="Room"
+                    app:layout_constraintEnd_toStartOf="@+id/date_timetable_newsession_activity_TextInputLayout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Module_Spinner"></Spinner>
 
-        </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:id="@+id/label_timetable_newsession_activity_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Session"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/End_TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/date_timetable_newsession_activity_TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/Room_Spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/Module_Spinner">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/End_TextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/date_timetable_newsession_activity_TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date" />
+                </android.support.design.widget.TextInputLayout>
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/starttime_timetable_newsession_activity_TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:hint="From"
+                    app:layout_constraintEnd_toStartOf="@+id/endtime_timetable_newsession_activity_TextInputLayout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Room_Spinner">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/Type_TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/starttime_timetable_newsession_activity_TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/Type_TextInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                </android.support.design.widget.TextInputLayout>
 
-        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/endtime_timetable_newsession_activity_TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:hint="To"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/starttime_timetable_newsession_activity_TextInputLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/Room_Spinner">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/AddSession_Button"/>
-    </LinearLayout>
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/endtime_timetable_newsession_activity_TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/type_timetable_newsession_activity_TextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="Session Type"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/endtime_timetable_newsession_activity_TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/type_timetable_newsession_activity_TextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.design.card.MaterialCardView>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <Button
+        android:id="@+id/AddAnotherSession_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:layout_margin="8dp"
+        android:fitsSystemWindows="true"
+        android:text="Add Another"></Button>
+
+    <Button
+        android:id="@+id/addandfinishSession_Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="8dp"
+        android:fitsSystemWindows="true"
+        android:text="Add and Finish"></Button>
 
 
 </android.support.design.widget.CoordinatorLayout>

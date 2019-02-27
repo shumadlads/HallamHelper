@@ -66,9 +66,10 @@ public class TimetableRecyclerViewAdapter extends RecyclerView.Adapter<Timetable
 
     @Override
     public void onBindViewHolder(@NonNull TimetableRecyclerViewHolder timeTableRecyclerViewHolder, int i) {
+        if(Model.get(i).ModuleImage != null){
         byte[] imageData = Model.get(i).ModuleImage.getBlob();
         Bitmap image = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-        timeTableRecyclerViewHolder.Icon.setImageBitmap(image);
+        timeTableRecyclerViewHolder.Icon.setImageBitmap(image);}
         timeTableRecyclerViewHolder.Title.setText(Model.get(i).ModuleNickName);
         timeTableRecyclerViewHolder.Subtitle.setText(Model.get(i).StartTime + "-" + Model.get(i).EndTime);
         timeTableRecyclerViewHolder.Meta.setText(Model.get(i).Room);

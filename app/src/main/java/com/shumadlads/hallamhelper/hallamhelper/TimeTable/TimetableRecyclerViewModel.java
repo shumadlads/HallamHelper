@@ -2,7 +2,9 @@ package com.shumadlads.hallamhelper.hallamhelper.TimeTable;
 
 import com.raizlabs.android.dbflow.data.Blob;
 
-public class TimetableRecyclerViewModel {
+import java.util.Date;
+
+public class TimetableRecyclerViewModel implements Comparable<TimetableRecyclerViewModel>{
 
     public int getId() {
         return Id;
@@ -24,5 +26,10 @@ public class TimetableRecyclerViewModel {
         StartTime = startTime;
         EndTime = endTime;
         Room = room;
+    }
+
+    @Override
+    public int compareTo(TimetableRecyclerViewModel o) {
+        return StartTime.compareTo(o.StartTime);
     }
 }

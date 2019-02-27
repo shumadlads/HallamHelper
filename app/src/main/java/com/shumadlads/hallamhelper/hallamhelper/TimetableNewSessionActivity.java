@@ -47,7 +47,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     public static final int TIMETABLE_FRAGMENT = 0;
     // public static final int NAVIAGTE_FRAGMENT = 1;
     // public static final int SLACK_FRAGMENT = 2;
-    static int CurrentUser = 1;
+    private static int CurrentUser = 1;
 
     private Spinner Module_Spinner, Room_Spinner;
     private TextInputEditText Date_EditText, Start_EditText, End_EditText, Type_EditText;
@@ -92,14 +92,14 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
 
     public void SetupInputs() {
         DateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-        Date_EditText = findViewById(R.id.Date_TextInputEditText);
+        Date_EditText = findViewById(R.id.date_timetable_newsession_activity_TextInputEditText);
         Date_EditText.setInputType(InputType.TYPE_NULL);
-        Start_EditText = findViewById(R.id.Start_TextInputEditText);
+        Start_EditText = findViewById(R.id.starttime_timetable_newsession_activity_TextInputEditText);
         Start_EditText.setInputType(InputType.TYPE_NULL);
-        End_EditText = findViewById(R.id.End_TextInputEditText);
+        End_EditText = findViewById(R.id.endtime_timetable_newsession_activity_TextInputEditText);
         End_EditText.setInputType(InputType.TYPE_NULL);
-        Type_EditText = findViewById(R.id.Type_TextInputEditText);
-        AddSession_Button = findViewById(R.id.AddSession_Button);
+        Type_EditText = findViewById(R.id.type_timetable_newsession_activity_TextInputEditText);
+        AddSession_Button = findViewById(R.id.addandfinishSession_Button);
     }
 
     public boolean validate(final String time) {
@@ -226,9 +226,9 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     }
 
     public void InitToolBar() {
-        Toolbar bar = findViewById(R.id.DetailToolbar_TB);
+        Toolbar bar = findViewById(R.id.timetable_newsession_activity_toolbar);
         bar.setTitle("");
-        setSupportActionBar(bar);
+       setSupportActionBar(bar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

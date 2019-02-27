@@ -21,8 +21,13 @@
         <item name="android:windowSharedElementExitTransition">
             @transition/change_image_transform
         </item>
-
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
 
     </style>
 
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:textColorPrimary">@color/colorText</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:headerBackground">@color/colorPrimaryDark</item>
+    </style>
 </resources>
