@@ -2,6 +2,7 @@ package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -47,15 +48,35 @@ public class MapFragment extends Fragment {
         super.onStart();
         int tempFrom = getArguments().getInt("RoomFrom");
         int tempTo = getArguments().getInt("RoomTo");
-        /*Context context = getActivity().getApplicationContext();
-        Toast toast = Toast.makeText(context, tempFrom + " " + tempTo, Toast.LENGTH_LONG);
+
+        int levelFrom = (((tempFrom / 10) / 10) % 10);
+        Context context = getActivity().getApplicationContext();
+        Toast toast = Toast.makeText(context, "Level is " + levelFrom, Toast.LENGTH_LONG);
         toast.show();// do something
-        */
+
+        ImageView mapBg = getActivity().findViewById(R.id.backgroundImageView);
+        if (levelFrom == 0) {
+
+            mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_add_24px));
+        }
         MapView mapView = getActivity().findViewById(R.id.mapView);
         mapView.onPopulate(tempFrom, tempTo);
         changeRoomColour(tempTo);
         String text = mapView.Astar();
 
+    }
+
+    public void onResume() {
+
+        super.onResume();
+        //Following code has to be in onResume otherwise it is overwritten at the end of onStart
+        ImageView mapBg = getActivity().findViewById(R.id.backgroundImageView);
+        int tempFrom = getArguments().getInt("RoomFrom");
+        int levelFrom = (((tempFrom / 10) / 10) % 10);
+        if (levelFrom == 0) {
+
+            mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_baseline_add_24px));
+        }
     }
 
     public void changeRoomColour(int roomTo){

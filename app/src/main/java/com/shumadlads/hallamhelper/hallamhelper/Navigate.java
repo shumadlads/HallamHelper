@@ -97,6 +97,15 @@ public class Navigate extends Fragment {
         Bundle b = new Bundle();
         b.putInt("RoomTo", to);
         b.putInt("RoomFrom", from);
+
+        //Toast the level out
+        /*
+        int levelFrom = (((from / 10) / 10) % 10);
+        Context context = getActivity().getApplicationContext();
+        Toast toast = Toast.makeText(context, "Level is " + levelFrom, Toast.LENGTH_LONG);
+        toast.show();// do something
+        */
+
         mapFragment.setArguments(b);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_container, mapFragment);

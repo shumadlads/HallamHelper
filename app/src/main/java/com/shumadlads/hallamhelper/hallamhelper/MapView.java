@@ -90,6 +90,7 @@ public class MapView extends View {
 
     public boolean onPopulate(int startRoom, int stopRoom){
 
+
         //This will be removed when nodes are added to the database
         List<Node> embLevel2 = new ArrayList<Node>();
         embLevel2.add(new Node("3105Door", counter, 350, 250));
@@ -197,6 +198,18 @@ public class MapView extends View {
                 for (int i = 0; i < embLevel2.size(); i++)
                 {
                     if ("9999DoorEntrance".equals(embLevel2.get(i).getName()))
+                    {
+                        start_x = (float)embLevel2.get(i).getX();
+                        start_y = (float)embLevel2.get(i).getY();
+                        break;
+                    }
+                }
+                break;
+            }
+            case 3006:{
+                for (int i = 0; i < embLevel2.size(); i++)
+                {
+                    if ("3106Door".equals(embLevel2.get(i).getName()))
                     {
                         start_x = (float)embLevel2.get(i).getX();
                         start_y = (float)embLevel2.get(i).getY();
