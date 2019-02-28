@@ -13,11 +13,12 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/ic_baseline_event_24px"
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="136dp"
+            android:layout_height="67.01dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hallamhelperfinalnobg" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -30,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:hint="Email" />
+
         </android.support.design.widget.TextInputLayout>
 
 
@@ -52,16 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:onClick="onClick"
             android:padding="12dp"
-            android:text="Log In"/>
-
-        <TextView android:id="@+id/link_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="Forgotten Password?"
-            android:gravity="center"
-            android:textSize="16dip"/>
+            android:text="Log In" />
 
     </LinearLayout>
 </ScrollView>

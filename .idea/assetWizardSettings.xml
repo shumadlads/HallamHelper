@@ -35,7 +35,10 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="C:\Users\Arnoux\Pictures\HallamHelperLogoNoBG.png" />
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="C:\Users\Jack\Downloads\HallamHelperLogoWhitShadesNoBG.png" />
+                                      <entry key="foregroundLayerName" value="ic_launcher_foreground" />
+                                      <entry key="outputName" value="ic_splash" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -62,8 +65,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_emb_level_2" />
-                            <entry key="sourceFile" value="C:\Users\Arnoux\Desktop\test6.svg" />
+                            <entry key="outputName" value="ic_hallamhelperfinalnobg" />
+                            <entry key="sourceFile" value="C:\Users\Jack\Downloads\HallamHelperFinalNoBg.svg" />
                           </map>
                         </option>
                       </PersistentState>
