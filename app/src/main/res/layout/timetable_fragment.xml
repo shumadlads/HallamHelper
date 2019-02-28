@@ -40,14 +40,25 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_location_off_24px"
+        android:visibility="visible" />
+
     <LinearLayout
         android:id="@+id/timetable_fragment_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_marginBottom="55dp"
         android:background="@color/colorPrimary"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginBottom="55dp">
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/timetable_fragment_TextView"
@@ -57,15 +68,16 @@
             android:elevation="10dp"
             android:gravity="center_vertical"
             android:text="Wednesday 13th February 2019"
-            />
+            android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/timetable_fragment_RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark">
+            android:background="@color/colorPrimaryDark"
+            android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
-        </android.support.v7.widget.RecyclerView>
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

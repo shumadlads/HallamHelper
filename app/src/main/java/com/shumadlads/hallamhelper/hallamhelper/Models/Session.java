@@ -32,6 +32,51 @@ public class Session extends BaseModel {
     @ForeignKey(stubbedRelationship  = true,saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "Room", foreignKeyColumnName = "RoomId")})
     com.shumadlads.hallamhelper.hallamhelper.Models.Room Room;
 
+    @Column
+    int Semester1;
+
+    @Column
+    int Semester2;
+
+    @Column
+    int Christmas;
+
+    @Column
+    int Easter;
+
+    public int getSemester1() {
+        return Semester1;
+    }
+
+    public void setSemester1(int semester1) {
+        Semester1 = semester1;
+    }
+
+    public int getSemester2() {
+        return Semester2;
+    }
+
+    public void setSemester2(int semester2) {
+        Semester2 = semester2;
+    }
+
+    public int getChristmas() {
+        return Christmas;
+    }
+
+    public void setChristmas(int christmas) {
+        Christmas = christmas;
+    }
+
+    public int getEaster() {
+        return Easter;
+    }
+
+    public void setEaster(int easter) {
+        Easter = easter;
+    }
+
+
     public Session() {
     }
 

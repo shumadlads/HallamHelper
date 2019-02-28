@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.raizlabs.android.dbflow.data.Blob;
@@ -33,6 +35,7 @@ import com.shumadlads.hallamhelper.hallamhelper.TimeTable.TimetableRecyclerViewL
 import com.shumadlads.hallamhelper.hallamhelper.TimeTable.TimetableRecyclerViewModel;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,11 +47,22 @@ import java.util.Locale;
 
 public class TimetableFragment extends Fragment implements TimetableRecyclerViewListener {
 
+    private Date SemOne_Start, SemOne_End;
+    private Date SemTwo_Start, SemTwo_End;
+    private Date Christams_Start, Christmas_End;
+    private Date Easter_Start, Easter_End;
+
+
     private static int CurrentUser = 1;
     private TimetableRecyclerViewAdapter TimeTableAdapter;
     private ArrayList<TimetableRecyclerViewModel> TimeTable;
     private Date Today, FilterDate;
     private TextView DateView;
+
+    private RecyclerView recyclerView;
+    private ImageView image;
+    private TextView textView;
+    private LinearLayout layout;
 
     public TimetableFragment() {
     }
@@ -58,6 +72,25 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
         super.onCreate(savedInstanceState);
         Today = new Date();
         FilterDate = Today;
+        int y = Today.getYear();
+        int ly = Today.getYear() - 1;
+        int m = Today.getMonth();
+        if (m > 8) {
+            y = y + 1;
+            ly = ly + 1;
+        }
+        SemOne_Start = new Date(ly, 8, 24);
+        SemOne_End = new Date(ly, 11, 23);
+
+        Christams_Start = new Date(ly, 11, 24);
+        Christmas_End = new Date(y, 0, 13);
+
+        SemTwo_Start = new Date(y, 0, 14);
+        SemTwo_End = new Date(y, 3, 14);
+
+        Easter_Start = new Date(y, 3, 15);
+        Easter_End = new Date(y, 3, 28);
+
         FillList(FilterDate);
     }
 
@@ -92,11 +125,29 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
     }
 
     public void InitRecyclerView(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.timetable_fragment_RecyclerView);
+        recyclerView = view.findViewById(R.id.timetable_fragment_RecyclerView);
+        image = view.findViewById(R.id.imageView2);
+        textView = view.findViewById(R.id.timetable_fragment_TextView);
+        layout = view.findViewById(R.id.timetable_fragment_LinearLayout);
 
         recyclerView.setAdapter(TimeTableAdapter);
         if (getActivity() != null)
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        SetEmptyView();
+    }
+
+    public void SetEmptyView() {
+        if (TimeTable.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            textView.setVisibility(View.GONE);
+            layout.setVisibility(View.GONE);
+            image.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+        }
 
     }
 
@@ -165,6 +216,8 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
                                     TimeTable.clear();
                                     TimeTable.addAll(FindUserSessions(FilterDate));
                                     TimeTableAdapter.notifyDataSetChanged();
+                                    SetEmptyView();
+
                                 }
                             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -180,13 +233,10 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
     public ArrayList<TimetableRecyclerViewModel> FindUserSessions(Date filterDate) {
         ArrayList<TimetableRecyclerViewModel> timeTable = new ArrayList<>();
         List<User_Session> user_sessions = SQLite.select().from(User_Session.class).where(User_Session_Table.User.eq(CurrentUser)).queryList();
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
-
         for (User_Session user_session : user_sessions) {
             user_session.getSession().load();
             Session session = user_session.getSession();
-            String d = format.format(filterDate);
-          if (session.getDate().toString().equals(d)) {
+            if (ValidateSessionDate(filterDate, session)) {
                 session.getModule().load();
                 session.getRoom().load();
                 timeTable.add(new TimetableRecyclerViewModel(
@@ -198,10 +248,47 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
                         session.getEndTime(),
                         session.getRoom().getRoomName()
                 ));
-           }
+            }
         }
         Collections.sort(timeTable);
         return timeTable;
+    }
+
+    public boolean ValidateSessionDate(Date filterdate, Session session) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
+            String dateString = format.format(filterdate);
+            if (session.getDate().toString().equals(dateString))
+                return true;
+
+            Calendar sessionCalendar = Calendar.getInstance();
+            sessionCalendar.setTime(format.parse(session.getDate().toString()));
+            int sessionDay = sessionCalendar.get(Calendar.DAY_OF_WEEK);
+
+            Calendar filterCalendar = Calendar.getInstance();
+            filterCalendar.setTime(filterdate);
+            int filterDay = filterCalendar.get(Calendar.DAY_OF_WEEK);
+
+            if (sessionDay != filterDay)
+                return false;
+
+            if (session.getSemester1() == 1 && (filterdate.after(SemOne_Start) || filterdate.equals(SemOne_Start)) && (filterdate.before(SemOne_End) || filterdate.equals(SemOne_End)))
+                return true;
+
+            if (session.getSemester2() == 1 && (filterdate.after(SemTwo_Start) || filterdate.equals(SemTwo_Start)) && (filterdate.before(SemTwo_End) || filterdate.equals(SemTwo_End)))
+                return true;
+
+            if (session.getChristmas() == 1 && (filterdate.after(Christams_Start) || filterdate.equals(Christams_Start)) && (filterdate.before(Christmas_End) || filterdate.equals(Christmas_End)))
+                return true;
+
+            if (session.getEaster() == 1 && (filterdate.after(Easter_Start) || filterdate.equals(Easter_Start)) && (filterdate.before(Easter_End) || filterdate.equals(Easter_End)))
+                return true;
+
+            return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

@@ -37,6 +37,7 @@ import java.util.regex.Matcher;
 
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.widget.Switch;
 import android.widget.TimePicker;
 
 import java.util.regex.Pattern;
@@ -51,6 +52,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
 
     private Spinner Module_Spinner, Room_Spinner;
     private TextInputEditText Date_EditText, Start_EditText, End_EditText, Type_EditText;
+    private Switch Repeat_Switch, Semester1_Switch, Semester2_Switch, Chirstmas_Switch, Easter_Switch;
     private DatePickerDialog Date_Dialog;
     private SimpleDateFormat DateFormat;
     private TimePickerDialog Start_Dialog, End_Dialog;
@@ -71,14 +73,15 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         SetDate();
         SetStartTime();
         SetEndTime();
+        SetRepeat();
     }
 
     public void SetupModuleSpinner() {
         Module_Spinner = findViewById(R.id.Module_Spinner);
-            List<Module> Modules = SQLite.select().from(Module.class).queryList();
-            ArrayAdapter<Module> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Modules);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            Module_Spinner.setAdapter(adapter);
+        List<Module> Modules = SQLite.select().from(Module.class).queryList();
+        ArrayAdapter<Module> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Modules);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Module_Spinner.setAdapter(adapter);
 
     }
 
@@ -99,12 +102,35 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         End_EditText = findViewById(R.id.endtime_timetable_newsession_activity_TextInputEditText);
         End_EditText.setInputType(InputType.TYPE_NULL);
         Type_EditText = findViewById(R.id.type_timetable_newsession_activity_TextInputEditText);
+
+        Repeat_Switch = findViewById(R.id.repeat_timetable_newsession_activity_Switch);
+        Semester1_Switch = findViewById(R.id.sem1_timetable_newsession_activity_Switch);
+        Semester2_Switch = findViewById(R.id.sem2_timetable_newsession_activity_Switch);
+        Chirstmas_Switch = findViewById(R.id.christmas_timetable_newsession_activity_Switch);
+        Easter_Switch = findViewById(R.id.easter_timetable_newsession_activity_Switch);
         AddSession_Button = findViewById(R.id.addandfinishSession_Button);
+
+
     }
 
     public boolean validate(final String time) {
         Matcher matcher = pattern.matcher(time);
         return matcher.matches();
+    }
+
+    public void SetRepeat() {
+        Repeat_Switch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int vis = View.GONE;
+                if (Repeat_Switch.isChecked())
+                    vis = View.VISIBLE;
+                Semester1_Switch.setVisibility(vis);
+                Semester2_Switch.setVisibility(vis);
+                Chirstmas_Switch.setVisibility(vis);
+                Easter_Switch.setVisibility(vis);
+            }
+        });
     }
 
     public void SetupDateandTimeDialogs() {
@@ -145,6 +171,12 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     public void Submit() {
         User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(CurrentUser)).querySingle();
         Session session = new Session();
+
+        session.setSemester1(Semester1_Switch.isChecked() && Repeat_Switch.isChecked() ? 1 : 0);
+        session.setSemester2(Semester2_Switch.isChecked() && Repeat_Switch.isChecked() ? 1 : 0);
+        session.setChristmas(Chirstmas_Switch.isChecked() && Repeat_Switch.isChecked() ? 1 : 0);
+        session.setEaster(Easter_Switch.isChecked() && Repeat_Switch.isChecked() ? 1 : 0);
+
         if (ValidateModule(session) && ValidateRoom(session) && ValidateDate(session) && ValidateStart(session) && ValidateEnd(session) && ValidateType(session)) {
             session.save();
             User_Session newUSession = new User_Session();
@@ -227,8 +259,8 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
 
     public void InitToolBar() {
         Toolbar bar = findViewById(R.id.timetable_newsession_activity_toolbar);
-        bar.setTitle("");
-       setSupportActionBar(bar);
+        bar.setTitle("New Session");
+        setSupportActionBar(bar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

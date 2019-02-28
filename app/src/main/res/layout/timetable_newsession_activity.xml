@@ -32,7 +32,7 @@
         <android.support.design.card.MaterialCardView
             android:id="@+id/timetable_newsession_activity_MaterialCardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
@@ -41,7 +41,8 @@
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/timetable_newsession_activity_ConstraintLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp">
 
                 <Spinner
                     android:id="@+id/Module_Spinner"
@@ -148,10 +149,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="8dp"
                     android:hint="Session Type"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/endtime_timetable_newsession_activity_TextInputLayout">
@@ -162,6 +161,79 @@
                         android:layout_height="wrap_content" />
 
                 </android.support.design.widget.TextInputLayout>
+
+                <Switch
+                    android:id="@+id/repeat_timetable_newsession_activity_Switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:checked="false"
+                    android:text="Repeat "
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/type_timetable_newsession_activity_TextInputLayout" />
+
+                <Switch
+                    android:id="@+id/christmas_timetable_newsession_activity_Switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Include Christmas"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/easter_timetable_newsession_activity_Switch"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sem1_timetable_newsession_activity_Switch" />
+
+                <Switch
+                    android:id="@+id/sem1_timetable_newsession_activity_Switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Semester 1"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/sem2_timetable_newsession_activity_Switch"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/repeat_timetable_newsession_activity_Switch" />
+
+                <Switch
+                    android:id="@+id/sem2_timetable_newsession_activity_Switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Semester 2"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/sem1_timetable_newsession_activity_Switch"
+                    app:layout_constraintTop_toBottomOf="@+id/repeat_timetable_newsession_activity_Switch" />
+
+                <Switch
+                    android:id="@+id/easter_timetable_newsession_activity_Switch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Include Easter"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/christmas_timetable_newsession_activity_Switch"
+                    app:layout_constraintTop_toBottomOf="@+id/sem2_timetable_newsession_activity_Switch" />
+
+
 
 
             </android.support.constraint.ConstraintLayout>
