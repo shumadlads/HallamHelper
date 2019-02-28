@@ -47,6 +47,19 @@
                 android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview2"
+            android:gravity="center"
+            android:layout_gravity="center"
+
+
+            android:text="Incorrect Username or Password"
+            android:textColor="@color/colorError"
+            android:textSize="18dp" />
+
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
