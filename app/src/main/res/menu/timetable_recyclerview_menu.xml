@@ -13,5 +13,5 @@
         android:id="@+id/action_item_two"
         android:title="Date"
         android:icon="@drawable/ic_action_name"
-        app:showAsAction="ifRoom" />
+       app:showAsAction="ifRoom"/>
 </menu>

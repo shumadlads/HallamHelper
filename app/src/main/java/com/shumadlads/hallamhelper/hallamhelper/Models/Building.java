@@ -4,6 +4,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.data.Blob;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import com.shumadlads.hallamhelper.hallamhelper.HallamHelperDB;
@@ -19,6 +20,10 @@ public class Building extends BaseModel {
     @Column
     String BuildingName;
 
+
+    @Column
+    Blob BuildingImage;
+
     List<Room> Rooms;
 
     public Building() {
@@ -33,6 +38,13 @@ public class Building extends BaseModel {
                     .queryList();
         }
         return Rooms;
+    }
+    public Blob getBuildingImage() {
+        return BuildingImage;
+    }
+
+    public void setBuildingImage(Blob buildingImage) {
+        BuildingImage = buildingImage;
     }
 
     public void setRooms(List<Room> rooms) {

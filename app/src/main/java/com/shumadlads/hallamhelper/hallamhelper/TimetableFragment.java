@@ -126,29 +126,12 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
 
     public void InitRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.timetable_fragment_RecyclerView);
-        image = view.findViewById(R.id.imageView2);
         textView = view.findViewById(R.id.timetable_fragment_TextView);
         layout = view.findViewById(R.id.timetable_fragment_LinearLayout);
 
         recyclerView.setAdapter(TimeTableAdapter);
         if (getActivity() != null)
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        SetEmptyView();
-    }
-
-    public void SetEmptyView() {
-        if (TimeTable.isEmpty()) {
-            recyclerView.setVisibility(View.GONE);
-            textView.setVisibility(View.GONE);
-            layout.setVisibility(View.GONE);
-            image.setVisibility(View.VISIBLE);
-        } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            textView.setVisibility(View.VISIBLE);
-            layout.setVisibility(View.VISIBLE);
-            image.setVisibility(View.GONE);
-        }
-
     }
 
     public void InitFAB(View view) {
@@ -216,7 +199,6 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
                                     TimeTable.clear();
                                     TimeTable.addAll(FindUserSessions(FilterDate));
                                     TimeTableAdapter.notifyDataSetChanged();
-                                    SetEmptyView();
 
                                 }
                             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));

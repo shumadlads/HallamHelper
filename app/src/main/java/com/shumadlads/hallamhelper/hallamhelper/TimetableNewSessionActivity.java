@@ -56,7 +56,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     private DatePickerDialog Date_Dialog;
     private SimpleDateFormat DateFormat;
     private TimePickerDialog Start_Dialog, End_Dialog;
-    private Button AddSession_Button;
+    private Button AddSession_Button, AddAnother_Buttton;
     private Pattern pattern;
     private static final String TIME12HOURS_PATTERN = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
 
@@ -108,8 +108,9 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         Semester2_Switch = findViewById(R.id.sem2_timetable_newsession_activity_Switch);
         Chirstmas_Switch = findViewById(R.id.christmas_timetable_newsession_activity_Switch);
         Easter_Switch = findViewById(R.id.easter_timetable_newsession_activity_Switch);
-        AddSession_Button = findViewById(R.id.addandfinishSession_Button);
 
+        AddSession_Button = findViewById(R.id.addandfinishSession_Button);
+        AddAnother_Buttton = findViewById(R.id.AddAnotherSession_Button);
 
     }
 
@@ -163,12 +164,18 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         AddSession_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Submit();
+                SubmitAndLeave();
+            }
+        });
+        AddAnother_Buttton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SubmitAndClear();
             }
         });
     }
 
-    public void Submit() {
+    public boolean Submit() {
         User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(CurrentUser)).querySingle();
         Session session = new Session();
 
@@ -183,10 +190,28 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
             newUSession.setUser(user);
             newUSession.setSession(session);
             newUSession.save();
+            return true;
+        } else return false;
+    }
+
+    public void SubmitAndLeave() {
+        if (Submit()) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("LoadDefaultFragment", TIMETABLE_FRAGMENT);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
+    }
+
+    public void SubmitAndClear() {
+        if (Submit()) {
+            Date_EditText.setText("");
+            Start_EditText.setText("");
+            End_EditText.setText("");
+            Type_EditText.setText("");
+            if (Repeat_Switch.isChecked())
+                Repeat_Switch.callOnClick();
+        }
+
     }
 
     public boolean ValidateModule(Session session) {

@@ -2,6 +2,9 @@ package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -47,11 +51,17 @@ public class TimetableDetailActivity extends AppCompatActivity {
         SubTitle = findViewById(R.id.subtitle_timetable_detail_activity_TextView);
         SecondTitle = findViewById(R.id.secondtitle_timetable_detail_activity_TextView);
         Content = findViewById(R.id.content_timetable_detail_activity_TextView);
+        ImageView imageview = findViewById(R.id.timetable_detail_activity_ImageView);
         CurrentSession = SQLite.select().from(Session.class).where(Session_Table.SessionId.eq(Id)).querySingle();
         if (CurrentSession != null) {
             CurrentSession.getModule().load();
             CurrentSession.getRoom().load();
             CurrentSession.getRoom().getBuilding().load();
+            if (CurrentSession.getRoom().getBuilding().getBuildingImage() != null) {
+                byte[] imageData = CurrentSession.getRoom().getBuilding().getBuildingImage().getBlob();
+                Bitmap image = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+                imageview.setImageBitmap(image);
+            }
             Title.setText(CurrentSession.getModule().getModuleNickname());
             SubTitle.setText(CurrentSession.getModule().getModuleName());
             SecondTitle.setText(CurrentSession.getType());
@@ -82,7 +92,6 @@ public class TimetableDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("LoadDefaultFragment", TIMETABLE_FRAGMENT);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-
     }
 
     public void InitToolBar() {

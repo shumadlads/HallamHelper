@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +39,9 @@ public class NavigateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_navigate, container, false);
+        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.navigate_fragment, container, false);
+        InitToolBar( view);
         ImageView searchFindIcon = view.findViewById(R.id.searchFindIcon);
         ImageView switchIcon = view.findViewById(R.id.switchIcon);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
@@ -101,7 +104,13 @@ public class NavigateFragment extends Fragment {
         fragmentTransaction.commit();
 
     }
+    public void InitToolBar(View view) {
+        Toolbar bar = view.findViewById(R.id.navigate_Toolbar);
+        bar.setTitle("Slack");
+        if (getActivity() != null)
+            ((AppCompatActivity) getActivity()).setSupportActionBar(bar);
 
+    }
     private void errorToast(){
         Context context = getActivity().getApplicationContext();
         Toast toast = Toast.makeText(context, "Please enter valid room number", Toast.LENGTH_LONG);
