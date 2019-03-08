@@ -6,5 +6,6 @@
     <color name="colorBackground">#F0EFEF</color>
     <color name="colorBackgroundlight">#FFFFFF</color>
     <color name="colorError">#c23616</color>
-
+    <color name="switchColor">#c23616</color>
 </resources>
+

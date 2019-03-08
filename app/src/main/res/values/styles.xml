@@ -1,15 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="MyDialog" parent="Theme.AppCompat.Light.Dialog.Alert"/>
+
+    <style name="MySwitch">
+        <item name="colorControlActivated">@color/switchColor</item>
     </style>
 
     <!--Style for Splash Screen-->
-    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name ="android:windowBackground"> @drawable/splash_screen_background</item>
     </style>
 
