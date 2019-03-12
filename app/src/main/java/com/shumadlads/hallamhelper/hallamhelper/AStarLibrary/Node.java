@@ -40,6 +40,8 @@ public class Node implements Comparable<Node>{
         return name;
     }
 
+    public Node getThisNode() {return this;}
+
 
 
 

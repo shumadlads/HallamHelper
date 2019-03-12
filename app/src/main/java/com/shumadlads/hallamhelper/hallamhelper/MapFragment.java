@@ -142,6 +142,15 @@ public class MapFragment extends Fragment {
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
+            case 9: { //todo DEBUG NEEDS RETHINKING
+                mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
+                mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
+                bgDrawable = getResources().getDrawable(R.drawable.ic_emb_level_2);
+                bgDrawableInt = R.drawable.ic_emb_level_2;
+                mapBg.setImageDrawable(bgDrawable);
+                changeRoomColour(roomTo, bgDrawableInt);
+                break;
+            }
         }
 
     }
