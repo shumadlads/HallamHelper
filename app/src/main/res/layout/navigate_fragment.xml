@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StopTheSlackFragment">
+    tools:context=".NavigateFragment">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/navigate_AppBarLayout"
         android:layout_width="match_parent"
@@ -20,17 +20,15 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingTop="10dp"
     android:paddingRight="10dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".NavigateFragment">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <!-- TODO: Update blank fragment layout -->
 

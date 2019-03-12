@@ -34,14 +34,10 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null && extras.getInt("LoadDefaultFragment") == TIMETABLE_FRAGMENT)
             loadFragment(new TimetableFragment());
         else
-            loadFragment(new NavigateFragment());
+            loadFragment(new StopTheSlackFragment());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
-        return true;
-    }
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
