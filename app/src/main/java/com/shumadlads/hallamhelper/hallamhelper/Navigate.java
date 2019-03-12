@@ -63,7 +63,7 @@ public class Navigate extends Fragment {
                         if(!(fromTextView.getText().toString().matches(""))){
                             roomFromInt = Integer.parseInt(fromTextView.getText().toString());
                         }else
-                            roomFromInt = 9999; //known empty
+                            roomFromInt = 3999; //known empty
                         swapFragment(roomFromInt, roomToInt);
                     }
                     else {
@@ -78,7 +78,7 @@ public class Navigate extends Fragment {
 
             }
         });
-        //onSwapTextfieldsClick
+        // onSwapTextfieldsClick
         switchIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
