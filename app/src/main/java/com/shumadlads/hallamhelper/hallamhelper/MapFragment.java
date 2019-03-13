@@ -89,7 +89,7 @@ public class MapFragment extends Fragment {
         MapView mapBg = getActivity().findViewById(R.id.mapView);
 
         switch (buildingFrom) {
-            case 0: {
+            case 9: {
                 displayCantorMapBg(levelFrom, roomTo, mapBg);
             }
             case 3: {

@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
-    boolean isLoggedin = false ;
+    boolean isLoggedin = true ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
