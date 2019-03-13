@@ -70,7 +70,7 @@ public class Graph {
 
 
         if(destination.parent==null)
-            text="This path does not exist";
+            text="This path does not exist"; //for debug
         else{
             text+=" Node ne CLOSED: "+CLOSED.size();
             System.out.println();

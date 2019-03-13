@@ -1,6 +1,7 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -54,29 +55,32 @@ public class NavigateFragment extends Fragment {
             public void onClick(View v) {
                 /* Toast is currently taking place on MapView - Earmarked for removal 19/12/2018 GS
 
-                 */
+                */
 
-                if (!(toTextView.getText().toString().matches(""))) {
+                if(!(toTextView.getText().toString().matches(""))){
                     int roomToInt = Integer.parseInt(toTextView.getText().toString());
-                    if (roomToInt != 0) {
+                    if(roomToInt != 0){
                         int roomFromInt;
-                        if (!(fromTextView.getText().toString().matches(""))) {
+                        if(!(fromTextView.getText().toString().matches(""))){
                             roomFromInt = Integer.parseInt(fromTextView.getText().toString());
-                        } else
-                            roomFromInt = 9999; //known empty
+                        }else
+                            roomFromInt = 3999; //known empty
                         swapFragment(roomFromInt, roomToInt);
-                    } else {
+                    }
+                    else {
                         errorToast();
                     }
-                } else {
+                }
+                else{
                     errorToast();
                 }
 
 
+
             }
         });
-        //onSwapTextfieldsClick
-        switchIcon.setOnClickListener(new View.OnClickListener() {
+        // onSwapTextfieldsClick
+        switchIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 CharSequence temp = toTextView.getText(); //set toText to temp variable
@@ -88,7 +92,7 @@ public class NavigateFragment extends Fragment {
         return view;
     }
 
-    private void swapFragment(int from, int to) {
+    private void swapFragment(int from, int to){
         MapFragment mapFragment = new MapFragment();
         Bundle b = new Bundle();
         b.putInt("RoomTo", to);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HallamHelper v0.1</string>
+    <string name="app_name">HallamHelper</string>
     <string name="settings">Settings</string>
     <string name="log_out">Logout</string>
     <string name="hint">test hint</string>
