@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.raizlabs.android.dbflow.data.Blob;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Session;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User;
@@ -277,7 +276,7 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
     @Override
     public void OnSessionClick(int pos) {
         if (getActivity() != null) {
-            Intent intent = new Intent(getActivity().getApplicationContext(), TimetableDetailActivity.class);
+            Intent intent = new Intent(getActivity().getApplicationContext(), DetailTimeTableActivity.class);
             intent.putExtra("Id", TimeTable.get(pos).getId());
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         }

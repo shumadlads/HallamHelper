@@ -22,7 +22,7 @@ import com.shumadlads.hallamhelper.hallamhelper.Models.Session_Table;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User_Session;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User_Session_Table;
 
-public class TimetableDetailActivity extends AppCompatActivity {
+public class DetailTimeTableActivity extends AppCompatActivity {
 
     private TextView Title;
     private TextView SubTitle;

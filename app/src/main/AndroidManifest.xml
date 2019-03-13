@@ -41,7 +41,7 @@
             android:name=".QRActivity"
             android:parentActivityName=".MainActivity"></activity>
 
-        <activity android:name=".TimetableDetailActivity"
+        <activity android:name=".DetailTimeTableActivity"
         android:parentActivityName=".MainActivity"></activity>
         <meta-data
             android:name="preloaded_fonts"
