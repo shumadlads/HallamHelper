@@ -16,10 +16,10 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.widget.ImageView;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     public static final int TIMETABLE_FRAGMENT = 0;
+    public static final int MAP_FRAGMENT = 3;
     public static final int NAVIAGTE_FRAGMENT = 1;
     public static final int SLACK_FRAGMENT = 2;
 
@@ -31,13 +31,24 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.getInt("LoadDefaultFragment") == TIMETABLE_FRAGMENT)
-            loadFragment(new TimetableFragment());
-        else
+        if (extras != null) {
+            switch (extras.getInt("LoadDefaultFragment")) {
+                case TIMETABLE_FRAGMENT:
+                    loadFragment(new TimetableFragment());
+                    break;
+                case MAP_FRAGMENT:
+                    MapFragment mapFragment = new MapFragment();
+                    Bundle b = new Bundle();
+                    b.putInt("RoomTo", 3114);
+                    b.putInt("RoomFrom", 3999);
+                    mapFragment.setArguments(b);
+                    loadFragment(mapFragment);
+                    break;
+                    default:loadFragment(new StopTheSlackFragment());
+            }
+        } else
             loadFragment(new StopTheSlackFragment());
     }
-
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

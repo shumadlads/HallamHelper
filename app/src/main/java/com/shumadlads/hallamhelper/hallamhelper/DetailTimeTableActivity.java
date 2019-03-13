@@ -31,6 +31,7 @@ public class DetailTimeTableActivity extends AppCompatActivity {
     private int Id;
 
     public static final int TIMETABLE_FRAGMENT = 0;
+    public static final int MAP_FRAGMENT = 3;
     // public static final int NAVIAGTE_FRAGMENT = 1;
     // public static final int SLACK_FRAGMENT = 2;
     private static int CurrentUser = 1;
@@ -83,6 +84,13 @@ public class DetailTimeTableActivity extends AppCompatActivity {
                 Remove();
             }
         });
+        Button route = findViewById(R.id.route_timetable_detail_activity_Button);
+        route.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Route();
+            }
+        });
     }
 
     public void Remove() {
@@ -92,6 +100,13 @@ public class DetailTimeTableActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("LoadDefaultFragment", TIMETABLE_FRAGMENT);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    }
+
+    public void Route(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("LoadDefaultFragment", MAP_FRAGMENT);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+
     }
 
     public void InitToolBar() {
