@@ -1,11 +1,37 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- enable window content transitions -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--   <item name="colorAccent">@color/colorAccent</item>
+   -->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActivityTransitions">true</item>
+
+        <!-- specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform
+        </item>
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+
     </style>
 
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="android:colorControlActivated">@color/colorAccent</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:headerBackground">@color/colorPrimaryDark</item>
+    </style>
 </resources>

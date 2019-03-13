@@ -1,12 +1,16 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,16 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Navigate extends Fragment {
+public class NavigateFragment extends Fragment {
 
-
-
-    public Navigate() {
+    public NavigateFragment() {
         // Required empty public constructor
     }
 
-    public static Navigate newInstance(String param1, String param2) {
-        Navigate fragment = new Navigate();
+    public static NavigateFragment newInstance(String param1, String param2) {
+        NavigateFragment fragment = new NavigateFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -37,52 +39,46 @@ public class Navigate extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_navigate, container, false);
-        View view = inflater.inflate(R.layout.fragment_navigate, container, false);
+        setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.navigate_fragment, container, false);
+        InitToolBar(view);
         ImageView searchFindIcon = view.findViewById(R.id.searchFindIcon);
         ImageView switchIcon = view.findViewById(R.id.switchIcon);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
         final TextView fromTextView = view.findViewById(R.id.textInputFrom);
         //onSearchFindIconClick
-        searchFindIcon.setOnClickListener(new View.OnClickListener()
-        {
+        searchFindIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 /* Toast is currently taking place on MapView - Earmarked for removal 19/12/2018 GS
 
-                */
+                 */
 
-                if(!(toTextView.getText().toString().matches(""))){
+                if (!(toTextView.getText().toString().matches(""))) {
                     int roomToInt = Integer.parseInt(toTextView.getText().toString());
-                    if(roomToInt != 0){
+                    if (roomToInt != 0) {
                         int roomFromInt;
-                        if(!(fromTextView.getText().toString().matches(""))){
+                        if (!(fromTextView.getText().toString().matches(""))) {
                             roomFromInt = Integer.parseInt(fromTextView.getText().toString());
-                        }else
+                        } else
                             roomFromInt = 9999; //known empty
                         swapFragment(roomFromInt, roomToInt);
-                    }
-                    else {
+                    } else {
                         errorToast();
                     }
-                }
-                else{
+                } else {
                     errorToast();
                 }
-
 
 
             }
         });
         //onSwapTextfieldsClick
-        switchIcon.setOnClickListener(new View.OnClickListener(){
+        switchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 CharSequence temp = toTextView.getText(); //set toText to temp variable
                 toTextView.setText(fromTextView.getText()); //set fromText
                 fromTextView.setText(temp);
@@ -92,7 +88,7 @@ public class Navigate extends Fragment {
         return view;
     }
 
-    private void swapFragment(int from, int to){
+    private void swapFragment(int from, int to) {
         MapFragment mapFragment = new MapFragment();
         Bundle b = new Bundle();
         b.putInt("RoomTo", to);
@@ -105,18 +101,21 @@ public class Navigate extends Fragment {
 
     }
 
-    private void errorToast(){
+    public void InitToolBar(View view) {
+        Toolbar bar = view.findViewById(R.id.navigate_Toolbar);
+        bar.setTitle("Navigate");
+        if (getActivity() != null)
+            ((AppCompatActivity) getActivity()).setSupportActionBar(bar);
+
+    }
+
+    private void errorToast() {
         Context context = getActivity().getApplicationContext();
         Toast toast = Toast.makeText(context, "Please enter valid room number", Toast.LENGTH_LONG);
         toast.show();// do something
     }
 
-
-
-
-
-
-
-
-
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.settings_menu, menu);}
 }

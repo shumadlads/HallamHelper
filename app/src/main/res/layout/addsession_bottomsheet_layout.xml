@@ -4,37 +4,37 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:padding="16dp"
-    android:background="@color/colorPrimaryDark">
+    >
 
 
     <Button
         android:id="@+id/btn1"
         android:layout_width="match_parent"
-        android:layout_height="29dp"
+        android:layout_height="wrap_content"
         android:background="@null"
-        android:text="QR Code"
         android:drawableLeft="@drawable/ic_baseline_camera_alt_24px"
+        android:drawablePadding="10dp"
         android:drawableTint="#FFFFFF"
         android:gravity="left|center_vertical"
         android:paddingLeft="15dip"
-        android:textColor="#FFFFFF"
-        android:drawablePadding="10dp"
+        android:text="QR Code"
         android:textAllCaps="false"
-        android:textSize="20sp"/>
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btn2"
         android:layout_width="match_parent"
-        android:layout_height="29dp"
+        android:layout_height="wrap_content"
         android:background="@null"
         android:drawableLeft="@drawable/ic_baseline_create_24px"
+        android:drawablePadding="10dp"
         android:drawableTint="#FFFFFF"
         android:gravity="left|center_vertical"
         android:paddingLeft="15dip"
         android:text="Enter Manually"
-        android:textColor="#FFFFFF"
-        android:drawablePadding="10dp"
         android:textAllCaps="false"
+        android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
 </LinearLayout>
