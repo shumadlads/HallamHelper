@@ -1,53 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    android:layout_height="match_parent">
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="24dp"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp">
 
-    <TextView android:id="@+id/settings"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Settings"
-        android:gravity="center"
-        android:textSize="26dip"/>
-
-    <Switch
-        android:id="@+id/darkSwitch"
+    <TextView
+        android:id="@+id/txtNightMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/switchCompat"
         android:layout_centerHorizontal="true"
-        android:checked="false"
-        android:gravity="center"
-        android:text="Dark Mode"
-        android:textColor="#000000"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="25sp"></Switch>
+        android:paddingRight="8dp"
+        android:text="Night Mode"></TextView>
 
-    <Switch
-        android:id="@+id/liftSwitch"
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchCompat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@android:dimen/app_icon_size"
+        android:layout_toRightOf="@+id/txtNightMode"
         android:checked="false"
-        android:gravity="center"
-        android:text="Navigate via lifts"
-        android:textColor="#000000"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="25sp"
-        android:paddingTop="18dp"></Switch>
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/buttondark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtNightMode"
+        android:layout_alignStart="@+id/txtNightMode"
+        android:text="CLICK ME">
+    </Button>
+
+</RelativeLayout>

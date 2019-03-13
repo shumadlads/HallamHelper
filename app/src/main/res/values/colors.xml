@@ -7,4 +7,6 @@
     <color name="colorBackgroundlight">#FFFFFF</color>
     <color name="colorText">#000</color>
 
+    <color name="colorError">#c23616</color>
+    <color name="switchColor">#c23616</color>
 </resources>
