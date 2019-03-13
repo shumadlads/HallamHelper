@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //For day mode theme
         setContentView(R.layout.main_activity);
 
-        toolbar = getSupportActionBar();
+
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     default:loadFragment(new StopTheSlackFragment());
             }
         } else
-            loadFragment(new StopTheSlackFragment());
+            loadFragment(new NavigateFragment());
     }
 
 
