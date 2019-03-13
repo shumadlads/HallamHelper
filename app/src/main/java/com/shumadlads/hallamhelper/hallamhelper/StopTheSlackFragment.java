@@ -39,5 +39,9 @@ public class StopTheSlackFragment extends Fragment {
             ((AppCompatActivity) getActivity()).setSupportActionBar(bar);
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
 
+    }
 }
