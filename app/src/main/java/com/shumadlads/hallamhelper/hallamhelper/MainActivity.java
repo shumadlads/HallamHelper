@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
 
 
-
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Bundle extras = getIntent().getExtras();
@@ -47,12 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 case MAP_FRAGMENT:
                     MapFragment mapFragment = new MapFragment();
                     Bundle b = new Bundle();
+                    int start =  extras.getInt("StartId");
+                   int target =  extras.getInt("TargetId");
                     b.putInt("RoomTo", 3114);
                     b.putInt("RoomFrom", 3999);
                     mapFragment.setArguments(b);
                     loadFragment(mapFragment);
                     break;
-                    default:loadFragment(new StopTheSlackFragment());
+                default:
+                    loadFragment(new StopTheSlackFragment());
             }
         } else
             loadFragment(new NavigateFragment());

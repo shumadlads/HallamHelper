@@ -29,6 +29,7 @@ public class DetailTimeTableActivity extends AppCompatActivity {
     private TextView SecondTitle;
     private TextView Content;
     private int Id;
+    private int PreviousId;
 
     public static final int TIMETABLE_FRAGMENT = 0;
     public static final int MAP_FRAGMENT = 3;
@@ -42,6 +43,7 @@ public class DetailTimeTableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_detail_activity);
         Id = getIntent().getIntExtra("Id", 0);
+        PreviousId = getIntent().getIntExtra("PreviousId", -1);
         InitToolBar();
         InitFields();
         InitButtons();
@@ -102,9 +104,21 @@ public class DetailTimeTableActivity extends AppCompatActivity {
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
-    public void Route(){
+    public void Route() {
+        User_Session session = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(Id)).and(User_Session_Table.User.eq(CurrentUser)).querySingle();
+        session.getSession().load();
+        session.getSession().getRoom().load();
+        session.getSession().getRoom().getNode().load();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("LoadDefaultFragment", MAP_FRAGMENT);
+        if (PreviousId != -1) {
+            User_Session prevsession = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(PreviousId)).and(User_Session_Table.User.eq(CurrentUser)).querySingle();
+            prevsession.getSession().load();
+            prevsession.getSession().getRoom().load();
+            intent.putExtra("StartId", prevsession.getSession().getRoom().getRoomId());
+        } else
+            intent.putExtra("StartId", -1);
+        intent.putExtra("TargetId", session.getSession().getRoom().getRoomId());
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
     }

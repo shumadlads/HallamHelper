@@ -278,6 +278,10 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
         if (getActivity() != null) {
             Intent intent = new Intent(getActivity().getApplicationContext(), DetailTimeTableActivity.class);
             intent.putExtra("Id", TimeTable.get(pos).getId());
+            if(pos >=1 && TimeTable.get(pos-1) != null){
+                intent.putExtra("PreviousId", TimeTable.get(pos-1).getId());
+
+            }
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         }
     }
