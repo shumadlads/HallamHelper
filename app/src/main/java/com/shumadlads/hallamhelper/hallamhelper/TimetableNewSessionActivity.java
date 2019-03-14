@@ -4,6 +4,8 @@ import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,7 +50,8 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     public static final int TIMETABLE_FRAGMENT = 0;
     // public static final int NAVIAGTE_FRAGMENT = 1;
     // public static final int SLACK_FRAGMENT = 2;
-    private static int CurrentUser = 1;
+    private SharedPreferences SharedPrefs;
+    private  int UserId;
 
     private Spinner Module_Spinner, Room_Spinner;
     private TextInputEditText Date_EditText, Start_EditText, End_EditText, Type_EditText;
@@ -64,6 +67,11 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_newsession_activity);
+        SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        UserId = SharedPrefs.getInt(getString(R.string.SP_UserId), -1);
+        if(UserId == -1){
+            //EXIT
+        }
         SetupModuleSpinner();
         SetupRoomSpinner();
         SetupInputs();
@@ -74,6 +82,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         SetStartTime();
         SetEndTime();
         SetRepeat();
+
     }
 
     public void SetupModuleSpinner() {
@@ -176,7 +185,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     }
 
     public boolean Submit() {
-        User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(CurrentUser)).querySingle();
+        User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(UserId)).querySingle();
         Session session = new Session();
 
         session.setSemester1(Semester1_Switch.isChecked() && Repeat_Switch.isChecked() ? 1 : 0);

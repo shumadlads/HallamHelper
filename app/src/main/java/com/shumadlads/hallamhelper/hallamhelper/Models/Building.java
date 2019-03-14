@@ -14,56 +14,40 @@ import java.util.List;
 @Table(database = HallamHelperDB.class, name = "Buildings")
 public class Building extends BaseModel {
 
+    public Building() {
+    }
+
     @PrimaryKey(autoincrement = true)
     int BuildingId;
 
     @Column
     String BuildingName;
 
-
     @Column
     Blob BuildingImage;
 
-    List<Room> Rooms;
+    List<Node> Nodes;
 
-    public Building() {
-    }
+    public int getBuildingId() { return BuildingId; }
+    public void setBuildingId(int buildingId) { BuildingId = buildingId; }
 
-    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "Rooms")
-    public List<Room> getRooms() {
-        if (Rooms == null || Rooms.isEmpty()) {
-            Rooms = SQLite.select()
-                    .from(Room.class)
-                    .where(Room_Table.Building.eq(BuildingId))
-                    .queryList();
-        }
-        return Rooms;
-    }
+    public String getBuildingName() { return BuildingName; }
+    public void setBuildingName(String buildingName) { BuildingName = buildingName; }
+
     public Blob getBuildingImage() {
         return BuildingImage;
     }
+    public void setBuildingImage(Blob buildingImage) { BuildingImage = buildingImage; }
 
-    public void setBuildingImage(Blob buildingImage) {
-        BuildingImage = buildingImage;
+    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "Nodes")
+    public List<Node> getNodes() {
+        if (Nodes == null || Nodes.isEmpty()) {
+            Nodes = SQLite.select()
+                    .from(Node.class)
+                    .where(Node_Table.Building.eq(BuildingId))
+                    .queryList();
+        }
+        return Nodes;
     }
-
-    public void setRooms(List<Room> rooms) {
-        Rooms = rooms;
-    }
-
-    public int getBuildingId() {
-        return BuildingId;
-    }
-
-    public void setBuildingId(int buildingId) {
-        BuildingId = buildingId;
-    }
-
-    public String getBuildingName() {
-        return BuildingName;
-    }
-
-    public void setBuildingName(String buildingName) {
-        BuildingName = buildingName;
-    }
+    public void setNodes(List<Node> nodes) { Nodes = nodes; }
 }

@@ -14,6 +14,9 @@ import java.util.List;
 @Table(database = HallamHelperDB.class, name = "Modules")
 public class Module extends BaseModel {
 
+    public Module() {
+    }
+
     @PrimaryKey(autoincrement = true)
     int ModuleId;
 
@@ -24,12 +27,43 @@ public class Module extends BaseModel {
     String ModuleLeader;
 
     @Column
-    Blob ModuleImage;
-
-
-    @Column
     String ModuleNickname;
 
+    @Column
+    Blob ModuleImage;
+
+    List<Session> Sessions;
+
+    public int getModuleId() {
+        return ModuleId;
+    }
+    public void setModuleId(int moduleId) {
+        ModuleId = moduleId;
+    }
+
+    public String getModuleName() {
+        return ModuleName;
+    }
+    public void setModuleName(String moduleName) {
+        ModuleName = moduleName;
+    }
+
+    public String getModuleLeader() {
+        return ModuleLeader;
+    }
+    public void setModuleLeader(String moduleLeader) {
+        ModuleLeader = moduleLeader;
+    }
+
+    public String getModuleNickname() { return ModuleNickname; }
+    public void setModuleNickname(String moduleNickname) { ModuleNickname = moduleNickname; }
+
+    public Blob getModuleImage() {
+        return ModuleImage;
+    }
+    public void setModuleImage(Blob moduleImage) {
+        ModuleImage = moduleImage;
+    }
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "Sessions")
     public List<Session> getSessions() {
@@ -41,54 +75,8 @@ public class Module extends BaseModel {
         }
         return Sessions;
     }
-
-    public String getModuleNickname() {
-        return ModuleNickname;
-    }
-
-    public void setModuleNickname(String moduleNickname) {
-        ModuleNickname = moduleNickname;
-    }
-
     public void setSessions(List<Session> sessions) {
         Sessions = sessions;
-    }
-
-    public Blob getModuleImage() {
-        return ModuleImage;
-    }
-
-    public void setModuleImage(Blob moduleImage) {
-        ModuleImage = moduleImage;
-    }
-
-    List<Session> Sessions;
-
-    public int getModuleId() {
-        return ModuleId;
-    }
-
-    public void setModuleId(int moduleId) {
-        ModuleId = moduleId;
-    }
-
-    public String getModuleLeader() {
-        return ModuleLeader;
-    }
-
-    public void setModuleLeader(String moduleLeader) {
-        ModuleLeader = moduleLeader;
-    }
-
-    public String getModuleName() {
-        return ModuleName;
-    }
-
-    public void setModuleName(String moduleName) {
-        ModuleName = moduleName;
-    }
-
-    public Module() {
     }
 
     @Override

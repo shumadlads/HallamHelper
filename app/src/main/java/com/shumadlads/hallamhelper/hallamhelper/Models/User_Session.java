@@ -10,24 +10,17 @@ import com.shumadlads.hallamhelper.hallamhelper.HallamHelperDB;
 @Table(database = HallamHelperDB.class, name = "UserSession")
 public class User_Session extends BaseModel {
 
-    @PrimaryKey(
-            autoincrement = true
-    )
-    long _id;
-
-    @ForeignKey(stubbedRelationship = true,
-            saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "User", foreignKeyColumnName = "UserId")}
-    )
-    User user;
-
-
-    @ForeignKey(stubbedRelationship = true,
-            saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "Session", foreignKeyColumnName = "SessionId")}
-    )
-    Session session;
-
     public User_Session() {
     }
+
+    @PrimaryKey(autoincrement = true)
+    long _id;
+
+    @ForeignKey(stubbedRelationship = true, saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "User", foreignKeyColumnName = "UserId")})
+    User user;
+
+    @ForeignKey(stubbedRelationship = true, saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "Session", foreignKeyColumnName = "SessionId")})
+    Session session;
 
     public final long getId() {
         return _id;
@@ -36,7 +29,6 @@ public class User_Session extends BaseModel {
     public final User getUser() {
         return user;
     }
-
     public final void setUser(User param) {
         user = param;
     }
@@ -44,7 +36,6 @@ public class User_Session extends BaseModel {
     public final Session getSession() {
         return session;
     }
-
     public final void setSession(Session param) {
         session = param;
     }

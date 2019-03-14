@@ -1,9 +1,9 @@
 package com.shumadlads.hallamhelper.hallamhelper.AStarLibrary;
 
 import java.util.*;
-public class Node implements Comparable<Node>{
+public class GraphNode implements Comparable<GraphNode>{
     public int id;
-    public Node parent=null;
+    public GraphNode parent=null;
     public String name;
     public double d_value=Double.POSITIVE_INFINITY;
     public LinkedList<Step> steps =new LinkedList<Step>();
@@ -16,7 +16,7 @@ public class Node implements Comparable<Node>{
     public double f_value=Double.POSITIVE_INFINITY;//(f_value=d_value+h_value)
 
 
-    public Node(String name, int id, double x, double y){
+    public GraphNode(String name, int id, double x, double y){
         this.name=name;
         this.id=id;
         this.x=x;
@@ -24,7 +24,7 @@ public class Node implements Comparable<Node>{
     }
 
     @Override
-    public int compareTo(Node o) {
+    public int compareTo(GraphNode o) {
         return Double.compare(this.d_value,o.d_value);
     }
 
@@ -40,7 +40,7 @@ public class Node implements Comparable<Node>{
         return name;
     }
 
-    public Node getThisNode() {return this;}
+    public GraphNode getThisNode() {return this;}
 
 
 

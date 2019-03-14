@@ -2,10 +2,12 @@ package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,15 +37,25 @@ public class DetailTimeTableActivity extends AppCompatActivity {
     public static final int MAP_FRAGMENT = 3;
     // public static final int NAVIAGTE_FRAGMENT = 1;
     // public static final int SLACK_FRAGMENT = 2;
-    private static int CurrentUser = 1;
+
+    private SharedPreferences SharedPrefs;
+    private int UserId;
+  //  private static int CurrentUser = 1;
     private Session CurrentSession;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_detail_activity);
+        SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        UserId = SharedPrefs.getInt(getString(R.string.SP_UserId), -1);
+        if (UserId == -1) {
+            //EXIT
+        }
         Id = getIntent().getIntExtra("Id", 0);
         PreviousId = getIntent().getIntExtra("PreviousId", -1);
+
+
         InitToolBar();
         InitFields();
         InitButtons();
@@ -59,9 +71,10 @@ public class DetailTimeTableActivity extends AppCompatActivity {
         if (CurrentSession != null) {
             CurrentSession.getModule().load();
             CurrentSession.getRoom().load();
-            CurrentSession.getRoom().getBuilding().load();
-            if (CurrentSession.getRoom().getBuilding().getBuildingImage() != null) {
-                byte[] imageData = CurrentSession.getRoom().getBuilding().getBuildingImage().getBlob();
+            CurrentSession.getRoom().getNode().load();
+            CurrentSession.getRoom().getNode().getBuilding().load();
+            if (CurrentSession.getRoom().getNode().getBuilding().getBuildingImage() != null) {
+                byte[] imageData = CurrentSession.getRoom().getNode().getBuilding().getBuildingImage().getBlob();
                 Bitmap image = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
                 imageview.setImageBitmap(image);
             }
@@ -70,8 +83,8 @@ public class DetailTimeTableActivity extends AppCompatActivity {
             SecondTitle.setText(CurrentSession.getType());
             String content =
                     "This Session is located in room " + CurrentSession.getRoom().getRoomName() +
-                            " on floor " + CurrentSession.getRoom().getFloor() +
-                            " of " + CurrentSession.getRoom().getBuilding().getBuildingName() +
+                            " on floor " + CurrentSession.getRoom().getNode().getFloor() +
+                            " of " + CurrentSession.getRoom().getNode().getBuilding().getBuildingName() +
                             " and takes place from " + CurrentSession.getStartTime() + " to " + CurrentSession.getEndTime();
             Content.setText(content);
         } else
@@ -96,7 +109,7 @@ public class DetailTimeTableActivity extends AppCompatActivity {
     }
 
     public void Remove() {
-        User_Session session = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(Id)).and(User_Session_Table.User.eq(CurrentUser)).querySingle();
+        User_Session session = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(Id)).and(User_Session_Table.User.eq(UserId)).querySingle();
         session.delete();
         CurrentSession.delete();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -105,14 +118,14 @@ public class DetailTimeTableActivity extends AppCompatActivity {
     }
 
     public void Route() {
-        User_Session session = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(Id)).and(User_Session_Table.User.eq(CurrentUser)).querySingle();
+        User_Session session = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(Id)).and(User_Session_Table.User.eq(UserId)).querySingle();
         session.getSession().load();
         session.getSession().getRoom().load();
         session.getSession().getRoom().getNode().load();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("LoadDefaultFragment", MAP_FRAGMENT);
         if (PreviousId != -1) {
-            User_Session prevsession = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(PreviousId)).and(User_Session_Table.User.eq(CurrentUser)).querySingle();
+            User_Session prevsession = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(PreviousId)).and(User_Session_Table.User.eq(UserId)).querySingle();
             prevsession.getSession().load();
             prevsession.getSession().getRoom().load();
             intent.putExtra("StartId", prevsession.getSession().getRoom().getRoomId());

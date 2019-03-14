@@ -3,7 +3,9 @@ package com.shumadlads.hallamhelper.hallamhelper;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -51,8 +53,9 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
     private Date Christams_Start, Christmas_End;
     private Date Easter_Start, Easter_End;
 
-
-    private static int CurrentUser = 1;
+    private SharedPreferences SharedPrefs;
+    private int UserId;
+    //  private static int CurrentUser = 1;
     private TimetableRecyclerViewAdapter TimeTableAdapter;
     private ArrayList<TimetableRecyclerViewModel> TimeTable;
     private Date Today, FilterDate;
@@ -69,6 +72,11 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        UserId = SharedPrefs.getInt(getString(R.string.SP_UserId), -1);
+        if (UserId == -1) {
+            //EXIT
+        }
         Today = new Date();
         FilterDate = Today;
         int y = Today.getYear();
@@ -148,7 +156,7 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
 
     public void FillList(Date filterDate) {
         TimeTable = new ArrayList<>();
-        User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(CurrentUser)).querySingle();
+        User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(UserId)).querySingle();
         if (user != null)
             TimeTable = FindUserSessions(filterDate);
 
@@ -213,7 +221,7 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
 
     public ArrayList<TimetableRecyclerViewModel> FindUserSessions(Date filterDate) {
         ArrayList<TimetableRecyclerViewModel> timeTable = new ArrayList<>();
-        List<User_Session> user_sessions = SQLite.select().from(User_Session.class).where(User_Session_Table.User.eq(CurrentUser)).queryList();
+        List<User_Session> user_sessions = SQLite.select().from(User_Session.class).where(User_Session_Table.User.eq(UserId)).queryList();
         for (User_Session user_session : user_sessions) {
             user_session.getSession().load();
             Session session = user_session.getSession();
@@ -278,8 +286,8 @@ public class TimetableFragment extends Fragment implements TimetableRecyclerView
         if (getActivity() != null) {
             Intent intent = new Intent(getActivity().getApplicationContext(), DetailTimeTableActivity.class);
             intent.putExtra("Id", TimeTable.get(pos).getId());
-            if(pos >=1 && TimeTable.get(pos-1) != null){
-                intent.putExtra("PreviousId", TimeTable.get(pos-1).getId());
+            if (pos >= 1 && TimeTable.get(pos - 1) != null) {
+                intent.putExtra("PreviousId", TimeTable.get(pos - 1).getId());
 
             }
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());

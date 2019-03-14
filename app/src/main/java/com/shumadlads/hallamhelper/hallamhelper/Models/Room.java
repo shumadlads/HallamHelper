@@ -15,24 +15,49 @@ import java.util.List;
 @Table(database = HallamHelperDB.class, name = "Rooms")
 public class Room extends BaseModel {
 
+    public Room() {
+    }
+
     @PrimaryKey
-     int RoomId;
+    int RoomId;
 
     @Column
-     String RoomName;
+    String RoomName;
 
     @Column
-     String Floor;
-
-    @Column
-     int Capacity;
-
-    @ForeignKey(  stubbedRelationship = true, saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "Building", foreignKeyColumnName = "BuildingId")})
-     com.shumadlads.hallamhelper.hallamhelper.Models.Building Building;
+    int Capacity;
 
     @ForeignKey(stubbedRelationship = true, saveForeignKeyModel = false, references = {@ForeignKeyReference(columnName = "Node", foreignKeyColumnName = "NodeId")})
     Node Node;
-   List<Session> Sessions ;
+
+    List<Session> Sessions;
+
+    public int getRoomId() {
+        return RoomId;
+    }
+    public void setRoomId(int roomId) {
+        RoomId = roomId;
+    }
+
+    public String getRoomName() {
+        return RoomName;
+    }
+    public void setRoomName(String roomName) {
+        RoomName = roomName;
+    }
+
+    public int getCapacity() {
+        return Capacity;
+    }
+    public void setCapacity(int capacity) {
+        Capacity = capacity;
+    }
+
+    public com.shumadlads.hallamhelper.hallamhelper.Models.Node getNode() {
+        return Node;
+    }
+    public void setNode(com.shumadlads.hallamhelper.hallamhelper.Models.Node node) { Node = node; }
+
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "Sessions")
     public List<Session> getSessions() {
         if (Sessions == null || Sessions.isEmpty()) {
@@ -43,62 +68,10 @@ public class Room extends BaseModel {
         }
         return Sessions;
     }
+    public void setSessions(List<Session> sessions) { Sessions = sessions; }
 
-
-
-    public Room() {
-    }
-
-    public int getRoomId() {
-        return RoomId;
-    }
-
-    public void setRoomId(int roomId) {
-        RoomId = roomId;
-    }
-
-    public String getRoomName() {
-        return RoomName;
-    }
-
-    public void setRoomName(String roomName) {
-        RoomName = roomName;
-    }
-
-    public String getFloor() {
-        return Floor;
-    }
-
-    public void setFloor(String floor) {
-        Floor = floor;
-    }
-
-    public int getCapacity() {
-        return Capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        Capacity = capacity;
-    }
-
-    public com.shumadlads.hallamhelper.hallamhelper.Models.Building getBuilding() {
-        return Building;
-    }
-
-    public void setBuilding(com.shumadlads.hallamhelper.hallamhelper.Models.Building building) {
-        Building = building;
-    }
-
-    public com.shumadlads.hallamhelper.hallamhelper.Models.Node getNode() {
-        return Node;
-    }
-
-    public void setNode(com.shumadlads.hallamhelper.hallamhelper.Models.Node node) {
-        Node = node;
-    }
     @Override
     public String toString() {
         return RoomName;
     }
-
 }

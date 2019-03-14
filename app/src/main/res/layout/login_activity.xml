@@ -47,6 +47,15 @@
                 android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/stayloggedin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Keep me logged in"
+            android:layout_weight="1"/>
+
         <TextView
             android:id="@+id/error"
             android:layout_width="wrap_content"

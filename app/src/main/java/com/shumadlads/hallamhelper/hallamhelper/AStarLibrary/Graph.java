@@ -3,31 +3,31 @@ package com.shumadlads.hallamhelper.hallamhelper.AStarLibrary;
 import java.util.*;
 public class Graph {
 
-    public ArrayList<Node> nodes =new ArrayList<Node>();
+    public ArrayList<GraphNode> graphNodes =new ArrayList<GraphNode>();
 
-    public void addNode(Node n1){
-        nodes.add(n1);
+    public void addNode(GraphNode n1){
+        graphNodes.add(n1);
     }
-    public void addStep(Node source, Node destination, double weight){
+    public void addStep(GraphNode source, GraphNode destination, double weight){
         source.steps.add(new Step(source,destination,weight));
         destination.steps.add(new Step(destination,source,weight));
     }
 
-    public Node getN(double x, double y){
-        for(int i = 0; i< nodes.size(); i++)
-            if(nodes.get(i).x==x&& nodes.get(i).y==y)
-                return nodes.get(i);
+    public GraphNode getN(double x, double y){
+        for(int i = 0; i< graphNodes.size(); i++)
+            if(graphNodes.get(i).x==x&& graphNodes.get(i).y==y)
+                return graphNodes.get(i);
 
         return null;
     }
 
-    public void Astar(Node start, Node destination){
+    public void Astar(GraphNode start, GraphNode destination){
         String text="Alg: A*(A star) ";
         //Init
         long startTime = System.nanoTime();
-        LinkedList<Node> CLOSED = new LinkedList<Node>();
+        LinkedList<GraphNode> CLOSED = new LinkedList<GraphNode>();
         comparator comparator = new comparator();
-        PriorityQueue<Node> OPEN = new PriorityQueue<Node>(1,comparator);
+        PriorityQueue<GraphNode> OPEN = new PriorityQueue<GraphNode>(1,comparator);
         start.d_value=0;
         start.f_value=0;
         OPEN.add(start);
@@ -36,7 +36,7 @@ public class Graph {
 
         while(!OPEN.isEmpty()){
 
-            Node extracted = OPEN.poll();
+            GraphNode extracted = OPEN.poll();
             extracted.discovered=true;
             CLOSED.add(extracted);
             if(extracted==destination){
@@ -49,7 +49,7 @@ public class Graph {
 
                 Step step = extracted.steps.get(i);
 
-                Node neighbor = step.destination;
+                GraphNode neighbor = step.destination;
                 if(neighbor.discovered==false){
 
                     heuristic(neighbor,destination);
@@ -72,11 +72,11 @@ public class Graph {
         if(destination.parent==null)
             text="This path does not exist"; //for debug
         else{
-            text+=" Node ne CLOSED: "+CLOSED.size();
+            text+=" GraphNode ne CLOSED: "+CLOSED.size();
             System.out.println();
 
-            Stack<Node> stack = new Stack<Node>();
-            Node current = destination;
+            Stack<GraphNode> stack = new Stack<GraphNode>();
+            GraphNode current = destination;
             while(current!=null){
                 stack.push(current);
                 current = current.parent;
@@ -86,7 +86,7 @@ public class Graph {
             text+=" Nr.Hops:"+hops+" Path length: "+String.format( "%.2f", path_length )+" Time: "+(stopTime-startTime)+" ns";
         }
     }
-    public void heuristic(Node n, Node destination){
+    public void heuristic(GraphNode n, GraphNode destination){
 
         n.h_value=Math.sqrt((n.x-destination.x)*(n.x-destination.x)+
                 (n.y-destination.y)*(n.y-destination.y));

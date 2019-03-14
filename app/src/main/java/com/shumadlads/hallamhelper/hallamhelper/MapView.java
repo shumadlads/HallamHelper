@@ -3,18 +3,18 @@ package com.shumadlads.hallamhelper.hallamhelper;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.os.AsyncTask;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.View;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.GraphNode;
 import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Step;
 import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Graph;
-import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Node;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Node;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Node_Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,12 @@ public class MapView extends AppCompatImageView {
     int animationtime = 500;
     float width, height;
     Graph graph = new Graph();
-    //int buttonClicked=0; //1-start 2-stop 3-nodes 4-edge 5-edgeStart 6-edgeStop
+    //int buttonClicked=0; //1-start 2-stop 3-graphNodes 4-edge 5-edgeStart 6-edgeStop
     int counter = 0;
 
     float start_x, start_y;
     float stop_x, stop_y;
-    Node edgeStart, edgeStop;
+    GraphNode edgeStart, edgeStop;
     int radius = 25;
     Paint paint = new Paint();
     async animationthread = new async();
@@ -59,10 +59,10 @@ public class MapView extends AppCompatImageView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         DisplayMetrics dm = getResources().getDisplayMetrics();
-        float density = (dm.density); // Used to convert pixels set on nodes to dp
-        for (int i = 0; i < graph.nodes.size(); i++) {
+        float density = (dm.density); // Used to convert pixels set on graphNodes to dp
+        for (int i = 0; i < graph.graphNodes.size(); i++) {
 
-            Node v = graph.nodes.get(i);
+            GraphNode v = graph.graphNodes.get(i);
 
             paint.setStyle(Paint.Style.FILL);
             if (v.x == start_x && v.y == start_y) {
@@ -74,15 +74,15 @@ public class MapView extends AppCompatImageView {
                 canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
             }
 
-            //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //debug draws circles on all nodes
+            //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //debug draws circles on all graphNodes
 
 
             paint.setColor(Color.WHITE);
             paint.setTextSize(80);
             paint.setColor(getResources().getColor(R.color.colorAccent));
-            for (int j = 0; j < graph.nodes.get(i).steps.size(); j++) {
-                Node v1 = graph.nodes.get(i);
-                Node v2 = v1.steps.get(j).destination;
+            for (int j = 0; j < graph.graphNodes.get(i).steps.size(); j++) {
+                GraphNode v1 = graph.graphNodes.get(i);
+                GraphNode v2 = v1.steps.get(j).destination;
 
                 if (v1.steps.get(j).isPath == 1) {
                     paint.setColor(getResources().getColor(R.color.colorAccent));
@@ -114,9 +114,9 @@ public class MapView extends AppCompatImageView {
         return true;
     }
 
-    public Node getNode(float x, float y) {
-        for (int i = 0; i < graph.nodes.size(); i++) {
-            Node v = graph.nodes.get(i);
+    public GraphNode getNode(float x, float y) {
+        for (int i = 0; i < graph.graphNodes.size(); i++) {
+            GraphNode v = graph.graphNodes.get(i);
             double d = Math.sqrt((x - v.x) * (x - v.x) + (y - v.y) * (y - v.y));
             if (d <= radius)
                 return v;
@@ -126,8 +126,8 @@ public class MapView extends AppCompatImageView {
     }
 
     public Graph freeGraph() {
-        for (int i = 0; i < graph.nodes.size(); i++) {
-            Node current = graph.nodes.get(i);
+        for (int i = 0; i < graph.graphNodes.size(); i++) {
+            GraphNode current = graph.graphNodes.get(i);
             current.parent = null;
             current.d_value = Double.POSITIVE_INFINITY;
             current.discovered = false;
@@ -141,7 +141,7 @@ public class MapView extends AppCompatImageView {
     }
 
     public String Astar() {
-        if (graph.nodes.size() == 0)
+        if (graph.graphNodes.size() == 0)
             return "You have not populated the route yet";
         graph = freeGraph();
         if (graph.getN(stop_x, stop_y) == null)
@@ -159,14 +159,14 @@ public class MapView extends AppCompatImageView {
         @Override
         protected Void doInBackground(Void... params) {
 
-            Node current = graph.getN(stop_x, stop_y);
+            GraphNode current = graph.getN(stop_x, stop_y);
             if (current.parent == null) {
 
                 return null;
             }
             while (current != graph.getN(start_x, start_y)) {
                 if (isCancelled()) break;
-                Node parent = current.parent;
+                GraphNode parent = current.parent;
                 Step e;
                 for (int i = 0; i < current.steps.size(); i++) {
                     Step current_step = current.steps.get(i);
@@ -208,21 +208,15 @@ public class MapView extends AppCompatImageView {
 
 
     public void embLevel1NodesAndRoutes(int roomFrom, int roomTo) {
-        //This will be removed when nodes are added to the database
-        List<Node> embLevel2 = new ArrayList<Node>();
-        embLevel2.add(new Node("3105Door", counter, 115, 100));
-        embLevel2.add(new Node("3105Corridor", counter, 115, 115));
-        embLevel2.add(new Node("3106Door", counter, 170, 100));
-        embLevel2.add(new Node("3106Corridor", counter, 170, 115));
-        embLevel2.add(new Node("NorthEastCornerCorridor", counter, 230, 115));
-        embLevel2.add(new Node("3114Door", counter, 250, 190));
-        embLevel2.add(new Node("3114Corridor", counter, 230, 190));
-        embLevel2.add(new Node("9999DoorEntrance", counter, 10, 245));
-        embLevel2.add(new Node("3118Corridor", counter, 80, 245));
-        embLevel2.add(new Node("MiddleCorridorWest", counter, 100, 160));
+        //This will be removed when graphNodes are added to the database
+        List<Node> nodes = SQLite.select().from(Node.class).where(Node_Table.Building.eq(4)).queryList();
+        List<GraphNode> embLevel2 = new ArrayList();
+        for (Node n:nodes) {
+            embLevel2.add(new GraphNode(n.getNodeName(),counter,n.getXCoord(),n.getYCoord()));
+        }
 
         for (int i = 0; i < embLevel2.size(); i++) {
-            Node temp = embLevel2.get(i);
+            GraphNode temp = embLevel2.get(i);
             graph.addNode(embLevel2.get(i));
         }
 
@@ -323,20 +317,20 @@ public class MapView extends AppCompatImageView {
             }
         }
         //setup empty node;
-        Node n = null;
+        GraphNode n = null;
 
 
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3105Door".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3105Door".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3105Corridor".equals(graph.nodes.get(i).getName())) {
+            if ("3105Corridor".equals(graph.graphNodes.get(i).getName())) {
                 //n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
-                n = graph.nodes.get(i).getThisNode();
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
@@ -344,15 +338,15 @@ public class MapView extends AppCompatImageView {
         graph.addStep(edgeStart, edgeStop, 1);
         //3105 Corridor to 3106 Corridor
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3105Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3105Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3106Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3106Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
@@ -361,15 +355,15 @@ public class MapView extends AppCompatImageView {
         //3106 Door to Corridor
 
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3106Door".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3106Door".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3106Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3106Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
@@ -378,15 +372,15 @@ public class MapView extends AppCompatImageView {
 
         //3106 Corridor to Corner
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3106Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3106Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("NorthEastCornerCorridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("NorthEastCornerCorridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
@@ -394,15 +388,15 @@ public class MapView extends AppCompatImageView {
         graph.addStep(edgeStart, edgeStop, 1);
         //Corner to 3114 Corridor
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("NorthEastCornerCorridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("NorthEastCornerCorridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3114Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3114Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
@@ -410,47 +404,47 @@ public class MapView extends AppCompatImageView {
         graph.addStep(edgeStart, edgeStop, 1);
         //3114 Corridor to Door
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3114Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3114Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3114Door".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3114Door".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
         }
         graph.addStep(edgeStart, edgeStop, 1);
-        //9999 Door/Entrance/Exit to 3118 Corridor Node
+        //9999 Door/Entrance/Exit to 3118 Corridor GraphNode
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("9999DoorEntrance".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("9999DoorEntrance".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3118Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3118Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
         }
         graph.addStep(edgeStart, edgeStop, 1);
-        //3118 Corridor Node to middle corridor left node
+        //3118 Corridor GraphNode to middle corridor left node
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3118Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3118Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("MiddleCorridorWest".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("MiddleCorridorWest".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
@@ -458,15 +452,15 @@ public class MapView extends AppCompatImageView {
         graph.addStep(edgeStart, edgeStop, 1);
         //middle corridor left node to 3105 corridor node
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("MiddleCorridorWest".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("MiddleCorridorWest".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStart = n;
                 break;
             }
         }
         for (int i = 0; i < embLevel2.size(); i++) {
-            if ("3105Corridor".equals(graph.nodes.get(i).getName())) {
-                n = graph.nodes.get(i).getThisNode();
+            if ("3105Corridor".equals(graph.graphNodes.get(i).getName())) {
+                n = graph.graphNodes.get(i).getThisNode();
                 edgeStop = n;
                 break;
             }
