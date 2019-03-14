@@ -60,11 +60,23 @@ public class NavigateFragment extends Fragment {
                 if(!(toTextView.getText().toString().matches(""))){
                     int roomToInt = Integer.parseInt(toTextView.getText().toString());
                     if(roomToInt != 0){
-                        int roomFromInt;
+                        int roomFromInt = 0;
                         if(!(fromTextView.getText().toString().matches(""))){
                             roomFromInt = Integer.parseInt(fromTextView.getText().toString());
-                        }else
-                            roomFromInt = 3999; //known empty
+                        }else { // Room from is empty and needs correct code generating for entrance of building
+                            String knownEmptyRoomCode = "99";
+                            int buildingFrom = ((((roomToInt / 10) / 10) / 10) % 10); // get first digit for building number
+                            switch (buildingFrom){
+                                case 3: {
+                                    roomFromInt = Integer.parseInt("31" + knownEmptyRoomCode); // if room code is emb, prefix 31 to get correct entrance
+                                    break;
+                                }
+                                case 9: {
+                                    roomFromInt = Integer.parseInt("90" + knownEmptyRoomCode); // if room code is cantor, prefix 90 to get correct entrance
+                                }
+
+                            }
+                        }
                         swapFragment(roomFromInt, roomToInt);
                     }
                     else {
