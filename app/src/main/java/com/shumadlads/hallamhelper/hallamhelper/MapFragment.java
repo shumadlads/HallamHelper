@@ -89,11 +89,13 @@ public class MapFragment extends Fragment {
         MapView mapBg = getActivity().findViewById(R.id.mapView);
 
         switch (buildingFrom) {
-            case 0: {
+            case 9: {
                 displayCantorMapBg(levelFrom, roomTo, mapBg);
+                break;
             }
             case 3: {
                 displayEMBMapBg(levelFrom, roomTo, mapBg);
+                break;
             }
         }
 
@@ -110,7 +112,6 @@ public class MapFragment extends Fragment {
             }
             case 1: {
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_1));
-
                 break;
             }
             case 2: {

@@ -27,12 +27,14 @@ public class MapView extends AppCompatImageView {
     //int buttonClicked=0; //1-start 2-stop 3-nodes 4-edge 5-edgeStart 6-edgeStop
     int counter = 0;
 
+    DisplayMetrics dm = getResources().getDisplayMetrics();
+    float density = (dm.density); // Used to convert pixels set on nodes to dp
     float start_x, start_y;
     float stop_x, stop_y;
     Node edgeStart, edgeStop;
-    int radius = 25;
+    int radius = 8;
     Paint paint = new Paint();
-    async animationthread = new async();
+    async animationthread = new async(); //draws line
 
     public MapView(Context context) {
         super(context);
@@ -58,8 +60,7 @@ public class MapView extends AppCompatImageView {
 
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        float density = (dm.density); // Used to convert pixels set on nodes to dp
+
         for (int i = 0; i < graph.nodes.size(); i++) {
 
             Node v = graph.nodes.get(i);
@@ -67,16 +68,15 @@ public class MapView extends AppCompatImageView {
             paint.setStyle(Paint.Style.FILL);
             if (v.x == start_x && v.y == start_y) {
                 paint.setColor(Color.GREEN);
-                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
+                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
             }
             if (v.x == stop_x && v.y == stop_y) {
                 paint.setColor(Color.RED);
-                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
+                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
             }
 
-            //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //debug draws circles on all nodes
-
-
+            canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); //debug draws circles on all nodes
+            //canvas.drawText(v.getName(), ((float) v.x) *density, ((float) v.y) *density, paint);
             paint.setColor(Color.WHITE);
             paint.setTextSize(80);
             paint.setColor(getResources().getColor(R.color.colorAccent));
@@ -102,9 +102,11 @@ public class MapView extends AppCompatImageView {
         switch (buildingFrom) {
             case 3: {
                 emb(levelFrom, roomFrom, roomTo);
+                break;
             }
             case 9: { // Building Code: Cantor
                 cantor(levelFrom, roomFrom, roomTo);
+                break;
             }
         }
 
@@ -190,9 +192,11 @@ public class MapView extends AppCompatImageView {
         switch (levelFrom) {
             case 1: {
                 embLevel1NodesAndRoutes(roomFrom, roomTo);
+                break;
             }
             case 9: { //THIS IS DEBUG NEEDS RECONSIDERING
                 embLevel1NodesAndRoutes(roomFrom, roomTo);
+                break;
             }
         }
     }
@@ -200,9 +204,83 @@ public class MapView extends AppCompatImageView {
     public void cantor(int levelFrom, int roomFrom, int roomTo) {
         switch (levelFrom) {
             case 0: {
-                embLevel1NodesAndRoutes(roomFrom, roomTo);
+                cantorLevel0NodesAndRoutes(roomFrom, roomTo);
+                break;
+            }
+            case 1: {
+                cantorLevel1NodesAndRoutes(roomFrom, roomTo);
+                break;
             }
 
+        }
+    }
+
+    public void cantorLevel0NodesAndRoutes(int roomFrom, int roomTo) {
+        List<Node> cantorLevel0 = new ArrayList<Node>();
+        //StairsAndLifts
+        cantorLevel0.add(new Node("StairsAndLiftBottomLeft", counter, 48, 385));
+        //StairsOnly
+        boolean useLiftsOnly = true;
+        if (useLiftsOnly == true) {
+            cantorLevel0.add(new Node("StairsToLevel1", counter, 145, 323));
+        }
+
+        cantorLevel0.add(new Node("9099DoorEntrance", counter, 20, 335));
+        cantorLevel0.add(new Node("InnerDoorTop", counter, 75, 335));
+        cantorLevel0.add(new Node("BottomStairwell", counter, 75, 385));
+
+        cantorLevel0.add(new Node("BottomMainLobby", counter, 110, 335));
+
+        cantorLevel0.add(new Node("9021Reception", counter, 145, 285));
+        cantorLevel0.add(new Node("9001Door", counter, 100, 230));
+        cantorLevel0.add(new Node("9002Door", counter, 100, 165));
+        cantorLevel0.add(new Node("9003Door", counter, 100, 115));
+        cantorLevel0.add(new Node("9005Door", counter, 80, 58));
+        cantorLevel0.add(new Node("9006Door", counter, 95, 58));
+        cantorLevel0.add(new Node("9011And9012Door", counter, 170, 58));
+        cantorLevel0.add(new Node("9013Door", counter, 205, 58));
+        cantorLevel0.add(new Node("9015And9016Door", counter, 235, 58));
+        cantorLevel0.add(new Node("9020Door", counter, 170, 115));
+        cantorLevel0.add(new Node("9022Door", counter, 145, 165));
+        cantorLevel0.add(new Node("9018Door", counter, 145, 190));
+        cantorLevel0.add(new Node("9019Door", counter, 210, 310));
+        cantorLevel0.add(new Node("9024And9025Door", counter, 223, 415));
+
+        for (int i = 0; i < cantorLevel0.size(); i++) {
+            Node temp = cantorLevel0.get(i);
+            graph.addNode(cantorLevel0.get(i));
+        }
+
+        switch (roomFrom) {
+            case 9099: { //entrance start node
+                for (int i = 0; i < graph.nodes.size(); i++) {
+                    if ("9099DoorEntrance".equals(graph.nodes.get(i).getName())) {
+                        start_x = (float) graph.nodes.get(i).getX();
+                        start_y = (float) graph.nodes.get(i).getY();
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+
+    }
+
+    public void cantorLevel1NodesAndRoutes(int roomFrom, int roomTo) {
+        List<Node> cantorLevel1 = new ArrayList<Node>();
+        //StairsAndLifts
+        cantorLevel1.add(new Node("StairsAndLiftBottomLeft", counter,50, 383));
+        //StairsOnly
+        boolean useLiftsOnly = true;
+        if (useLiftsOnly == true)
+        {
+            cantorLevel1.add(new Node("StairsToLevel0", counter,200, 322));
+        }
+
+        for (int i = 0; i < cantorLevel1.size(); i++) {
+            Node temp = cantorLevel1.get(i);
+            graph.addNode(cantorLevel1.get(i));
         }
     }
 
@@ -258,7 +336,7 @@ public class MapView extends AppCompatImageView {
                 }
                 break;
             }
-            case 3999: {
+            case 3199: {
                 break;
             }
             default: {
@@ -298,7 +376,7 @@ public class MapView extends AppCompatImageView {
                 }
                 break;
             }
-            case 3999: {
+            case 3199: {
                 for (int i = 0; i < embLevel2.size(); i++) {
                     if ("9999DoorEntrance".equals(embLevel2.get(i).getName())) {
                         start_x = (float) embLevel2.get(i).getX();

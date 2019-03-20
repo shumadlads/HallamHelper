@@ -7,14 +7,14 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
-    boolean isLoggedin = false ;
+    boolean isLoggedIn = false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if(isLoggedin == false)
+        if(isLoggedIn == true)
 
         {Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
