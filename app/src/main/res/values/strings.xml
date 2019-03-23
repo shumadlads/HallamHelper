@@ -26,6 +26,7 @@
         <item>Mcdonalds</item>
         <item>EMB</item>
     </string-array>
+    <string name="title_activity_map">MapActivity</string>
 
 
 </resources>
