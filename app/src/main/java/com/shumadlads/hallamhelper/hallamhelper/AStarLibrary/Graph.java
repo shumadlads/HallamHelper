@@ -72,7 +72,7 @@ public class Graph {
         if(destination.parent==null)
             text="This path does not exist"; //for debug
         else{
-            text+=" Node ne CLOSED: "+CLOSED.size();
+            //text+=" Node ne CLOSED: "+CLOSED.size();
             System.out.println();
 
             Stack<Node> stack = new Stack<Node>();
@@ -83,13 +83,66 @@ public class Graph {
             }
             int hops = stack.size() - 1;
             double path_length = destination.d_value;
-            text+=" Nr.Hops:"+hops+" Path length: "+String.format( "%.2f", path_length )+" Time: "+(stopTime-startTime)+" ns";
+            //text+=" Nr.Hops:"+hops+" Path length: "+String.format( "%.2f", path_length )+" Time: "+(stopTime-startTime)+" ns";
         }
     }
     public void heuristic(Node n, Node destination){
 
         n.h_value=Math.sqrt((n.x-destination.x)*(n.x-destination.x)+
                 (n.y-destination.y)*(n.y-destination.y));
+    }
+
+    public double pathCount(Node start, Node destination){
+        //Init
+
+        comparator comparator = new comparator();
+        PriorityQueue<Node> OPEN = new PriorityQueue<Node>(1,comparator);
+        start.d_value=0;
+        start.f_value=0;
+        OPEN.add(start);
+
+
+
+        while(!OPEN.isEmpty()){
+
+            Node extracted = OPEN.poll();
+            extracted.discovered=true;
+            if(extracted==destination){
+                break;
+            }
+
+
+            for(int i = 0; i<extracted.steps.size(); i++){
+
+                Step step = extracted.steps.get(i);
+
+                Node neighbor = step.destination;
+                if(!neighbor.discovered){
+
+                    heuristic(neighbor,destination);
+                    if(neighbor.f_value>extracted.f_value+ step.weight){
+                        neighbor.d_value=extracted.d_value+ step.weight;
+                        heuristic(neighbor,destination);
+                        neighbor.f_value=neighbor.d_value+neighbor.h_value;
+                        neighbor.parent=extracted;
+
+                        OPEN.remove(neighbor);
+                        OPEN.add(neighbor);
+                    }
+                }
+
+            }
+        }
+
+
+        if(destination.parent==null)
+            return Double.POSITIVE_INFINITY;
+        else{
+            System.out.println();
+
+            double path_length = destination.d_value;
+            return path_length;
+        }
     }
 
 

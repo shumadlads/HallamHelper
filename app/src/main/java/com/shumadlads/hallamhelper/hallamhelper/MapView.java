@@ -26,6 +26,7 @@ public class MapView extends AppCompatImageView {
     Graph graph = new Graph();
     //int buttonClicked=0; //1-start 2-stop 3-nodes 4-edge 5-edgeStart 6-edgeStop
     int counter = 0;
+    boolean useLiftsOnly = false;
 
     DisplayMetrics dm = getResources().getDisplayMetrics();
     float density = (dm.density); // Used to convert pixels set on nodes to dp
@@ -128,17 +129,6 @@ public class MapView extends AppCompatImageView {
         return true;
     }
 
-    public Node getNode(float x, float y) {
-        for (int i = 0; i < graph.nodes.size(); i++) {
-            Node v = graph.nodes.get(i);
-            double d = Math.sqrt((x - v.x) * (x - v.x) + (y - v.y) * (y - v.y));
-            if (d <= radius)
-                return v;
-        }
-        return null;
-
-    }
-
     public Graph freeGraph() {
         for (int i = 0; i < graph.nodes.size(); i++) {
             Node current = graph.nodes.get(i);
@@ -232,8 +222,8 @@ public class MapView extends AppCompatImageView {
         //StairsAndLifts
         cantorLevel0.add(new Node("StairsAndLiftBottomLeft", counter, 48, 385));
         //StairsOnly
-        boolean useLiftsOnly = true;
-        if (useLiftsOnly) {
+
+        if (!useLiftsOnly) {
             cantorLevel0.add(new Node("StairsToLevel1", counter, 145, 323));
         }
 
@@ -263,12 +253,26 @@ public class MapView extends AppCompatImageView {
             graph.addNode(cantorLevel0.get(i));
         }
 
+        //setup empty node;
+        Node n = null;
+
+        if (!useLiftsOnly) {
+            addStep("BottomMainLobby", "StairsToLevel1");
+        }
+
+        addStep("9099DoorEntrance", "InnerDoorTop");
+        addStep("InnerDoorTop", "BottomStairwell");
+        addStep("BottomStairwell", "StairsAndLiftBottomLeft");
+        addStep("InnerDoorTop", "BottomMainLobby");
+
         switch (roomFrom) {
             case 9099: { //entrance start node
                 setStartNode("9099DoorEntrance");
                 break;
             }
         }
+
+
 
         int levelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
 
@@ -282,7 +286,14 @@ public class MapView extends AppCompatImageView {
         } else { // Route going to different floor
             switch (levelTo) {
                 case 0: case 1: case 2: case 3: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
+                    List<String> stairsAndElevators = new ArrayList<String>();
+                    stairsAndElevators.add("StairsAndLiftBottomLeft");
+                    List<String> stairsOnly = new ArrayList<String>();
+                    stairsOnly.add("StairsToLevel1");
+
+                    Node startNode = graph.getN(start_x, start_y);
+                    Node stairNode = getNearestStairNode(startNode, stairsAndElevators, stairsOnly);
+                    setEndNode(stairNode.name);
                     break;
                 }
                 case 4: { //entrance start node
@@ -292,21 +303,6 @@ public class MapView extends AppCompatImageView {
             }
         }
 
-        //setup empty node;
-        Node n = null;
-
-
-
-        if (useLiftsOnly) {
-            addStep("BottomMainLobby", "StairsToLevel1");
-        }
-
-        addStep("9099DoorEntrance", "InnerDoorTop");
-        addStep("InnerDoorTop", "BottomStairwell");
-        addStep("BottomStairwell", "StairsAndLiftBottomLeft");
-        addStep("InnerDoorTop", "BottomMainLobby");
-
-
     }
 
     public void cantorLevel1NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
@@ -315,7 +311,7 @@ public class MapView extends AppCompatImageView {
         cantorLevel1.add(new Node("StairsAndLiftBottomLeft", counter,50, 383));
         //StairsOnly
         boolean useLiftsOnly = true;
-        if (useLiftsOnly)
+        if (!useLiftsOnly)
         {
             cantorLevel1.add(new Node("StairsToLevel0", counter,200, 322));
         }
@@ -620,6 +616,33 @@ public class MapView extends AppCompatImageView {
                 break;
             }
         }
+    }
+
+    public Node getNearestStairNode(Node startNode, List<String> elevatorAndStairNames, List<String> stairOnlyNames) {
+        Node returnNode = new Node("", 0, 0, 0);
+        double leastSteps = Double.POSITIVE_INFINITY;
+
+        if (!useLiftsOnly) {
+            elevatorAndStairNames.addAll(stairOnlyNames);
+        }
+
+        for (int i = 0; i < elevatorAndStairNames.size(); i++) {
+            for (int j = 0; j < graph.nodes.size(); j++) {
+                if (elevatorAndStairNames.get(i).equals(graph.nodes.get(j).getName())) {
+
+                    Node tempNode = graph.nodes.get(j);
+                    graph = freeGraph();
+                    double compareSteps = graph.pathCount(startNode, tempNode);
+
+                    if (leastSteps > compareSteps) {
+                        leastSteps = compareSteps;
+                        returnNode = tempNode;
+                    }
+                    break;
+                }
+            }
+        }
+        return returnNode;
     }
 
     public void addStep (String stepStart, String stepEnd) {
