@@ -8,12 +8,14 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,10 +47,30 @@ public class NavigateFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.navigate_fragment, container, false);
         InitToolBar(view);
-        ImageView searchFindIcon = view.findViewById(R.id.searchFindIcon);
+        Button searchFindIcon = view.findViewById(R.id.searchFindIcon);
         ImageView switchIcon = view.findViewById(R.id.switchIcon);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
         final TextView fromTextView = view.findViewById(R.id.textInputFrom);
+        final CardView cardCantor = view.findViewById(R.id.card_view_cantor);
+        final CardView cardEmb = view.findViewById(R.id.card_view_emb);
+
+        cardCantor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapFragment(9000, 0000);
+
+            }
+        });
+        cardEmb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swapFragment(3000, 0000);
+
+            }
+        });
+
+
+
         //onSearchFindIconClick
         searchFindIcon.setOnClickListener(new View.OnClickListener() {
             @Override

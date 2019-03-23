@@ -21,7 +21,234 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-<LinearLayout
+    <LinearLayout
+        android:paddingBottom="15px"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="90dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true">
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Navigate Hallam"
+            android:textSize="16pt"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+
+            />
+        <TextView
+            android:gravity="center_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your room number"
+            android:textSize="8pt"
+            android:paddingBottom="10dp"
+            />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+
+
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="40dp">
+
+            <android.support.design.widget.TextInputLayout
+
+                android:id="@+id/findRoomFromInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="150dp"
+                android:layout_height="56dp"
+
+                android:layout_marginTop="6dp"
+
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/textInputFrom"
+                    android:layout_width="match_parent"
+
+
+                    android:layout_height="wrap_content"
+                    android:hint="@string/from"
+                    android:inputType="number"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+
+                android:id="@+id/findRoomToInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                android:layout_marginLeft="10dp"
+                android:layout_width="150dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="6dp"
+
+
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/findRoomFromInputLayout"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/textInputTo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/to"
+                    android:inputType="number"
+                    />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/switchIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/switch_icon_context"
+                android:src="@drawable/ic_baseline_shuffle_24px"
+                android:tint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/findRoomToInputLayout"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+<Button
+    android:id="@+id/searchFindIcon"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Search"
+    />
+        
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_emb"
+                android:layout_width="fill_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:clickable="true">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#303030"
+                    android:backgroundTint="#303030"
+                    >
+
+
+                    <ImageView
+                        android:id="@+id/thumbnailemb"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/emb" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="119dp"
+                        android:text="EMB"
+                        android:textSize="14pt"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_view_cantor"
+                android:layout_width="fill_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:paddingBottom="10dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_view_emb">
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#303030"
+                    android:backgroundTint="#303030">
+
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shuatnight" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Cantor"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
+                </FrameLayout>
+            </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_view_owen"
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:paddingBottom="10dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_view_emb">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#303030"
+                android:backgroundTint="#303030">
+
+
+                <ImageView
+                    android:id="@+id/thumbnailowen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/citycontent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Owen Building"
+                    android:textSize="14pt"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+    </LinearLayout>
+<!--<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -30,7 +257,7 @@
     android:paddingRight="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!-- TODO: Update blank fragment layout -->
+    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;
 
 
     <android.support.constraint.ConstraintLayout
@@ -41,6 +268,11 @@
 
         tools:layout_editor_absoluteX="24dp"
         tools:layout_editor_absoluteY="40dp">
+        <TextView
+            android:id="@+id/text_view_id"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Find your next session" />
 
 
         <android.support.design.widget.TextInputLayout
@@ -60,6 +292,7 @@
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/textInputFrom"
                 android:layout_width="match_parent"
+
 
                 android:layout_height="wrap_content"
                 android:hint="@string/from"
@@ -190,5 +423,5 @@
     </android.support.constraint.ConstraintLayout>
 
 
-</LinearLayout>
+</LinearLayout>-->
 </android.support.design.widget.CoordinatorLayout>
