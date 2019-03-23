@@ -66,31 +66,43 @@ public class MapView extends AppCompatImageView {
             Node v = graph.nodes.get(i);
 
             paint.setStyle(Paint.Style.FILL);
+            paint.setColor(getResources().getColor(R.color.colorAccent));
             if (v.x == start_x && v.y == start_y) {
                 paint.setColor(Color.GREEN);
-                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
+                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); // comment out when all node drawn debug is uncommented
             }
             if (v.x == stop_x && v.y == stop_y) {
                 paint.setColor(Color.RED);
-                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); //comment out when all node drawn debug is uncommented
+                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); // comment out when all node drawn debug is uncommented
             }
 
-            canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); //debug draws circles on all nodes
-            //canvas.drawText(v.getName(), ((float) v.x) *density, ((float) v.y) *density, paint);
-            paint.setColor(Color.WHITE);
-            paint.setTextSize(80);
+            canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
+
+
+
+
+
             paint.setColor(getResources().getColor(R.color.colorAccent));
             for (int j = 0; j < graph.nodes.get(i).steps.size(); j++) {
                 Node v1 = graph.nodes.get(i);
                 Node v2 = v1.steps.get(j).destination;
 
                 if (v1.steps.get(j).isPath == 1) {
-                    paint.setColor(getResources().getColor(R.color.colorAccent));
-                    paint.setStyle(Paint.Style.STROKE);
-                    paint.setStrokeWidth(10);
-                    canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint);
+                    //paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
+                    //paint.setStyle(Paint.Style.STROKE);                            // Comment when all edge debug
+                    //paint.setStrokeWidth(10 * density);                            // Comment when all edge debug
+                    //canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug
                 }
+                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
+                paint.setStyle(Paint.Style.STROKE);                                // Uncomment for all edge debug
+                paint.setStrokeWidth(5 * density);                                 // Uncomment for all edge debug
+                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug
             }
+
+            paint.setColor(Color.WHITE);
+            paint.setStyle(Paint.Style.FILL);
+            paint.setTextSize(7 * density);
+            canvas.drawText(v.getName(), ((float) v.x) *density, ((float) v.y - 10) *density, paint);
         }
     }
 
@@ -204,24 +216,24 @@ public class MapView extends AppCompatImageView {
     public void cantor(int levelFrom, int roomFrom, int roomTo) {
         switch (levelFrom) {
             case 0: {
-                cantorLevel0NodesAndRoutes(roomFrom, roomTo);
+                cantorLevel0NodesAndRoutes(levelFrom, roomFrom, roomTo);
                 break;
             }
             case 1: {
-                cantorLevel1NodesAndRoutes(roomFrom, roomTo);
+                cantorLevel1NodesAndRoutes(levelFrom, roomFrom, roomTo);
                 break;
             }
 
         }
     }
 
-    public void cantorLevel0NodesAndRoutes(int roomFrom, int roomTo) {
+    public void cantorLevel0NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<Node> cantorLevel0 = new ArrayList<Node>();
         //StairsAndLifts
         cantorLevel0.add(new Node("StairsAndLiftBottomLeft", counter, 48, 385));
         //StairsOnly
         boolean useLiftsOnly = true;
-        if (useLiftsOnly == true) {
+        if (useLiftsOnly) {
             cantorLevel0.add(new Node("StairsToLevel1", counter, 145, 323));
         }
 
@@ -253,29 +265,67 @@ public class MapView extends AppCompatImageView {
 
         switch (roomFrom) {
             case 9099: { //entrance start node
-                for (int i = 0; i < graph.nodes.size(); i++) {
-                    if ("9099DoorEntrance".equals(graph.nodes.get(i).getName())) {
-                        start_x = (float) graph.nodes.get(i).getX();
-                        start_y = (float) graph.nodes.get(i).getY();
-                        break;
-                    }
-                }
+                setStartNode("9099DoorEntrance");
                 break;
             }
         }
 
+        int levelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
+
+        if (levelTo == levelFrom){
+            switch (roomTo) {
+                case 9099: { //entrance start node
+                    setEndNode("9099DoorEntrance");
+                    break;
+                }
+            }
+        } else { // Route going to different floor
+            switch (levelTo) {
+                case 0: case 1: case 2: case 3: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
+                case 4: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
+            }
+        }
+
+        //setup empty node;
+        Node n = null;
+
+
+
+        if (useLiftsOnly) {
+            addStep("BottomMainLobby", "StairsToLevel1");
+        }
+
+        addStep("9099DoorEntrance", "InnerDoorTop");
+        addStep("InnerDoorTop", "BottomStairwell");
+        addStep("BottomStairwell", "StairsAndLiftBottomLeft");
+        addStep("InnerDoorTop", "BottomMainLobby");
+
 
     }
 
-    public void cantorLevel1NodesAndRoutes(int roomFrom, int roomTo) {
+    public void cantorLevel1NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<Node> cantorLevel1 = new ArrayList<Node>();
         //StairsAndLifts
         cantorLevel1.add(new Node("StairsAndLiftBottomLeft", counter,50, 383));
         //StairsOnly
         boolean useLiftsOnly = true;
-        if (useLiftsOnly == true)
+        if (useLiftsOnly)
         {
             cantorLevel1.add(new Node("StairsToLevel0", counter,200, 322));
+        }
+
+
+
+        int levelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
+
+        if (levelTo == levelFrom){
+
         }
 
         for (int i = 0; i < cantorLevel1.size(); i++) {
@@ -302,46 +352,6 @@ public class MapView extends AppCompatImageView {
         for (int i = 0; i < embLevel2.size(); i++) {
             Node temp = embLevel2.get(i);
             graph.addNode(embLevel2.get(i));
-        }
-
-        switch (roomTo) {
-            case 3114: {
-                for (int i = 0; i < embLevel2.size(); i++) {
-                    if ("3114Door".equals(embLevel2.get(i).getName())) {
-                        stop_x = (float) embLevel2.get(i).getX();
-                        stop_y = (float) embLevel2.get(i).getY();
-                        break;
-                    }
-                }
-                break;
-            }
-
-            case 3106: {
-                for (int i = 0; i < embLevel2.size(); i++) {
-                    if ("3106Door".equals(embLevel2.get(i).getName())) {
-                        stop_x = (float) embLevel2.get(i).getX();
-                        stop_y = (float) embLevel2.get(i).getY();
-                        break;
-                    }
-                }
-                break;
-            }
-            case 3105: {
-                for (int i = 0; i < embLevel2.size(); i++) {
-                    if ("3105Door".equals(embLevel2.get(i).getName())) {
-                        stop_x = (float) embLevel2.get(i).getX();
-                        stop_y = (float) embLevel2.get(i).getY();
-                        break;
-                    }
-                }
-                break;
-            }
-            case 3199: {
-                break;
-            }
-            default: {
-                break;
-            }
         }
 
         switch (roomFrom) {
@@ -394,6 +404,46 @@ public class MapView extends AppCompatImageView {
                         break;
                     }
                 }
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        switch (roomTo) {
+            case 3114: {
+                for (int i = 0; i < embLevel2.size(); i++) {
+                    if ("3114Door".equals(embLevel2.get(i).getName())) {
+                        stop_x = (float) embLevel2.get(i).getX();
+                        stop_y = (float) embLevel2.get(i).getY();
+                        break;
+                    }
+                }
+                break;
+            }
+
+            case 3106: {
+                for (int i = 0; i < embLevel2.size(); i++) {
+                    if ("3106Door".equals(embLevel2.get(i).getName())) {
+                        stop_x = (float) embLevel2.get(i).getX();
+                        stop_y = (float) embLevel2.get(i).getY();
+                        break;
+                    }
+                }
+                break;
+            }
+            case 3105: {
+                for (int i = 0; i < embLevel2.size(); i++) {
+                    if ("3105Door".equals(embLevel2.get(i).getName())) {
+                        stop_x = (float) embLevel2.get(i).getX();
+                        stop_y = (float) embLevel2.get(i).getY();
+                        break;
+                    }
+                }
+                break;
+            }
+            case 3199: {
                 break;
             }
             default: {
@@ -551,4 +601,45 @@ public class MapView extends AppCompatImageView {
         }
         graph.addStep(edgeStart, edgeStop, 1);
     }
+
+    public void setStartNode(String nodeStart) {
+        for (int i = 0; i < graph.nodes.size(); i++) {
+            if (nodeStart.equals(graph.nodes.get(i).getName())) {
+                start_x = (float) graph.nodes.get(i).getX();
+                start_y = (float) graph.nodes.get(i).getY();
+                break;
+            }
+        }
+    }
+
+    public void setEndNode(String nodeEnd) {
+        for (int i = 0; i < graph.nodes.size(); i++) {
+            if (nodeEnd.equals(graph.nodes.get(i).getName())) {
+                stop_x = (float) graph.nodes.get(i).getX();
+                stop_y = (float) graph.nodes.get(i).getY();
+                break;
+            }
+        }
+    }
+
+    public void addStep (String stepStart, String stepEnd) {
+        Node n;
+        for (int i = 0; i < graph.nodes.size(); i++) {
+            if (stepStart.equals(graph.nodes.get(i).getName())) {
+                n = graph.nodes.get(i).getThisNode();
+                edgeStart = n;
+                break;
+            }
+        }
+        for (int i = 0; i < graph.nodes.size(); i++) {
+            if (stepEnd.equals(graph.nodes.get(i).getName())) {
+                //n = getNode((float) embLevel2.get(i).getX(), (float) embLevel2.get(i).getY());
+                n = graph.nodes.get(i).getThisNode();
+                edgeStop = n;
+                break;
+            }
+        }
+        graph.addStep(edgeStart, edgeStop, 1);
+    }
 }
+
