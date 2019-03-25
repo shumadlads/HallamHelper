@@ -20,8 +20,6 @@ import com.devs.vectorchildfinder.VectorDrawableCompat;
 
 public class MapFragment extends Fragment {
 
-
-
     public MapFragment() {
         // Required empty public constructor
     }

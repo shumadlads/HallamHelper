@@ -1,6 +1,7 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -57,14 +58,14 @@ public class NavigateFragment extends Fragment {
         cardCantor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swapFragment(9000, 0000);
+                setIntent(9000, 0000);
 
             }
         });
         cardEmb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                swapFragment(3000, 0000);
+                setIntent(3000, 0000);
 
             }
         });
@@ -99,7 +100,7 @@ public class NavigateFragment extends Fragment {
 
                             }
                         }
-                        swapFragment(roomFromInt, roomToInt);
+                        setIntent(roomFromInt, roomToInt);
                     }
                     else {
                         errorToast();
@@ -126,17 +127,14 @@ public class NavigateFragment extends Fragment {
         return view;
     }
 
-    private void swapFragment(int from, int to){
-        MapFragment mapFragment = new MapFragment();
+    private void setIntent(int from, int to){
+        //MapFragment mapFragment = new MapFragment();
+        Intent mapIntent = new Intent(getActivity(), MapActivity.class);
         Bundle b = new Bundle();
         b.putInt("RoomTo", to);
         b.putInt("RoomFrom", from);
-        mapFragment.setArguments(b);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, mapFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
+        mapIntent.putExtras(b);
+        startActivity(mapIntent);
     }
 
     public void InitToolBar(View view) {

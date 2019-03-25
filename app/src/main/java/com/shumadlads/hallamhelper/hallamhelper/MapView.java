@@ -220,33 +220,33 @@ public class MapView extends AppCompatImageView {
     public void cantorLevel0NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<Node> cantorLevel0 = new ArrayList<Node>();
         //StairsAndLifts
-        cantorLevel0.add(new Node("StairsAndLiftBottomLeft", counter, 48, 385));
+        cantorLevel0.add(new Node("StairsAndLiftBottomLeft", counter, 45, 368));
         //StairsOnly
 
         if (!useLiftsOnly) {
-            cantorLevel0.add(new Node("StairsToLevel1", counter, 145, 323));
+            cantorLevel0.add(new Node("StairsToLevel1", counter, 140, 310));
         }
 
-        cantorLevel0.add(new Node("9099DoorEntrance", counter, 20, 335));
-        cantorLevel0.add(new Node("InnerDoorTop", counter, 75, 335));
-        cantorLevel0.add(new Node("BottomStairwell", counter, 75, 385));
+        cantorLevel0.add(new Node("9099DoorEntrance", counter, 18, 320));
+        cantorLevel0.add(new Node("InnerDoorTop", counter, 65, 320));
+        cantorLevel0.add(new Node("BottomStairwell", counter, 65, 368));
 
-        cantorLevel0.add(new Node("BottomMainLobby", counter, 110, 335));
+        cantorLevel0.add(new Node("BottomMainLobby", counter, 105, 320));
 
-        cantorLevel0.add(new Node("9021Reception", counter, 145, 285));
-        cantorLevel0.add(new Node("9001Door", counter, 100, 230));
-        cantorLevel0.add(new Node("9002Door", counter, 100, 165));
-        cantorLevel0.add(new Node("9003Door", counter, 100, 115));
-        cantorLevel0.add(new Node("9005Door", counter, 80, 58));
-        cantorLevel0.add(new Node("9006Door", counter, 95, 58));
-        cantorLevel0.add(new Node("9011And9012Door", counter, 170, 58));
-        cantorLevel0.add(new Node("9013Door", counter, 205, 58));
-        cantorLevel0.add(new Node("9015And9016Door", counter, 235, 58));
-        cantorLevel0.add(new Node("9020Door", counter, 170, 115));
-        cantorLevel0.add(new Node("9022Door", counter, 145, 165));
-        cantorLevel0.add(new Node("9018Door", counter, 145, 190));
-        cantorLevel0.add(new Node("9019Door", counter, 210, 310));
-        cantorLevel0.add(new Node("9024And9025Door", counter, 223, 415));
+        cantorLevel0.add(new Node("9021Reception", counter, 140, 273));
+        cantorLevel0.add(new Node("9001Door", counter, 95, 215));
+        cantorLevel0.add(new Node("9002Door", counter, 95, 165));
+        cantorLevel0.add(new Node("9003Door", counter, 95, 112));
+        cantorLevel0.add(new Node("9005Door", counter, 71, 55));
+        cantorLevel0.add(new Node("9006Door", counter, 90, 55));
+        cantorLevel0.add(new Node("9011And9012Door", counter, 165, 55));
+        cantorLevel0.add(new Node("9013Door", counter, 200, 55));
+        cantorLevel0.add(new Node("9015And9016Door", counter, 227, 55));
+        cantorLevel0.add(new Node("9020Door", counter, 165, 112));
+        cantorLevel0.add(new Node("9022Door", counter, 140, 160));
+        cantorLevel0.add(new Node("9018Door", counter, 140, 185));
+        cantorLevel0.add(new Node("9019Door", counter, 205, 295));
+        cantorLevel0.add(new Node("9024And9025Door", counter, 215, 400));
 
         for (int i = 0; i < cantorLevel0.size(); i++) {
             Node temp = cantorLevel0.get(i);

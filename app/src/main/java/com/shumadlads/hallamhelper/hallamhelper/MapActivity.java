@@ -4,24 +4,39 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.devs.vectorchildfinder.VectorChildFinder;
 import com.devs.vectorchildfinder.VectorDrawableCompat;
 
-public class MapActivity extends Activity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    Bundle args = getIntent().getExtras();
+public class MapActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = findViewById(R.id.map_Toolbar);
+        setSupportActionBar(toolbar);
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Building Map");
+
     }
 
     public void onStart() {
         super.onStart();
+        Bundle args = getIntent().getExtras();
+        //getSupportActionBar().setTitle(args.getString("Building"));
         int tempFrom = args.getInt("RoomFrom");
         int tempTo = args.getInt("RoomTo");
 
@@ -29,8 +44,21 @@ public class MapActivity extends Activity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Level is " + levelFrom, Toast.LENGTH_LONG);
         toast.show();// do something
+        Spinner spinner = findViewById(R.id.spinner);
+        String[] plants = new String[]{
+                "Black birch",
+                "European weeping birch"
+        };
 
-        ///ImageView mapBg = getActivity().findViewById(R.id.backgroundImageView); // To Remove - Gareth 11/03/2019
+        final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
+
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.building_level_select_item,plantsList);
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+
         MapView mapView = findViewById(R.id.mapView);
         mapView.onPopulate(tempFrom, tempTo);
         String text = mapView.Astar(); // todo - change to void method - Gareth 11/03/2019
@@ -41,7 +69,7 @@ public class MapActivity extends Activity {
 
         super.onResume();
         //Following code has to be in onResume otherwise it is overwritten at the end of onStart
-
+        Bundle args = getIntent().getExtras();
         int tempFrom = args.getInt("RoomFrom");
         int tempTo = args.getInt("RoomTo");
         displayMapBg(tempFrom, tempTo);
