@@ -268,11 +268,15 @@ public class MapView extends AppCompatImageView {
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
 
 
-        //SET START
+        //CANTOR LEVEL 0 - SET START
         if (roomCodeLevelFrom == levelFrom) {
             switch (roomFrom) {
                 case 9099: { //entrance start node
                     setStartNode("9099DoorEntrance");
+                    break;
+                }
+                case 9098: { //Building select node
+                    //do not assign node.
                     break;
                 }
                 default: {
@@ -297,7 +301,7 @@ public class MapView extends AppCompatImageView {
             }
         }
 
-        //SET STOP
+        //CANTOR LEVEL 0 - SET STOP
         if (roomCodeLevelTo == levelFrom) {
             switch (roomTo) {
                 case 9099: { //entrance start node
@@ -356,7 +360,7 @@ public class MapView extends AppCompatImageView {
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
         int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
 
-        //SET START
+        //CANTOR LEVEL 1 - SET START
         if (levelFrom == roomCodeLevelFrom) {
             switch (roomFrom) {
                 case 9141: {
@@ -384,7 +388,7 @@ public class MapView extends AppCompatImageView {
             }
         }
 
-        //SET STOP
+        //CANTOR LEVEL 1 - SET STOP
         if (roomCodeLevelTo == levelFrom) {
             switch (roomTo) {
                 case 9141: {
