@@ -97,7 +97,7 @@ public class MapView extends AppCompatImageView {
                 canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug
             }
 
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.BLUE);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextSize(7 * density);
             canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);
