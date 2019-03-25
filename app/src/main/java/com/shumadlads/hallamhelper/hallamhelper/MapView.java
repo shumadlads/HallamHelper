@@ -21,10 +21,8 @@ import java.util.List;
 
 
 public class MapView extends AppCompatImageView {
-    int animationtime = 500;
     float width, height;
     Graph graph = new Graph();
-    //int buttonClicked=0; //1-start 2-stop 3-nodes 4-edge 5-edgeStart 6-edgeStop
     int counter = 0;
     boolean useLiftsOnly = false;
 
@@ -36,6 +34,7 @@ public class MapView extends AppCompatImageView {
     int radius = 8;
     Paint paint = new Paint();
     async animationthread = new async(); //draws line
+    Node stairwellNode;
 
     public MapView(Context context) {
         super(context);
@@ -55,6 +54,7 @@ public class MapView extends AppCompatImageView {
     public void init(AttributeSet attrs, int defStyle) {
         paint.setColor(Color.BLACK);
         paint.setAntiAlias(true);
+
 
     }
 
@@ -80,9 +80,6 @@ public class MapView extends AppCompatImageView {
             canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
 
 
-
-
-
             paint.setColor(getResources().getColor(R.color.colorAccent));
             for (int j = 0; j < graph.nodes.get(i).steps.size(); j++) {
                 Node v1 = graph.nodes.get(i);
@@ -103,14 +100,16 @@ public class MapView extends AppCompatImageView {
             paint.setColor(Color.WHITE);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextSize(7 * density);
-            canvas.drawText(v.getName(), ((float) v.x) *density, ((float) v.y - 10) *density, paint);
+            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);
         }
     }
 
-    public boolean onPopulate(int roomFrom, int roomTo) {
+    public boolean onPopulate(int levelFrom, int roomFrom, int roomTo) {
+        graph.nodes.clear(); // Reset graph nodes if MapView is being repopulated
+        //graph = new Graph();
 
         int buildingFrom = ((((roomFrom / 10) / 10) / 10) % 10); // get first digit for building number
-        int levelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
+        //int levelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
 
         switch (buildingFrom) {
             case 3: {
@@ -265,27 +264,53 @@ public class MapView extends AppCompatImageView {
         addStep("BottomStairwell", "StairsAndLiftBottomLeft");
         addStep("InnerDoorTop", "BottomMainLobby");
 
-        switch (roomFrom) {
-            case 9099: { //entrance start node
-                setStartNode("9099DoorEntrance");
-                break;
+        int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
+        int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
+
+
+        //SET START
+        if (roomCodeLevelFrom == levelFrom) {
+            switch (roomFrom) {
+                case 9099: { //entrance start node
+                    setStartNode("9099DoorEntrance");
+                    break;
+                }
+                default: {
+                    setStartNode("9099DoorEntrance"); // If node isn't found, set start node as main entrance
+                }
+            }
+        } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelFrom) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    Node stairwellFrom = getStairwellNode(stairwellNode);
+                    if (stairwellFrom != null)
+                        setStartNode(stairwellFrom.getName());
+                    break;
+                }
+                case 4: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
             }
         }
 
-
-
-        int levelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
-
-        if (levelTo == levelFrom){
+        //SET STOP
+        if (roomCodeLevelTo == levelFrom) {
             switch (roomTo) {
                 case 9099: { //entrance start node
                     setEndNode("9099DoorEntrance");
                     break;
                 }
             }
-        } else { // Route going to different floor
-            switch (levelTo) {
-                case 0: case 1: case 2: case 3: { //entrance start node
+        } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelTo) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
                     List<String> stairsAndElevators = new ArrayList<String>();
                     stairsAndElevators.add("StairsAndLiftBottomLeft");
                     List<String> stairsOnly = new ArrayList<String>();
@@ -308,25 +333,85 @@ public class MapView extends AppCompatImageView {
     public void cantorLevel1NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<Node> cantorLevel1 = new ArrayList<Node>();
         //StairsAndLifts
-        cantorLevel1.add(new Node("StairsAndLiftBottomLeft", counter,50, 383));
+        cantorLevel1.add(new Node("StairsAndLiftBottomLeft", counter, 50, 365));
         //StairsOnly
-        boolean useLiftsOnly = true;
-        if (!useLiftsOnly)
-        {
-            cantorLevel1.add(new Node("StairsToLevel0", counter,200, 322));
+        //boolean useLiftsOnly = false;
+        if (!useLiftsOnly) {
+            cantorLevel1.add(new Node("StairsToLevel0", counter, 185, 308));
         }
 
-
-
-        int levelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
-
-        if (levelTo == levelFrom){
-
-        }
+        cantorLevel1.add(new Node("StairsAndLiftBottomLeftCorridor", counter, 58, 365));
+        cantorLevel1.add(new Node("9141Door", counter, 58, 390));
+        cantorLevel1.add(new Node("9141Corridor", counter, 58, 380));
 
         for (int i = 0; i < cantorLevel1.size(); i++) {
             Node temp = cantorLevel1.get(i);
             graph.addNode(cantorLevel1.get(i));
+        }
+
+        addStep("StairsAndLiftBottomLeft", "StairsAndLiftBottomLeftCorridor");
+        addStep("StairsAndLiftBottomLeftCorridor", "9141Corridor");
+        addStep("9141Corridor", "9141Door");
+
+        int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
+        int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
+
+        //SET START
+        if (levelFrom == roomCodeLevelFrom) {
+            switch (roomFrom) {
+                case 9141: {
+                    setStartNode("9141Door");
+                }
+                default: {
+                    setStartNode("9141Door");
+                }
+            }
+        } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelFrom) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    Node stairwellFrom = getStairwellNode(stairwellNode);
+                    if (stairwellFrom != null)
+                        setStartNode(stairwellFrom.getName());
+                    break;
+                }
+                case 4: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
+            }
+        }
+
+        //SET STOP
+        if (roomCodeLevelTo == levelFrom) {
+            switch (roomTo) {
+                case 9141: {
+                    setEndNode("9141Door");
+                }
+            }
+        } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelTo) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    List<String> stairsAndElevators = new ArrayList<String>();
+                    stairsAndElevators.add("StairsAndLiftBottomLeft");
+                    List<String> stairsOnly = new ArrayList<String>();
+                    //stairsOnly.add("StairsToLevel0");
+
+                    Node startNode = graph.getN(start_x, start_y);
+                    Node stairNode = getNearestStairNode(startNode, stairsAndElevators, stairsOnly);
+                    setEndNode(stairNode.name);
+                    break;
+                }
+                case 4: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
+            }
         }
     }
 
@@ -642,10 +727,11 @@ public class MapView extends AppCompatImageView {
                 }
             }
         }
+        stairwellNode = returnNode;
         return returnNode;
     }
 
-    public void addStep (String stepStart, String stepEnd) {
+    public void addStep(String stepStart, String stepEnd) {
         Node n;
         for (int i = 0; i < graph.nodes.size(); i++) {
             if (stepStart.equals(graph.nodes.get(i).getName())) {
@@ -664,5 +750,17 @@ public class MapView extends AppCompatImageView {
         }
         graph.addStep(edgeStart, edgeStop, 1);
     }
-}
 
+    public Node getStairwellNode(Node n) {
+        double x = n.getX();
+        double y = n.getY();
+        for (int i = 0; i < graph.nodes.size(); i++) {
+            Node v = graph.nodes.get(i);
+            double d = Math.sqrt((x - v.getX()) * (x - v.getX()) + (y - v.getY()) * (y - v.getY())); // Returns correctly rounded square root of the potential vs the stairwell
+            if (d <= radius)
+                return v;
+        }
+        return null;
+
+    }
+}

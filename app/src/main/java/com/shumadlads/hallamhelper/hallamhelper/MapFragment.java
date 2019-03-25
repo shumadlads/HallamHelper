@@ -56,7 +56,7 @@ public class MapFragment extends Fragment {
 
         ///ImageView mapBg = getActivity().findViewById(R.id.backgroundImageView); // To Remove - Gareth 11/03/2019
         MapView mapView = getActivity().findViewById(R.id.mapView);
-        mapView.onPopulate(tempFrom, tempTo);
+        //mapView.onPopulate(tempFrom, tempTo);
         String text = mapView.Astar(); // todo - change to void method - Gareth 11/03/2019
 
     }

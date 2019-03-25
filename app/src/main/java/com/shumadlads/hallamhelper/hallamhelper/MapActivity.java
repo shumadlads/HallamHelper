@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -17,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MapActivity extends AppCompatActivity {
+import static java.lang.Integer.parseInt;
+
+public class MapActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     @Override
@@ -44,24 +48,12 @@ public class MapActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, "Level is " + levelFrom, Toast.LENGTH_LONG);
         toast.show();// do something
-        Spinner spinner = findViewById(R.id.spinner);
-        String[] plants = new String[]{
-                "Black birch",
-                "European weeping birch"
-        };
 
-        final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
-
-        // Initializing an ArrayAdapter
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.building_level_select_item,plantsList);
-
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
-        spinner.setAdapter(spinnerArrayAdapter);
-
+        /*
         MapView mapView = findViewById(R.id.mapView);
         mapView.onPopulate(tempFrom, tempTo);
         String text = mapView.Astar(); // todo - change to void method - Gareth 11/03/2019
+        */
 
     }
 
@@ -83,7 +75,7 @@ public class MapActivity extends AppCompatActivity {
 
         switch (buildingFrom) {
             case 9: {
-                displayCantorMapBg(levelFrom, roomTo, mapBg);
+                cantor(levelFrom, roomTo, mapBg);
                 break;
             }
             case 3: {
@@ -93,7 +85,30 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
+    public void cantor(int levelFrom, int roomTo, MapView mapBg){
+        Spinner spinner = findViewById(R.id.spinner);
+        String[] levels = new String[]{
+                "Level - 0",
+                "Level - 1",
+                "Level - 2",
+                "Level - 3",
+                "Level - 4"
+        };
+
+        final List<String> levelsList = new ArrayList<>(Arrays.asList(levels));
+
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.building_level_select_item,levelsList);
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setSelection(levelFrom);
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+    }
+
     public void displayCantorMapBg(int levelFrom, int roomTo, MapView mapBg){
+
         mapBg.requestLayout();
         mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.cantorMapBg_height);
         mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorMapBg_width);
@@ -156,6 +171,32 @@ public class MapActivity extends AppCompatActivity {
                 bgDrawable, map);
         VectorDrawableCompat.VFullPath changePathTo = vector.findPathByName(roomToString);
         changePathTo.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
+    }
+
+
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
+        Bundle args = getIntent().getExtras();
+        //getSupportActionBar().setTitle(args.getString("Building"));
+        int roomFrom = args.getInt("RoomFrom");
+        int roomTo = args.getInt("RoomTo");
+
+        Toast.makeText(parent.getContext(),
+                parent.getItemAtPosition(pos).toString(),
+                Toast.LENGTH_SHORT).show();
+        String newLevelStr = parent.getItemAtPosition(pos).toString(); //Get selected item from spinner
+        int newLevel = parseInt(newLevelStr.substring(newLevelStr.length() - 1)); //Turn last digit (level number) to int
+
+        MapView mapView = findViewById(R.id.mapView);
+        displayCantorMapBg(newLevel, roomTo, mapView);
+
+        mapView.onPopulate(newLevel, roomFrom, roomTo);
+        String text = mapView.Astar();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
 }
