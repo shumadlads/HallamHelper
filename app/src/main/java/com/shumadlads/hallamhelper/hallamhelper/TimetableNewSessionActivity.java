@@ -220,7 +220,6 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
             if (Repeat_Switch.isChecked())
                 Repeat_Switch.callOnClick();
         }
-
     }
 
     public boolean ValidateModule(Session session) {
@@ -307,7 +306,6 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
                 finish();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -111,7 +111,7 @@ public class DetailTimeTableActivity extends AppCompatActivity {
     public void Remove() {
         User_Session session = SQLite.select().from(User_Session.class).where(User_Session_Table.Session.eq(Id)).and(User_Session_Table.User.eq(UserId)).querySingle();
         session.delete();
-        CurrentSession.delete();
+       // CurrentSession.delete();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("LoadDefaultFragment", TIMETABLE_FRAGMENT);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
