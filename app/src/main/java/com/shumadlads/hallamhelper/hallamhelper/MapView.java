@@ -24,7 +24,7 @@ public class MapView extends AppCompatImageView {
     float width, height;
     Graph graph = new Graph();
     int counter = 0;
-    boolean useLiftsOnly = false;
+    boolean useLiftsOnly = true;
 
     DisplayMetrics dm = getResources().getDisplayMetrics();
     float density = (dm.density); // Used to convert pixels set on nodes to dp
@@ -70,14 +70,14 @@ public class MapView extends AppCompatImageView {
             paint.setColor(getResources().getColor(R.color.colorAccent));
             if (v.x == start_x && v.y == start_y) {
                 paint.setColor(Color.GREEN);
-                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); // comment out when all node drawn debug is uncommented
+                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
             if (v.x == stop_x && v.y == stop_y) {
                 paint.setColor(Color.RED);
-                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius, paint); // comment out when all node drawn debug is uncommented
+                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
 
-            canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
+            //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
 
 
             paint.setColor(getResources().getColor(R.color.colorAccent));
@@ -86,21 +86,22 @@ public class MapView extends AppCompatImageView {
                 Node v2 = v1.steps.get(j).destination;
 
                 if (v1.steps.get(j).isPath == 1) {
-                    //paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
-                    //paint.setStyle(Paint.Style.STROKE);                            // Comment when all edge debug
-                    //paint.setStrokeWidth(10 * density);                            // Comment when all edge debug
-                    //canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug
+                    paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
+                    paint.setStyle(Paint.Style.STROKE);                            // Comment when all edge debug
+                    paint.setStrokeWidth(5 * density);                            // Comment when all edge debug
+                    paint.setStrokeCap(Paint.Cap.ROUND); //Cap rounds corners     // Comment when all edge debug
+                    canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug
                 }
-                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
+/*                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
                 paint.setStyle(Paint.Style.STROKE);                                // Uncomment for all edge debug
                 paint.setStrokeWidth(5 * density);                                 // Uncomment for all edge debug
-                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug
+                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug*/
             }
 
-            paint.setColor(Color.BLUE);
+/*            paint.setColor(Color.BLUE);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextSize(7 * density);
-            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);
+            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);*/
         }
     }
 
@@ -220,32 +221,48 @@ public class MapView extends AppCompatImageView {
         List<Node> cantorLevel0 = new ArrayList<Node>();
         //StairsAndLifts
         cantorLevel0.add(new Node("StairsAndLiftBottomLeft", counter, 45, 368));
+        cantorLevel0.add(new Node("StairsAndLiftTop", counter, 105, 55));
         //StairsOnly
 
         if (!useLiftsOnly) {
             cantorLevel0.add(new Node("StairsToLevel1", counter, 140, 310));
+            cantorLevel0.add(new Node("StairsOnlyBottomRight", counter, 215, 360));
+
         }
 
         cantorLevel0.add(new Node("9099DoorEntrance", counter, 18, 320));
         cantorLevel0.add(new Node("InnerDoorTop", counter, 65, 320));
-        cantorLevel0.add(new Node("BottomStairwell", counter, 65, 368));
+        cantorLevel0.add(new Node("CafeCorridor", counter, 65, 368));
 
         cantorLevel0.add(new Node("BottomMainLobby", counter, 105, 320));
+        cantorLevel0.add(new Node("BottomUnderStairs", counter, 140, 325));
 
         cantorLevel0.add(new Node("9021Reception", counter, 140, 273));
+        cantorLevel0.add(new Node("9021Corridor", counter, 105, 273));
+
         cantorLevel0.add(new Node("9001Door", counter, 95, 215));
-        cantorLevel0.add(new Node("9002Door", counter, 95, 165));
+        cantorLevel0.add(new Node("9001Corridor", counter, 105, 215));
+
+        cantorLevel0.add(new Node("9002Door", counter, 95, 162));
+        cantorLevel0.add(new Node("9002And9022Corridor", counter, 105, 162));
         cantorLevel0.add(new Node("9003Door", counter, 95, 112));
+        cantorLevel0.add(new Node("9003And9020Corridor", counter, 105, 112));
         cantorLevel0.add(new Node("9005Door", counter, 71, 55));
         cantorLevel0.add(new Node("9006Door", counter, 90, 55));
+
         cantorLevel0.add(new Node("9011And9012Door", counter, 165, 55));
         cantorLevel0.add(new Node("9013Door", counter, 200, 55));
         cantorLevel0.add(new Node("9015And9016Door", counter, 227, 55));
         cantorLevel0.add(new Node("9020Door", counter, 165, 112));
-        cantorLevel0.add(new Node("9022Door", counter, 140, 160));
+        cantorLevel0.add(new Node("9022Door", counter, 140, 162));
+
         cantorLevel0.add(new Node("9018Door", counter, 140, 185));
+        cantorLevel0.add(new Node("9018Corridor", counter, 105, 185));
+
         cantorLevel0.add(new Node("9019Door", counter, 205, 295));
+        cantorLevel0.add(new Node("9019Corridor", counter, 205, 325));
         cantorLevel0.add(new Node("9024And9025Door", counter, 215, 400));
+        cantorLevel0.add(new Node("AboveStairsOnlyBottomRight", counter, 215, 325));
 
         for (int i = 0; i < cantorLevel0.size(); i++) {
             Node temp = cantorLevel0.get(i);
@@ -257,12 +274,40 @@ public class MapView extends AppCompatImageView {
 
         if (!useLiftsOnly) {
             addStep("BottomMainLobby", "StairsToLevel1");
+            addStep("9021Corridor", "StairsToLevel1");
+            addStep( "AboveStairsOnlyBottomRight", "StairsOnlyBottomRight");
+            addStep( "StairsOnlyBottomRight", "9024And9025Door");
+        } else {
+            addStep( "9024And9025Door", "AboveStairsOnlyBottomRight"); //Directly link these nodes since the corridor nodes rely on the stairwell
         }
 
         addStep("9099DoorEntrance", "InnerDoorTop");
-        addStep("InnerDoorTop", "BottomStairwell");
-        addStep("BottomStairwell", "StairsAndLiftBottomLeft");
+        addStep("InnerDoorTop", "CafeCorridor");
+        addStep("CafeCorridor", "StairsAndLiftBottomLeft");
         addStep("InnerDoorTop", "BottomMainLobby");
+        addStep("BottomMainLobby", "9021Corridor");
+        addStep( "9021Corridor", "9021Reception");
+        addStep( "9021Corridor", "9001Corridor");
+        addStep( "9001Corridor", "9001Door");
+        addStep( "9001Corridor", "9018Corridor");
+        addStep( "9018Corridor", "9018Door");
+        addStep( "9018Corridor", "9002And9022Corridor");
+        addStep( "9002And9022Corridor", "9002Door");
+        addStep( "9002And9022Corridor", "9022Door");
+        addStep( "9002And9022Corridor", "9003And9020Corridor");
+        addStep( "9003And9020Corridor", "9003Door");
+        addStep( "9003And9020Corridor", "9020Door");
+        addStep( "9003And9020Corridor", "StairsAndLiftTop");
+        addStep( "StairsAndLiftTop", "9006Door");
+        addStep( "9006Door", "9005Door"); // 9006 door doubles as corridor node
+        addStep( "StairsAndElevatorTop", "9011And9012Door"); // 9011And9012Door has only a door node
+        addStep( "9011And9012Door", "9013Door"); //9013Door has only a door node
+        addStep( "9013Door", "9015And9016Door");
+        addStep( "BottomMainLobby", "BottomUnderStairs");
+        addStep( "BottomUnderStairs", "9019Corridor");
+        addStep( "9019Corridor", "9019Door");
+        addStep( "9019Corridor", "AboveStairsOnlyBottomRight");
+
 
         int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
@@ -277,6 +322,62 @@ public class MapView extends AppCompatImageView {
                 }
                 case 9098: { //Building select node
                     //do not assign node.
+                    break;
+                }
+                case 9001: {
+                    setStartNode("9001Door");
+                    break;
+                }
+                case 9002: {
+                    setStartNode("9002Door");
+                    break;
+                }
+                case 9003: {
+                    setStartNode("9003Door");
+                    break;
+                }
+                case 9005: {
+                    setStartNode("9005Door");
+                    break;
+                }
+                case 9006: {
+                    setStartNode("9006Door");
+                    break;
+                }
+                case 9011: case 9012: {
+                    setStartNode("9011And9012Door");
+                    break;
+                }
+                case 9013: {
+                    setStartNode("9013Door");
+                    break;
+                }
+                case 9015: case 9016: {
+                    setStartNode("9015And9016Door");
+                    break;
+                }
+                case 9018: {
+                    setStartNode("9018Door");
+                    break;
+                }
+                case 9019: {
+                    setStartNode("9019Door");
+                    break;
+                }
+                case 9020: {
+                    setStartNode("9020Door");
+                    break;
+                }
+                case 9021: {
+                    setStartNode("9021Reception");
+                    break;
+                }
+                case 9022: {
+                    setStartNode("9022Door");
+                    break;
+                }
+                case 9024: case 9025: {
+                    setStartNode("9024And9025Door");
                     break;
                 }
                 default: {
@@ -308,6 +409,66 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9099DoorEntrance");
                     break;
                 }
+                case 9001: {
+                    setEndNode("9001Door");
+                    break;
+                }
+                case 9002: {
+                    setEndNode("9002Door");
+                    break;
+                }
+                case 9003: {
+                    setEndNode("9003Door");
+                    break;
+                }
+                case 9005: {
+                    setEndNode("9005Door");
+                    break;
+                }
+                case 9006: {
+                    setEndNode("9006Door");
+                    break;
+                }
+                case 9011: case 9012: {
+                    setEndNode("9011And9012Door");
+                    break;
+                }
+                case 9013: {
+                    setEndNode("9013Door");
+                    break;
+                }
+                case 9015: case 9016: {
+                    setEndNode("9015And9016Door");
+                    break;
+                }
+                case 9018: {
+                    setEndNode("9018Door");
+                    break;
+                }
+                case 9019: {
+                    setEndNode("9019Door");
+                    break;
+                }
+                case 9020: {
+                    setEndNode("9020Door");
+                    break;
+                }
+                case 9021: {
+                    setEndNode("9021Reception");
+                    break;
+                }
+                case 9022: {
+                    setEndNode("9022Door");
+                    break;
+                }
+                case 9024: case 9025: {
+                    setEndNode("9024And9025Door");
+                    break;
+                }
+                default:{
+                    setEndNode("9099DoorEntrance");
+                    break;
+                }
             }
         } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
             switch (roomCodeLevelTo) {
@@ -317,8 +478,10 @@ public class MapView extends AppCompatImageView {
                 case 3: { //entrance start node
                     List<String> stairsAndElevators = new ArrayList<String>();
                     stairsAndElevators.add("StairsAndLiftBottomLeft");
+                    stairsAndElevators.add("StairsAndLiftTop");
                     List<String> stairsOnly = new ArrayList<String>();
                     stairsOnly.add("StairsToLevel1");
+                    stairsOnly.add("StairsOnlyBottomRight");
 
                     Node startNode = graph.getN(start_x, start_y);
                     Node stairNode = getNearestStairNode(startNode, stairsAndElevators, stairsOnly);
