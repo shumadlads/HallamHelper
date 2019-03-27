@@ -130,9 +130,12 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         mapBg.requestLayout();
         mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.cantorMapBg_height);
         mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorMapBg_width);
+        int bgDrawableInt;
         switch (levelFrom){
             case 0: {
+                bgDrawableInt = R.drawable.ic_cantor_level_0;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_0));
+                changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 1: {
@@ -157,11 +160,11 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
 
     public void displayEMBMapBg(int levelFrom, int roomTo, MapView mapBg){
         Drawable bgDrawable;
+        mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
+        mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
         int bgDrawableInt;
         switch (levelFrom) {
             case 1: {
-                mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
-                mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
                 bgDrawable = getResources().getDrawable(R.drawable.ic_emb_level_2);
                 bgDrawableInt = R.drawable.ic_emb_level_2;
                 mapBg.setImageDrawable(bgDrawable);
@@ -169,8 +172,6 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             }
             case 9: { //todo DEBUG NEEDS RETHINKING
-                mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
-                mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
                 bgDrawable = getResources().getDrawable(R.drawable.ic_emb_level_2);
                 bgDrawableInt = R.drawable.ic_emb_level_2;
                 mapBg.setImageDrawable(bgDrawable);
