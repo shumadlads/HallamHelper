@@ -2,38 +2,103 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slack_fragment_CoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StopTheSlackFragment">
 
+
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/slack_AppBarLayout"
+        android:id="@+id/slack_fragment_AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/slack_Toolbar"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/slack_fragment_CollapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin">
+            android:layout_height="200dp"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        </android.support.v7.widget.Toolbar>
+            <ImageView
+                android:id="@+id/slack_fragment_ImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/phonegirl"
+                app:layout_collapseMode="parallax" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/slack_Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-    <!-- TODO: Update blank fragment layout -->
+
+
     <LinearLayout
         android:id="@+id/slack_fragment_LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="55dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="STOP THE SLACK"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:id="@+id/slack_fragment_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:elevation="10dp"
+            android:gravity="center_vertical"
+            android:text="Alarms Set"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/divider_slack_fragment_View"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#90909090"
+
+            android:visibility="visible" />
+
+
+
+        <TextView
+            android:gravity="left"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Assignment Work"
+            android:textSize="11pt"
+            android:padding="15dp"
+            />
+
+        <TextView
+            android:gravity="left"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="17:00 - 19:00"
+            android:textSize="9pt"
+            android:paddingLeft="15dp"
+            android:paddingBottom="5dp"
+            />
+
+
     </LinearLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/slack_fragment_FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_24px"
+        app:layout_anchor="@id/slack_fragment_AppBarLayout"
+        app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>
