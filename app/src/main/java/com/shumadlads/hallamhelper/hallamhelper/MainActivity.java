@@ -1,6 +1,7 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +13,10 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Room;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Room_Table;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,14 +49,20 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new TimetableFragment());
                     break;
                 case MAP_FRAGMENT:
-                    MapFragment mapFragment = new MapFragment();
-                    Bundle b = new Bundle();
-                    int start =  extras.getInt("StartId");
-                   int target =  extras.getInt("TargetId");
-                    b.putInt("RoomTo", 3114);
-                    b.putInt("RoomFrom", 3999);
-                    mapFragment.setArguments(b);
-                    loadFragment(mapFragment);
+                    Intent intent = new Intent(this, MapActivity.class);
+                    int start = extras.getInt("StartId");
+                    if (start == -1) {
+                        start = 9099; //remove later
+                    } else {
+                        Room startroom = SQLite.select().from(Room.class).where(Room_Table.RoomId.eq(start)).querySingle();
+                        start = Integer.parseInt(startroom.getRoomName());
+                    }
+                    int target = extras.getInt("TargetId");
+                    Room targetroom = SQLite.select().from(Room.class).where(Room_Table.RoomId.eq(target)).querySingle();
+                    Room startroom = SQLite.select().from(Room.class).where(Room_Table.RoomId.eq(start)).querySingle();
+                    intent.putExtra("RoomTo", Integer.parseInt(targetroom.getRoomName()));
+                    intent.putExtra("RoomFrom", start);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                     break;
                 default:
                     loadFragment(new StopTheSlackFragment());
@@ -110,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.logout:
-                Editor.putBoolean(getString(R.string.SP_Toggle),false);
+                Editor.putBoolean(getString(R.string.SP_Toggle), false);
                 Editor.commit();
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
