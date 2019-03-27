@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cantorMapBg_height">470dp</dimen>
-    <dimen name="cantorMapBg_width">292dp</dimen>
+    <dimen name="cantorMapBg_height">450dp</dimen>
+    <dimen name="cantorMapBg_width">280dp</dimen>
     <dimen name="cantorTopMapBg_width">192dp</dimen>
     <dimen name="embMapBg_height">400dp</dimen>
     <dimen name="embMapBg_width">339dp</dimen>

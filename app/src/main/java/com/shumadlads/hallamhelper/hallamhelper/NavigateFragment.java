@@ -1,6 +1,7 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,12 +9,14 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,10 +48,30 @@ public class NavigateFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.navigate_fragment, container, false);
         InitToolBar(view);
-        ImageView searchFindIcon = view.findViewById(R.id.searchFindIcon);
+        Button searchFindIcon = view.findViewById(R.id.searchFindIcon);
         ImageView switchIcon = view.findViewById(R.id.switchIcon);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
         final TextView fromTextView = view.findViewById(R.id.textInputFrom);
+        final CardView cardCantor = view.findViewById(R.id.card_view_cantor);
+        final CardView cardEmb = view.findViewById(R.id.card_view_emb);
+
+        cardCantor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setIntent(9098, 9098); // roomTo building select node, knows to not assign start
+
+            }
+        });
+        cardEmb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setIntent(3000, 0000);
+
+            }
+        });
+
+
+
         //onSearchFindIconClick
         searchFindIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +83,24 @@ public class NavigateFragment extends Fragment {
                 if(!(toTextView.getText().toString().matches(""))){
                     int roomToInt = Integer.parseInt(toTextView.getText().toString());
                     if(roomToInt != 0){
-                        int roomFromInt;
+                        int roomFromInt = 0;
                         if(!(fromTextView.getText().toString().matches(""))){
                             roomFromInt = Integer.parseInt(fromTextView.getText().toString());
-                        }else
-                            roomFromInt = 3999; //known empty
-                        swapFragment(roomFromInt, roomToInt);
+                        }else { // Room from is empty and needs correct code generating for entrance of building
+                            String knownEmptyRoomCode = "99";
+                            int buildingFrom = ((((roomToInt / 10) / 10) / 10) % 10); // get first digit for building number
+                            switch (buildingFrom){
+                                case 3: {
+                                    roomFromInt = Integer.parseInt("31" + knownEmptyRoomCode); // if room code is emb, prefix 31 to get correct entrance
+                                    break;
+                                }
+                                case 9: {
+                                    roomFromInt = Integer.parseInt("90" + knownEmptyRoomCode); // if room code is cantor, prefix 90 to get correct entrance
+                                }
+
+                            }
+                        }
+                        setIntent(roomFromInt, roomToInt);
                     }
                     else {
                         errorToast();
@@ -74,9 +109,6 @@ public class NavigateFragment extends Fragment {
                 else{
                     errorToast();
                 }
-
-
-
             }
         });
         // onSwapTextfieldsClick
@@ -92,17 +124,14 @@ public class NavigateFragment extends Fragment {
         return view;
     }
 
-    private void swapFragment(int from, int to){
-        MapFragment mapFragment = new MapFragment();
+    private void setIntent(int from, int to){
+        //MapFragment mapFragment = new MapFragment();
+        Intent mapIntent = new Intent(getActivity(), MapActivity.class);
         Bundle b = new Bundle();
         b.putInt("RoomTo", to);
         b.putInt("RoomFrom", from);
-        mapFragment.setArguments(b);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, mapFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
+        mapIntent.putExtras(b);
+        startActivity(mapIntent);
     }
 
     public void InitToolBar(View view) {
