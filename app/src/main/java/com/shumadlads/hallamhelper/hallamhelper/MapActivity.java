@@ -68,6 +68,8 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void displayMapBg(int roomFrom, int roomTo) {
+        Spinner spinner = findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
         int buildingFrom = ((((roomFrom / 10) / 10) / 10) % 10); // get first digit for building number
         int levelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
         MapView mapBg = findViewById(R.id.mapView);
@@ -103,7 +105,6 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
         spinner.setAdapter(spinnerArrayAdapter);
         spinner.setSelection(levelFrom);
-        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
     }
 
     public void emb(int levelFrom, int roomTo, MapView mapBg){
@@ -116,12 +117,12 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
 
         // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.building_level_select_item,levelsList);
+                this,R.layout.building_level_select_item, levelsList);
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
         spinner.setAdapter(spinnerArrayAdapter);
-        spinner.setSelection(levelFrom);
-        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        spinner.setSelection(levelFrom - 1); // -1 needs removing if multiple levels are added
+
     }
 
     public void displayCantorMapBg(int levelFrom, int roomTo, MapView mapBg){
