@@ -97,7 +97,7 @@ public class Graph {
         //Init
 
         comparator comparator = new comparator();
-        PriorityQueue<Node> OPEN = new PriorityQueue<Node>(1,comparator);
+        PriorityQueue<GraphNode> OPEN = new PriorityQueue<GraphNode>(1,comparator);
         start.d_value=0;
         start.f_value=0;
         OPEN.add(start);

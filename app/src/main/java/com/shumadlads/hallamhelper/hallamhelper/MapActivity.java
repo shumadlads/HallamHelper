@@ -78,7 +78,7 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             }
             case 3: {
-                displayEMBMapBg(levelFrom, roomTo, mapBg);
+                emb(levelFrom, roomTo, mapBg);
                 break;
             }
         }
@@ -92,6 +92,24 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
                 "Level - 2",
                 "Level - 3",
                 "Level - 4"
+        };
+
+        final List<String> levelsList = new ArrayList<>(Arrays.asList(levels));
+
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.building_level_select_item,levelsList);
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setSelection(levelFrom);
+        spinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+    }
+
+    public void emb(int levelFrom, int roomTo, MapView mapBg){
+        Spinner spinner = findViewById(R.id.spinner);
+        String[] levels = new String[]{
+                "Level - 1"
         };
 
         final List<String> levelsList = new ArrayList<>(Arrays.asList(levels));
@@ -180,6 +198,8 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         int roomFrom = args.getInt("RoomFrom");
         int roomTo = args.getInt("RoomTo");
 
+        int buildingNo = ((((roomTo / 10) / 10) / 10) % 10); // get first digit for building number
+
         Toast.makeText(parent.getContext(),
                 parent.getItemAtPosition(pos).toString(),
                 Toast.LENGTH_SHORT).show();
@@ -187,7 +207,18 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         int newLevel = parseInt(newLevelStr.substring(newLevelStr.length() - 1)); //Turn last digit (level number) to int
 
         MapView mapView = findViewById(R.id.mapView);
-        displayCantorMapBg(newLevel, roomTo, mapView);
+
+
+        switch (buildingNo){
+            case 3: {
+                displayEMBMapBg(newLevel, roomTo, mapView);
+                break;
+            }
+            case 9: {
+                displayCantorMapBg(newLevel, roomTo, mapView);
+                break;
+            }
+        }
 
         mapView.onPopulate(newLevel, roomFrom, roomTo);
         String text = mapView.Astar();
