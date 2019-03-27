@@ -939,20 +939,39 @@ public class MapView extends AppCompatImageView {
         List<GraphNode> cantorLevel2 = new ArrayList<GraphNode>();
         //StairsAndLifts
         cantorLevel2.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
-        cantorLevel2.add(new GraphNode("StairsAndLiftTop", counter, 110, 55));
+        cantorLevel2.add(new GraphNode("StairsAndLiftTop", counter, 110, 60));
 
         //StairsOnly
         if (!useLiftsOnly) {
             cantorLevel2.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 357));
         }
 
-        cantorLevel2.add(new GraphNode("9235Door", counter, 60, 380));
+        cantorLevel2.add(new GraphNode("BalconyBottomLeft", counter, 60, 330));
+        cantorLevel2.add(new GraphNode("9200Door", counter, 80, 300));
+        cantorLevel2.add(new GraphNode("9200Corridor", counter, 90, 300));
+        cantorLevel2.add(new GraphNode("9201Door", counter, 90, 210));
+        cantorLevel2.add(new GraphNode("9202Door", counter, 90, 165));
+        cantorLevel2.add(new GraphNode("9203Door", counter, 90, 120));
 
-        addStep("9235Door", "StairsAndLiftBottomLeft");
+        cantorLevel2.add(new GraphNode("9205Door", counter, 65, 60));
+        cantorLevel2.add(new GraphNode("9206Door", counter, 90, 60));
+        cantorLevel2.add(new GraphNode("9207Door", counter, 100, 60));
+        cantorLevel2.add(new GraphNode("9208Door", counter, 125, 60));
+        cantorLevel2.add(new GraphNode("9210And9211Door", counter, 160, 60));
+        cantorLevel2.add(new GraphNode("9212Door", counter, 220, 60));
+        cantorLevel2.add(new GraphNode("9214Door", counter, 245, 60));
+
+        cantorLevel2.add(new GraphNode("9215Door", counter, 220, 90));
+
+        cantorLevel2.add(new GraphNode("9235Door", counter, 60, 380));
 
         for (int i = 0; i < cantorLevel2.size(); i++) {
             graph.addNode(cantorLevel2.get(i));
         }
+
+
+        addStep("9235Door", "StairsAndLiftBottomLeft");
+
 
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
         int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
@@ -961,11 +980,11 @@ public class MapView extends AppCompatImageView {
         if (levelFrom == roomCodeLevelFrom) {
             switch (roomFrom) {
                 case 9235: {
-                    setStartNode("9141Door");
+                    setStartNode("9235Door");
                     break;
                 }
                 default: {
-                    setStartNode("9141Door");
+                    setStartNode("9235Door");
                     break;
                 }
             }
