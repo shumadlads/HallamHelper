@@ -17,6 +17,7 @@ import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Graph;
 import com.shumadlads.hallamhelper.hallamhelper.AStarLibrary.Node;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -481,15 +482,11 @@ public class MapView extends AppCompatImageView {
                 case 1:
                 case 2:
                 case 3: { //entrance start node
-                    List<String> stairsAndElevators = new ArrayList<String>();
-                    stairsAndElevators.add("StairsAndLiftBottomLeft");
-                    stairsAndElevators.add("StairsAndLiftTop");
-                    List<String> stairsOnly = new ArrayList<String>();
-                    stairsOnly.add("StairsToLevel1");
-                    stairsOnly.add("StairsOnlyBottomRight");
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
+                    String[] stairsOnlyArray = new String[]{"StairsToLevel1", "StairsOnlyBottomRight"};
 
                     Node startNode = graph.getN(start_x, start_y);
-                    Node stairNode = getNearestStairNode(startNode, stairsAndElevators, stairsOnly);
+                    Node stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
                     setEndNode(stairNode.name);
                     break;
                 }
@@ -649,13 +646,11 @@ public class MapView extends AppCompatImageView {
                 case 1:
                 case 2:
                 case 3: { //entrance start node
-                    List<String> stairsAndElevators = new ArrayList<String>();
-                    stairsAndElevators.add("StairsAndLiftBottomLeft");
-                    List<String> stairsOnly = new ArrayList<String>();
-                    stairsOnly.add("StairsToLevel0");
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
+                    String[] stairsOnlyArray = new String[]{"StairsToLevel0", "StairsOnlyBottomRight"};
 
                     Node startNode = graph.getN(start_x, start_y);
-                    Node stairNode = getNearestStairNode(startNode, stairsAndElevators, stairsOnly);
+                    Node stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
                     setEndNode(stairNode.name);
                     break;
                 }
@@ -955,17 +950,21 @@ public class MapView extends AppCompatImageView {
         }
     }
 
-    public Node getNearestStairNode(Node startNode, List<String> elevatorAndStairNames, List<String> stairOnlyNames) {
+    public Node getNearestStairNode(Node startNode, String[] stairsAndLiftsNames, String[] stairsOnlyNames) {
         Node returnNode = new Node("", 0, 0, 0);
         double leastSteps = Double.POSITIVE_INFINITY;
 
+
+        List<String> stairsAndLifts = new ArrayList<String>(Arrays.asList(stairsAndLiftsNames));
+        List<String> stairsOnly = new ArrayList<String>(Arrays.asList(stairsOnlyNames));
+
         if (!useLiftsOnly) {
-            elevatorAndStairNames.addAll(stairOnlyNames);
+            stairsAndLifts.addAll(stairsOnly);
         }
 
-        for (int i = 0; i < elevatorAndStairNames.size(); i++) {
+        for (int i = 0; i < stairsAndLifts.size(); i++) {
             for (int j = 0; j < graph.nodes.size(); j++) {
-                if (elevatorAndStairNames.get(i).equals(graph.nodes.get(j).getName())) {
+                if (stairsAndLifts.get(i).equals(graph.nodes.get(j).getName())) {
 
                     Node tempNode = graph.nodes.get(j);
                     graph = freeGraph();
