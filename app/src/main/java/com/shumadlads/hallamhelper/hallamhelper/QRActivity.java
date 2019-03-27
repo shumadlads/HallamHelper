@@ -1,5 +1,6 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
+import android.app.ActivityOptions;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.shumadlads.hallamhelper.hallamhelper.Models.User_Table;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission.CAMERA;
+import static com.shumadlads.hallamhelper.hallamhelper.MainActivity.TIMETABLE_FRAGMENT;
 
 public class QRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -139,6 +141,12 @@ int currentuser =1;
                 .create()
                 .show();
     }
+    
+    private void redirect(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("LoadDefaultFragment", TIMETABLE_FRAGMENT);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    }
 
     @Override
     public void handleResult(Result result) {
@@ -206,6 +214,9 @@ int currentuser =1;
                     user_session.setSession(newsession);
                     user_session.setUser(user);
                     user_session.save();
+                    redirect();
+
+
                 }
             });
             builder.setMessage(Lecturer + " - " + SessionName + " - " + TimeStart + " till " + TimeEnd);
