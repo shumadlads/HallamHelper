@@ -58,7 +58,7 @@ public class NavigateFragment extends Fragment {
         cardCantor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setIntent(9098, 0000); // roomTo building select node, knows to not assign start
+                setIntent(9098, 9098); // roomTo building select node, knows to not assign start
 
             }
         });
@@ -109,9 +109,6 @@ public class NavigateFragment extends Fragment {
                 else{
                     errorToast();
                 }
-
-
-
             }
         });
         // onSwapTextfieldsClick

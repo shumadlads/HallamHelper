@@ -24,7 +24,7 @@ public class MapView extends AppCompatImageView {
     float width, height;
     Graph graph = new Graph();
     int counter = 0;
-    boolean useLiftsOnly = true;
+    boolean useLiftsOnly = false;
 
     DisplayMetrics dm = getResources().getDisplayMetrics();
     float density = (dm.density); // Used to convert pixels set on nodes to dp
@@ -70,14 +70,14 @@ public class MapView extends AppCompatImageView {
             paint.setColor(getResources().getColor(R.color.colorAccent));
             if (v.x == start_x && v.y == start_y) {
                 paint.setColor(Color.GREEN);
-                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
+                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
             if (v.x == stop_x && v.y == stop_y) {
                 paint.setColor(Color.RED);
-                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
+                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
 
-            //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
+            canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
 
 
             paint.setColor(getResources().getColor(R.color.colorAccent));
@@ -86,22 +86,22 @@ public class MapView extends AppCompatImageView {
                 Node v2 = v1.steps.get(j).destination;
 
                 if (v1.steps.get(j).isPath == 1) {
-                    paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
+/*                    paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
                     paint.setStyle(Paint.Style.STROKE);                            // Comment when all edge debug
                     paint.setStrokeWidth(5 * density);                            // Comment when all edge debug
                     paint.setStrokeCap(Paint.Cap.ROUND); //Cap rounds corners     // Comment when all edge debug
-                    canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug
+                    canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug*/
                 }
-/*                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
+                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
                 paint.setStyle(Paint.Style.STROKE);                                // Uncomment for all edge debug
                 paint.setStrokeWidth(5 * density);                                 // Uncomment for all edge debug
-                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug*/
+                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug
             }
 
-/*            paint.setColor(Color.BLUE);
+            paint.setColor(Color.BLUE);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextSize(7 * density);
-            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);*/
+            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);
         }
     }
 
@@ -229,6 +229,7 @@ public class MapView extends AppCompatImageView {
             cantorLevel0.add(new Node("StairsOnlyBottomRight", counter, 215, 360));
 
         }
+        cantorLevel0.add(new Node("9098", counter, 1000, 1000)); // EMPTY NODE FOR BUILDING DISPLAY
 
         cantorLevel0.add(new Node("9099DoorEntrance", counter, 18, 320));
         cantorLevel0.add(new Node("InnerDoorTop", counter, 65, 320));
@@ -321,7 +322,7 @@ public class MapView extends AppCompatImageView {
                     break;
                 }
                 case 9098: { //Building select node
-                    //do not assign node.
+                    setStartNode("9098");
                     break;
                 }
                 case 9001: {
@@ -407,6 +408,10 @@ public class MapView extends AppCompatImageView {
             switch (roomTo) {
                 case 9099: { //entrance start node
                     setEndNode("9099DoorEntrance");
+                    break;
+                }
+                case 9098:{
+                    setEndNode("9098");
                     break;
                 }
                 case 9001: {
@@ -501,15 +506,71 @@ public class MapView extends AppCompatImageView {
         List<Node> cantorLevel1 = new ArrayList<Node>();
         //StairsAndLifts
         cantorLevel1.add(new Node("StairsAndLiftBottomLeft", counter, 50, 365));
+        cantorLevel1.add(new Node("StairsAndLiftTop", counter, 110, 55));
         //StairsOnly
-        //boolean useLiftsOnly = false;
+
         if (!useLiftsOnly) {
-            cantorLevel1.add(new Node("StairsToLevel0", counter, 185, 308));
+            cantorLevel1.add(new Node("StairsToLevel0", counter, 190, 308));
+            cantorLevel1.add(new Node("StairsOnlyBottomRight", counter, 219, 357));
+
         }
 
         cantorLevel1.add(new Node("StairsAndLiftBottomLeftCorridor", counter, 58, 365));
-        cantorLevel1.add(new Node("9141Door", counter, 58, 390));
-        cantorLevel1.add(new Node("9141Corridor", counter, 58, 380));
+        cantorLevel1.add(new Node("9100Door", counter, 50, 325));
+        cantorLevel1.add(new Node("9100Corridor", counter, 58, 325));
+
+        cantorLevel1.add(new Node("9101Door", counter, 50, 311));
+        cantorLevel1.add(new Node("9101Corridor", counter, 58, 311));
+
+        cantorLevel1.add(new Node("CorridorBalconyBottomLeft", counter, 90, 311));
+        cantorLevel1.add(new Node("9102Door", counter, 90, 220));           // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9103Door", counter, 90, 165));           // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9104Door", counter, 90, 115));           // Doubles as Corridor Node'
+
+        cantorLevel1.add(new Node("9106Door", counter, 52, 65));
+        cantorLevel1.add(new Node("9106Corridor", counter, 52, 60));
+
+        cantorLevel1.add(new Node("9107And9109Door", counter, 40, 55));     // Doubles as Corridor Node
+
+        cantorLevel1.add(new Node("9111Door", counter, 90, 55));
+        cantorLevel1.add(new Node("9111Corridor", counter, 90, 60));
+
+        cantorLevel1.add(new Node("9112Door", counter, 110, 65));
+        cantorLevel1.add(new Node("9112Corridor", counter, 110, 60));
+
+        cantorLevel1.add(new Node("9114Door", counter, 145, 65));
+        cantorLevel1.add(new Node("9114Corridor", counter, 145, 60));
+
+
+        cantorLevel1.add(new Node("9115Door", counter, 163, 55));
+        cantorLevel1.add(new Node("9116Door", counter, 163, 75));
+        cantorLevel1.add(new Node("9115And9116Corridor", counter, 163, 60));
+
+        cantorLevel1.add(new Node("9118Door", counter, 219, 55));
+        cantorLevel1.add(new Node("9118Corridor", counter, 219, 60));
+
+        cantorLevel1.add(new Node("9119And9120Door", counter, 250, 60));    // Doubles as Corridor Node
+
+        cantorLevel1.add(new Node("9121Door", counter, 219, 75)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9122Door", counter, 219, 95)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9123And9124Door", counter, 219, 113)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9125Door", counter, 219, 128)); // Doubles as Corridor Node
+
+        cantorLevel1.add(new Node("9128Door", counter, 219, 185)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9129Door", counter, 219, 230)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9130Door", counter, 205, 250)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9131Door", counter, 219, 250)); // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9132Door", counter, 205, 285));
+        cantorLevel1.add(new Node("9132Corridor", counter, 212, 285));
+        cantorLevel1.add(new Node("StairsToLevel0Corridor", counter, 212, 308));
+        cantorLevel1.add(new Node("BalconyBottomRight", counter, 219, 330));
+
+        cantorLevel1.add(new Node("9135Door", counter, 215, 380));                  // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9136And9137And9138Door", counter, 165, 380));    // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9139Door", counter, 120, 380));                  // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9140Door", counter, 105, 380));                   // Doubles as Corridor Node
+        cantorLevel1.add(new Node("9141Door", counter, 58, 380));                   // Doubles as Corridor Node
+
 
         for (int i = 0; i < cantorLevel1.size(); i++) {
             Node temp = cantorLevel1.get(i);
@@ -517,8 +578,32 @@ public class MapView extends AppCompatImageView {
         }
 
         addStep("StairsAndLiftBottomLeft", "StairsAndLiftBottomLeftCorridor");
-        addStep("StairsAndLiftBottomLeftCorridor", "9141Corridor");
-        addStep("9141Corridor", "9141Door");
+        addStep("StairsAndLiftBottomLeftCorridor", "9100Corridor");
+        addStep("9100Corridor", "9100Door");
+        addStep("9100Corridor", "9101Corridor");
+        addStep("9101Corridor", "9101Door");
+        addStep("9101Corridor", "CorridorBalconyBottomLeft");
+
+        addStep( "CorridorBalconyBottomLeft", "9102Door");
+        addStep( "9102Door", "9103Door");
+        addStep( "9103Door", "9104Door");
+        addStep( "9104Door", "9111Corridor");
+        addStep( "9111Corridor", "9111Door");
+        addStep( "9111Corridor", "9106Corridor");
+        addStep( "9106Corridor", "9106Door");
+        addStep( "9106Corridor", "9107And9109Door");
+        addStep( "9111Corridor", "9112Corridor");
+        addStep( "9112Corridor", "9112Door");
+        addStep( "9112Corridor", "StairsAndLiftTop");
+        addStep( "9112Corridor", "9114Corridor");
+        addStep( "9114Corridor", "9114Door");
+        addStep( "9114Corridor", "9115And9116Corridor");
+        addStep( "9115And9116Corridor", "9115Door");
+        addStep( "9115And9116Corridor", "9116Door");
+        addStep( "9115And9116Corridor", "9118Corridor");
+        addStep( "9118Corridor", "9118Door");
+
+        addStep("StairsAndLiftBottomLeftCorridor", "9141Door");
 
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
         int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
@@ -567,7 +652,7 @@ public class MapView extends AppCompatImageView {
                     List<String> stairsAndElevators = new ArrayList<String>();
                     stairsAndElevators.add("StairsAndLiftBottomLeft");
                     List<String> stairsOnly = new ArrayList<String>();
-                    //stairsOnly.add("StairsToLevel0");
+                    stairsOnly.add("StairsToLevel0");
 
                     Node startNode = graph.getN(start_x, start_y);
                     Node stairNode = getNearestStairNode(startNode, stairsAndElevators, stairsOnly);
@@ -924,7 +1009,7 @@ public class MapView extends AppCompatImageView {
         for (int i = 0; i < graph.nodes.size(); i++) {
             Node v = graph.nodes.get(i);
             double d = Math.sqrt((x - v.getX()) * (x - v.getX()) + (y - v.getY()) * (y - v.getY())); // Returns correctly rounded square root of the potential vs the stairwell
-            if (d <= radius)
+            if (d <= 55) //In 25 pixels
                 return v;
         }
         return null;
