@@ -22,7 +22,10 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Module;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Module_Table;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Room;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Room_Table;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Session;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User_Session;
@@ -151,49 +154,73 @@ int currentuser =1;
         final String TimeStart = separated[3];
         final String TimeEnd = separated[4];
         final String Type = separated[5];
-        final int RoomID = Integer.parseInt(separated[6]);
-        final String ModuleID = separated[7];
-        final String SessionDate = separated[8];
-
-        //SHU;Peter O'neil;Mobile Application Development;11:00;12:00;It;1;1;01/03/2019
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Session");
-        builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(QRActivity.this);
-            }
-        });
-        builder.setNeutralButton("Add", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(myResult));
-                startActivity(browserIntent);
-
-
-               User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(currentuser)).querySingle();
-                Session newsession= new Session();
-                User_Session user_session =new User_Session();
-                newsession.setDate(SessionDate);
-                newsession.setStartTime(TimeStart);
-                newsession.setEndTime(TimeEnd);
-                newsession.setType(Type);
-                newsession.setRoom(RoomID);
-                newsession.setModule(ModuleID);
+        final int RoomId = Integer.parseInt(separated[6]);
+        final int ModuleId = Integer.parseInt(separated[7]);
+        final int Semester1 = Integer.parseInt(separated[8]);
+        final int Semester2 = Integer.parseInt(separated[9]);
+        final String SessionDate = separated[10];
+        final int Christmas = Integer.parseInt(separated[11]);
+        final int Easter = Integer.parseInt(separated[12]);
 
 
 
-                //
-                newsession.save();
-                user_session.setSession(newsession);
-                user_session.setUser(user);
-                user_session.save();
+        if (HallamHelperCheck.equals("SHU")){
 
-            }
-        });
-        builder.setMessage(Lecturer + " " + SessionName);
-        AlertDialog alert1 = builder.create();
-        alert1.show();
+            //SHU;Peter O'Neil;Mobile Application Development;11:00;12:00;It;1;1;1;1;01/03/2019;0;0
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(HallamHelperCheck);
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    scannerView.resumeCameraPreview(QRActivity.this);
+                }
+            });
+            builder.setNeutralButton("Add", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(currentuser)).querySingle();
+                    Module setmodule = SQLite.select().from(Module.class).where(Module_Table.ModuleId.eq(ModuleId)).querySingle();
+                    Room setroom = SQLite.select().from(Room.class).where(Room_Table.RoomId.eq(RoomId)).querySingle();
+
+                    Session newsession = new Session();
+                    User_Session user_session = new User_Session();
+                    newsession.setDate(SessionDate);
+                    newsession.setStartTime(TimeStart);
+                    newsession.setEndTime(TimeEnd);
+                    newsession.setType(Type);
+
+                    if(setroom != null) {
+                        newsession.setRoom(setroom);
+                    }
+                    newsession.setRoom(setroom);
+                    if(setmodule != null) {
+                        newsession.setModule(setmodule);
+                    }
+                    newsession.setSemester1(Semester1);
+                    newsession.setSemester2(Semester2);
+                    newsession.setChristmas(Christmas);
+                    newsession.setEaster(Easter);
+                    newsession.save();
+                    user_session.setSession(newsession);
+                    user_session.setUser(user);
+                    user_session.save();
+                }
+            });
+            builder.setMessage(Lecturer + " - " + SessionName + " - " + TimeStart + " till " + TimeEnd);
+            AlertDialog alert1 = builder.create();
+            alert1.show();
+        } else {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Invalid QR");
+            builder.setMessage("Please only use Sheffield Hallam University QR Codes");
+            AlertDialog alert1 = builder.create();
+            alert1.show();
+
+
+        }
+
     }
 }
