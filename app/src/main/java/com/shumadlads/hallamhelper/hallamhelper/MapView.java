@@ -113,7 +113,10 @@ public class MapView extends AppCompatImageView {
     }
 
     public boolean onPopulate(int levelFrom, int roomFrom, int roomTo) {
-
+        start_y = 0;
+        start_x = 0;
+        stop_y = 0;
+        stop_x = 0;
         graph.graphNodes.clear(); // Reset graph nodes if MapView is being repopulated
         SharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         useLiftsOnly = SharedPrefs.getBoolean(getContext().getString(R.string.SP_UseLift), false);
@@ -229,6 +232,14 @@ public class MapView extends AppCompatImageView {
             }
             case 3: {
                 cantorLevel3NodesAndRoutes(levelFrom, roomFrom, roomTo);
+                break;
+            }
+            case 4:{
+                cantorLevel4NodesAndRoutes(levelFrom, roomFrom, roomTo);
+                break;
+            }
+            default: {
+                cantorLevel0NodesAndRoutes(levelFrom, roomFrom, roomTo);
                 break;
             }
 
@@ -414,21 +425,9 @@ public class MapView extends AppCompatImageView {
                 }
             }
         } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
-            switch (roomCodeLevelFrom) {
-                case 0:
-                case 1:
-                case 2:
-                case 3: { //entrance start node
-                    GraphNode stairwellFrom = getStairwellNode(stairwellNode);
-                    if (stairwellFrom != null)
-                        setStartNode(stairwellFrom.getName());
-                    break;
-                }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
-                    break;
-                }
-            }
+            GraphNode stairwellFrom = getStairwellNode(stairwellNode);
+            if (stairwellFrom != null)
+                setStartNode(stairwellFrom.getName());
         }
 
         //CANTOR LEVEL 0 - SET STOP
@@ -510,8 +509,7 @@ public class MapView extends AppCompatImageView {
             switch (roomCodeLevelTo) {
                 case 0:
                 case 1:
-                case 2:
-                case 3: { //entrance start node
+                { //entrance start node
                     String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
                     String[] stairsOnlyArray = new String[]{"StairsToLevel1", "StairsOnlyBottomRight"};
 
@@ -520,9 +518,23 @@ public class MapView extends AppCompatImageView {
                     setEndNode(stairNode.name);
                     break;
                 }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
+                case 2:
+                case 3: { //entrance start node
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
                     break;
+                }
+                case 4: { //entrance start node
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
                 }
             }
         }
@@ -803,21 +815,9 @@ public class MapView extends AppCompatImageView {
                 }
             }
         } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
-            switch (roomCodeLevelFrom) {
-                case 0:
-                case 1:
-                case 2:
-                case 3: { //entrance start node
-                    GraphNode stairwellFrom = getStairwellNode(stairwellNode);
-                    if (stairwellFrom != null)
-                        setStartNode(stairwellFrom.getName());
-                    break;
-                }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
-                    break;
-                }
-            }
+            GraphNode stairwellFrom = getStairwellNode(stairwellNode);
+            if (stairwellFrom != null)
+                setStartNode(stairwellFrom.getName());
         }
 
         //CANTOR LEVEL 1 - SET STOP
@@ -951,9 +951,7 @@ public class MapView extends AppCompatImageView {
         } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
             switch (roomCodeLevelTo) {
                 case 0:
-                case 1:
-                case 2:
-                case 3: { //entrance start node
+                { //entrance start node
                     String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
                     String[] stairsOnlyArray = new String[]{"StairsToLevel0", "StairsOnlyBottomRight"};
 
@@ -962,9 +960,24 @@ public class MapView extends AppCompatImageView {
                     setEndNode(stairNode.name);
                     break;
                 }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
                     break;
+                }
+                case 4: {
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
                 }
             }
         }
@@ -1206,21 +1219,9 @@ public class MapView extends AppCompatImageView {
                 }
             }
         } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
-            switch (roomCodeLevelFrom) {
-                case 0:
-                case 1:
-                case 2:
-                case 3: { //entrance start node
-                    GraphNode stairwellFrom = getStairwellNode(stairwellNode);
-                    if (stairwellFrom != null)
-                        setStartNode(stairwellFrom.getName());
-                    break;
-                }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
-                    break;
-                }
-            }
+            GraphNode stairwellFrom = getStairwellNode(stairwellNode);
+            if (stairwellFrom != null)
+                setStartNode(stairwellFrom.getName());
         }
 
         //CANTOR LEVEL 2 - SET STOP
@@ -1354,9 +1355,13 @@ public class MapView extends AppCompatImageView {
                     setEndNode(stairNode.name);
                     break;
                 }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
-                    break;
+                case 4: {
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
                 }
             }
         }
@@ -1591,21 +1596,9 @@ public class MapView extends AppCompatImageView {
                 }
             }
         } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
-            switch (roomCodeLevelFrom) {
-                case 0:
-                case 1:
-                case 2:
-                case 3: { //entrance start node
-                    GraphNode stairwellFrom = getStairwellNode(stairwellNode);
-                    if (stairwellFrom != null)
-                        setStartNode(stairwellFrom.getName());
-                    break;
-                }
-                case 4: { //entrance start node
-                    setEndNode("StairsAndLiftBottomLeft");
-                    break;
-                }
-            }
+            GraphNode stairwellFrom = getStairwellNode(stairwellNode);
+            if (stairwellFrom != null)
+                setStartNode(stairwellFrom.getName());
         }
 
         //CANTOR LEVEL 3 - SET STOP
@@ -1738,13 +1731,233 @@ public class MapView extends AppCompatImageView {
                     setEndNode(stairNode.name);
                     break;
                 }
+                case 4: {
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
+                }
+            }
+        }
+
+    }
+
+    public void cantorLevel4NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
+        List<GraphNode> cantorLevel4 = new ArrayList<GraphNode>();
+        //StairsAndLifts
+        cantorLevel4.add(new GraphNode("StairsAndLiftTop", counter, 135, 80));
+        //StairsOnly
+        if (!useLiftsOnly) {
+            cantorLevel4.add(new GraphNode("StairsOnlyBottom", counter, 172, 367));
+        }
+
+        cantorLevel4.add(new GraphNode("CorridorTop", counter, 108, 108));
+        cantorLevel4.add(new GraphNode("9420Door", counter, 80, 108));
+        cantorLevel4.add(new GraphNode("9418And9419Door", counter, 60, 108));
+
+        cantorLevel4.add(new GraphNode("9416Door", counter, 108, 140));
+        cantorLevel4.add(new GraphNode("9415And9400Door", counter, 108, 180));
+
+        cantorLevel4.add(new GraphNode("CorridorMid", counter, 108, 210));
+        cantorLevel4.add(new GraphNode("9417Door", counter, 60, 210));
+        cantorLevel4.add(new GraphNode("9402And9414Door", counter, 108, 225));
+        cantorLevel4.add(new GraphNode("9404Door", counter, 108, 245));
+        cantorLevel4.add(new GraphNode("9403And9413Door", counter, 108, 305));
+
+        cantorLevel4.add(new GraphNode("9407Door", counter, 108, 367));
+        cantorLevel4.add(new GraphNode("9408And9412Door", counter, 85, 367));
+        cantorLevel4.add(new GraphNode("9409Door", counter, 62, 367));
+        cantorLevel4.add(new GraphNode("9410And9411Door", counter, 45, 367));
+        cantorLevel4.add(new GraphNode("9406Door", counter, 140, 367));
+
+        addListNodesToGraph(cantorLevel4);
+
+        addStep("StairsAndLiftTop", "CorridorTop");
+        addStep("CorridorTop", "9420Door");
+        addStep("9420Door", "9418And9419Door");
+
+        addStep("CorridorTop", "9416Door");
+        addStep("9416Door", "9415And9400Door");
+        addStep("9415And9400Door", "CorridorMid");
+
+        addStep("CorridorMid", "9417Door");
+        addStep("CorridorMid", "9402And9414Door");
+        addStep("9402And9414Door", "9404Door");
+        addStep("9404Door", "9403And9413Door");
+        addStep("9403And9413Door", "9407Door");
+
+        addStep("9407Door", "9408And9413Door");
+        addStep("9408And9413Door", "9409Door");
+        addStep("9409Door", "9410And9411Door");
+        addStep("9407Door", "9406Door");
+        addStep("9406Door", "StairsOnlyBottom");
+
+
+
+
+        int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
+        int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
+
+        //CANTOR LEVEL 4 - SET START
+        if (levelFrom == roomCodeLevelFrom) {
+
+
+            switch (roomFrom) {
+                case 9420: {
+                    setStartNode("9420Door");
+                    break;
+                }
+                case 9419: case 9418: {
+                    setStartNode("9418And9419Door");
+                    break;
+                }
+                case 9416: {
+                    setStartNode("9416Door");
+                    break;
+                }
+                case 9415: case 9400: {
+                    setStartNode("9415And9400Door");
+                    break;
+                }
+                case 9402: case 9414: {
+                    setStartNode("9402And9414Door");
+                    break;
+                }
+                case 9404: {
+                    setStartNode("9404Door");
+                    break;
+                }
+                case 9403: case 9413: {
+                    setStartNode("9403And9413Door");
+                    break;
+                }
+                case 9407: {
+                    setStartNode("9407Door");
+                    break;
+                }
+                case 9408: case 9412: {
+                    setStartNode("9408And9412Door");
+                    break;
+                }
+                case 9409: {
+                    setStartNode("9409Door");
+                    break;
+                }
+                case 9410: case 9411: {
+                    setStartNode("9410And9411Door");
+                    break;
+                }
+                case 9406: {
+                    setStartNode("9406Door");
+                    break;
+                }
+                default: {
+                    setStartNode("9406Door");
+                    break;
+                }
+            }
+        } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelFrom) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    //GraphNode stairwellFrom = getStairwellNode(stairwellNode);
+
+                    if (stairwellNode.getName().equals("StairsAndLiftBottomLeft")){
+                        setStartNode("StairsAndLiftTop");
+                    } else {
+                        setStartNode("StairsOnlyBottom");
+                    }
+                }
+            }
+        }
+
+        //CANTOR LEVEL 4 - SET STOP
+        if (roomCodeLevelTo == levelFrom) {
+            switch (roomTo) {
+                case 9420: {
+                    setEndNode("9420Door");
+                    break;
+                }
+                case 9419: case 9418: {
+                    setEndNode("9418And9419Door");
+                    break;
+                }
+                case 9416: {
+                    setEndNode("9416Door");
+                    break;
+                }
+                case 9415: case 9400: {
+                    setEndNode("9415And9400Door");
+                    break;
+                }
+                case 9402: case 9414: {
+                    setEndNode("9402And9414Door");
+                    break;
+                }
+                case 9404: {
+                    setEndNode("9404Door");
+                    break;
+                }
+                case 9403: case 9413: {
+                    setEndNode("9403And9413Door");
+                    break;
+                }
+                case 9407: {
+                    setEndNode("9407Door");
+                    break;
+                }
+                case 9408: case 9412: {
+                    setEndNode("9408And9412Door");
+                    break;
+                }
+                case 9409: {
+                    setEndNode("9409Door");
+                    break;
+                }
+                case 9410: case 9411: {
+                    setEndNode("9410And9411Door");
+                    break;
+                }
+                case 9406: {
+                    setEndNode("9406Door");
+                    break;
+                }
+                default: {
+                    setEndNode("9406Door");
+                    break;
+                }
+            }
+        } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelTo) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftTop"};
+                    String[] stairsOnlyArray = new String[]{"StairsAndLiftBottom"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    if (stairNode.getName().equals("StairsAndLiftTop")){
+                        stairwellNode = new GraphNode("StairsAndLiftBottomLeft", counter, 45, 368);
+                    } else {
+                        stairwellNode = new GraphNode("StairsOnlyBottomRight", counter, 215, 357);
+                    }
+                    setEndNode(stairNode.name);
+                    break;
+
+
+                }
                 case 4: { //entrance start node
                     setEndNode("StairsAndLiftBottomLeft");
                     break;
                 }
             }
         }
-
     }
 
 
@@ -2092,5 +2305,11 @@ public class MapView extends AppCompatImageView {
         }
         return null;
 
+    }
+
+    public void addListNodesToGraph(List<GraphNode> graphNodes){
+        for (int i = 0; i < graphNodes.size(); i++) {
+            graph.addNode(graphNodes.get(i));
+        }
     }
 }
