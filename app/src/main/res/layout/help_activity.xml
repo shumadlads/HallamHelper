@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HelpActivity">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Help" />
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:layout_width="136dp"
+            android:layout_height="67.01dp"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hallamhelperfinalnobg" />
+
+
+        <TextView
+            android:id="@+id/helptext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview2"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Need Help? Contact our help desk"
+            android:textSize="18dp" />
+        <TextView
+            android:id="@+id/helpaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview2"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="City Campus, Howard Street,
+        Sheffield, S1 1WB"
+            android:textSize="18dp" />
+        <TextView
+            android:id="@+id/helpemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview2"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="enquiries@shu.ac.uk"
+            android:textSize="18dp" />
+        <TextView
+            android:id="@+id/helpnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview2"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="0114 225 5555"
+            android:textSize="18dp"
+            android:autoLink="phone"/>
+
+
+    </LinearLayout>
+</ScrollView>

@@ -66,7 +66,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:background="#90909090"
+            android:background="@color/colorRule"
 
             android:visibility="visible" />
 

@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#79023a</color>
     <color name="colorTransparentPrimarydDark">#cc79023a</color>
     <color name="colorAccent">#757575</color>
-    <color name="colorBackground">#F0EFEF</color>
+    <color name="colorBackground">#303030</color>
     <color name="colorBackgroundlight">#FFFFFF</color>
     <color name="colorText">#000</color>
+    <color name="colorRule">#90909090</color>
+
 
     <color name="colorError">#c23616</color>
     <color name="switchColor">#c23616</color>
