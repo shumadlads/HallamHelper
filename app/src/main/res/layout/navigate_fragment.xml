@@ -28,7 +28,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp"
             android:fitsSystemWindows="true"
@@ -57,20 +57,20 @@
                 android:text="Enter your room number"
                 android:textSize="8pt" />
 
-            <android.support.constraint.ConstraintLayout
+            <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:weightSum="1.0">
 
 
-                tools:layout_editor_absoluteX="24dp"
-                tools:layout_editor_absoluteY="40dp">
 
                 <android.support.design.widget.TextInputLayout
 
                     android:id="@+id/findRoomFromInputLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="150dp"
+                    android:layout_width="fill_parent"
+                    android:layout_weight=".5"
                     android:layout_height="56dp"
                     android:layout_marginTop="6dp"
                     app:boxStrokeColor="@color/colorPrimaryDark"
@@ -89,8 +89,8 @@
 
                     android:id="@+id/findRoomToInputLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                    android:layout_width="150dp"
+                    android:layout_width="fill_parent"
+                    android:layout_weight=".5"
                     android:layout_height="56dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="6dp"
@@ -110,23 +110,7 @@
 
 
                 </android.support.design.widget.TextInputLayout>
-
-
-                <ImageView
-                    android:id="@+id/switchIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/switch_icon_context"
-                    android:src="@drawable/ic_baseline_shuffle_24px"
-                    android:tint="@color/colorAccent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/findRoomToInputLayout"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
 
             <Button
                 android:id="@+id/searchFindIcon"
