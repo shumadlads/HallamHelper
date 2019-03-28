@@ -197,7 +197,7 @@ public class NavigateFragment extends Fragment implements NavigationRecyclerView
                 break;
             case 3://Howard
                 break;
-            case 4: setIntent(3000, 0000); //EMB
+            case 4: setIntent(3100, 3100); //EMB
                 break;
         }
 

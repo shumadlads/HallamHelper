@@ -110,6 +110,7 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     public void emb(int levelFrom, int roomTo, MapView mapBg){
         Spinner spinner = findViewById(R.id.spinner);
         String[] levels = new String[]{
+                "Level - 0",
                 "Level - 1"
         };
 
@@ -121,7 +122,7 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
         spinner.setAdapter(spinnerArrayAdapter);
-        spinner.setSelection(levelFrom - 1); // -1 needs removing if multiple levels are added
+        spinner.setSelection(levelFrom); // -1 needs removing if multiple levels are added
 
     }
 
