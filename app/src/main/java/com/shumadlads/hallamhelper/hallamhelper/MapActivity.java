@@ -140,20 +140,28 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             }
             case 1: {
+                bgDrawableInt = R.drawable.ic_cantor_level_1;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_1));
+                changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 2: {
+                bgDrawableInt = R.drawable.ic_cantor_level_2;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_2));
+                changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 3: {
+                bgDrawableInt = R.drawable.ic_cantor_level_3;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_3));
+                changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 4: {
+                bgDrawableInt = R.drawable.ic_cantor_level_4;
                 mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorTopMapBg_width);
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_4));
+                changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
         }
