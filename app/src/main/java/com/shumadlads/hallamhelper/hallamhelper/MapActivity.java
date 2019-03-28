@@ -110,6 +110,7 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     public void emb(int levelFrom, int roomTo, MapView mapBg){
         Spinner spinner = findViewById(R.id.spinner);
         String[] levels = new String[]{
+                "Level - 0",
                 "Level - 1"
         };
 
@@ -121,7 +122,7 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.building_level_select_item);
         spinner.setAdapter(spinnerArrayAdapter);
-        spinner.setSelection(levelFrom - 1); // -1 needs removing if multiple levels are added
+        spinner.setSelection(levelFrom); // -1 needs removing if multiple levels are added
 
     }
 
@@ -130,9 +131,12 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         mapBg.requestLayout();
         mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.cantorMapBg_height);
         mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorMapBg_width);
+        int bgDrawableInt;
         switch (levelFrom){
             case 0: {
+                bgDrawableInt = R.drawable.ic_cantor_level_0;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_0));
+                changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 1: {
@@ -157,11 +161,11 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
 
     public void displayEMBMapBg(int levelFrom, int roomTo, MapView mapBg){
         Drawable bgDrawable;
+        mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
+        mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
         int bgDrawableInt;
         switch (levelFrom) {
             case 1: {
-                mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
-                mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
                 bgDrawable = getResources().getDrawable(R.drawable.ic_emb_level_2);
                 bgDrawableInt = R.drawable.ic_emb_level_2;
                 mapBg.setImageDrawable(bgDrawable);
@@ -169,8 +173,6 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
                 break;
             }
             case 9: { //todo DEBUG NEEDS RETHINKING
-                mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.embMapBg_height);
-                mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.embMapBg_width);
                 bgDrawable = getResources().getDrawable(R.drawable.ic_emb_level_2);
                 bgDrawableInt = R.drawable.ic_emb_level_2;
                 mapBg.setImageDrawable(bgDrawable);
@@ -188,7 +190,10 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         VectorChildFinder vector = new VectorChildFinder(getApplicationContext(),
                 bgDrawable, map);
         VectorDrawableCompat.VFullPath changePathTo = vector.findPathByName(roomToString);
-        changePathTo.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
+        if(changePathTo != null){
+            changePathTo.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+
     }
 
 

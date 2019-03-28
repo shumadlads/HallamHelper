@@ -21,19 +21,19 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-<android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="60dp"
             android:fitsSystemWindows="true"
             android:orientation="vertical"
             android:paddingLeft="15dp"
-            android:layout_marginBottom="60dp"
             android:paddingTop="15dp"
             android:paddingRight="15dp"
             android:paddingBottom="15px">
@@ -72,19 +72,14 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="150dp"
                     android:layout_height="56dp"
-
                     android:layout_marginTop="6dp"
-
                     app:boxStrokeColor="@color/colorPrimaryDark"
                     app:layout_constraintStart_toStartOf="parent"
-
                     app:layout_constraintTop_toTopOf="parent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/textInputFrom"
                         android:layout_width="match_parent"
-
-
                         android:layout_height="wrap_content"
                         android:hint="@string/from"
                         android:inputType="number" />
@@ -139,288 +134,11 @@
                 android:layout_height="wrap_content"
                 android:text="Search" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/nav_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view_emb"
-                android:layout_width="fill_parent"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:clickable="true"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <FrameLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorBackground"
-                    android:backgroundTint="@color/colorBackground">
-
-
-                    <ImageView
-                        android:id="@+id/thumbnailemb"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/emb" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="119dp"
-                        android:text="EMB"
-                        android:textSize="14pt"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view_cantor"
-                android:layout_width="fill_parent"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:clickable="true"
-                android:paddingBottom="10dp"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_view_emb">
-
-                <FrameLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorBackground"
-                    android:backgroundTint="@color/colorBackground">
-
-
-                    <ImageView
-                        android:id="@+id/thumbnail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/shuatnight" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Cantor"
-                        android:textSize="14pt"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view_owen"
-                android:layout_width="fill_parent"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:clickable="true"
-                android:paddingBottom="10dp"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_view_emb">
-
-                <FrameLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorBackground"
-                    android:backgroundTint="@color/colorBackground">
-
-                    <ImageView
-                        android:id="@+id/thumbnailowen"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/citycontent" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Owen Building"
-                        android:textSize="14pt"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;
-
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/shadowbackground"
-
-            tools:layout_editor_absoluteX="24dp"
-            tools:layout_editor_absoluteY="40dp">
-            <TextView
-                android:id="@+id/text_view_id"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Find your next session" />
-
-
-            <android.support.design.widget.TextInputLayout
-
-                android:id="@+id/findRoomFromInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="126dp"
-                android:layout_height="56dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="36dp"
-
-                app:boxStrokeColor="@color/colorPrimaryDark"
-                app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/textInputFrom"
-                    android:layout_width="match_parent"
-
-
-                    android:layout_height="wrap_content"
-                    android:hint="@string/from"
-                    android:inputType="number"
-                    />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-
-                android:id="@+id/findRoomToInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-
-                android:layout_width="126dp"
-                android:layout_height="56dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginBottom="32dp"
-
-                app:boxStrokeColor="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/findRoomFromInputLayout"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/textInputTo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/to"
-                    android:inputType="number"
-                    />
-
-
-            </android.support.design.widget.TextInputLayout>
-
-            <TextView
-                android:id="@+id/findLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/find_room"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/switchIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="44dp"
-                android:contentDescription="@string/switch_icon_context"
-                android:tint="@color/colorAccent"
-                android:src="@drawable/ic_baseline_shuffle_24px"
-                app:layout_constraintEnd_toStartOf="@+id/searchFindIcon"
-                app:layout_constraintStart_toEndOf="@+id/findRoomToInputLayout"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/searchFindIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="44dp"
-                android:contentDescription="@string/search_find_icon_context"
-                android:tint="@color/colorAccent"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_baseline_search_24px"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shadowbackground"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteX="24dp"
-            tools:layout_editor_absoluteY="40dp">
-
-
-            <TextView
-                android:id="@+id/selectLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/select_building"
-                android:textSize="16sp"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/searchExploreIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="34dp"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="@string/search_explore_icon_context"
-                android:tint="@color/colorAccent"
-                android:src="@drawable/ic_baseline_search_24px"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/selectBuildingSpinner"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="280dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="16dp"
-                android:entries="@array/buildings"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </android.support.constraint.ConstraintLayout>
-
-
-    </LinearLayout>-->
 </android.support.design.widget.CoordinatorLayout>

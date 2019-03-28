@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,11 +20,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Building;
+import com.shumadlads.hallamhelper.hallamhelper.Navigation.NavigationRecyclerViewAdapter;
+import com.shumadlads.hallamhelper.hallamhelper.Navigation.NavigationRecyclerViewListener;
+import com.shumadlads.hallamhelper.hallamhelper.Navigation.NavigationRecyclerViewModel;
 
-public class NavigateFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class NavigateFragment extends Fragment implements NavigationRecyclerViewListener {
+
+
+    private NavigationRecyclerViewAdapter NavigationAdapter;
+    private ArrayList<NavigationRecyclerViewModel> NavigationBuildings;
+    private RecyclerView recyclerView;
 
     public NavigateFragment() {
         // Required empty public constructor
@@ -40,6 +57,16 @@ public class NavigateFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FillBuildings();
+    }
+
+    private void FillBuildings() {
+        NavigationBuildings = new ArrayList<>();
+        List<Building> buildings = SQLite.select().from(Building.class).queryList();
+        for (Building build : buildings){
+            NavigationBuildings.add(new NavigationRecyclerViewModel(build.getBuildingId(), build.getBuildingImage(),build.getBuildingName()));
+            NavigationAdapter = new NavigationRecyclerViewAdapter(getActivity().getApplicationContext() , NavigationBuildings,this);
+        }
     }
 
     @Override
@@ -48,12 +75,13 @@ public class NavigateFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.navigate_fragment, container, false);
         InitToolBar(view);
+        InitRecylcerView(view);
         Button searchFindIcon = view.findViewById(R.id.searchFindIcon);
         ImageView switchIcon = view.findViewById(R.id.switchIcon);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
         final TextView fromTextView = view.findViewById(R.id.textInputFrom);
-        final CardView cardCantor = view.findViewById(R.id.card_view_cantor);
-        final CardView cardEmb = view.findViewById(R.id.card_view_emb);
+       /* final CardView cardCantor = view.findViewById(R.id.card_view_cantor);
+       final CardView cardEmb = view.findViewById(R.id.card_view_emb);
 
         cardCantor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +97,7 @@ public class NavigateFragment extends Fragment {
 
             }
         });
-
+*/
 
 
         //onSearchFindIconClick
@@ -78,18 +106,18 @@ public class NavigateFragment extends Fragment {
             public void onClick(View v) {
                 /* Toast is currently taking place on MapView - Earmarked for removal 19/12/2018 GS
 
-                */
+                 */
 
-                if(!(toTextView.getText().toString().matches(""))){
+                if (!(toTextView.getText().toString().matches(""))) {
                     int roomToInt = Integer.parseInt(toTextView.getText().toString());
-                    if(roomToInt != 0){
+                    if (roomToInt != 0) {
                         int roomFromInt = 0;
-                        if(!(fromTextView.getText().toString().matches(""))){
+                        if (!(fromTextView.getText().toString().matches(""))) {
                             roomFromInt = Integer.parseInt(fromTextView.getText().toString());
-                        }else { // Room from is empty and needs correct code generating for entrance of building
+                        } else { // Room from is empty and needs correct code generating for entrance of building
                             String knownEmptyRoomCode = "99";
                             int buildingFrom = ((((roomToInt / 10) / 10) / 10) % 10); // get first digit for building number
-                            switch (buildingFrom){
+                            switch (buildingFrom) {
                                 case 3: {
                                     roomFromInt = Integer.parseInt("31" + knownEmptyRoomCode); // if room code is emb, prefix 31 to get correct entrance
                                     break;
@@ -101,18 +129,16 @@ public class NavigateFragment extends Fragment {
                             }
                         }
                         setIntent(roomFromInt, roomToInt);
-                    }
-                    else {
+                    } else {
                         errorToast();
                     }
-                }
-                else{
+                } else {
                     errorToast();
                 }
             }
         });
         // onSwapTextfieldsClick
-        switchIcon.setOnClickListener(new View.OnClickListener(){
+        switchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CharSequence temp = toTextView.getText(); //set toText to temp variable
@@ -124,7 +150,15 @@ public class NavigateFragment extends Fragment {
         return view;
     }
 
-    private void setIntent(int from, int to){
+    private void InitRecylcerView(View view) {
+
+        recyclerView = view.findViewById(R.id.nav_recyclerview);
+        recyclerView.setAdapter(NavigationAdapter);
+        if (getActivity() != null)
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+    }
+
+    private void setIntent(int from, int to) {
         //MapFragment mapFragment = new MapFragment();
         Intent mapIntent = new Intent(getActivity(), MapActivity.class);
         Bundle b = new Bundle();
@@ -150,5 +184,22 @@ public class NavigateFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.settings_menu, menu);}
+        inflater.inflate(R.menu.settings_menu, menu);
+    }
+
+    @Override
+    public void OnBuildingClick(int pos) {
+
+        switch (NavigationBuildings.get(pos).getId()) {
+            case 1:  setIntent(9098, 9098);  //Cantor
+                break;
+            case 2: //Owen
+                break;
+            case 3://Howard
+                break;
+            case 4: setIntent(3100, 3100); //EMB
+                break;
+        }
+
+    }
 }
