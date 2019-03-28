@@ -227,6 +227,10 @@ public class MapView extends AppCompatImageView {
                 cantorLevel2NodesAndRoutes(levelFrom, roomFrom, roomTo);
                 break;
             }
+            case 3: {
+                cantorLevel3NodesAndRoutes(levelFrom, roomFrom, roomTo);
+                break;
+            }
 
         }
     }
@@ -946,6 +950,7 @@ public class MapView extends AppCompatImageView {
             cantorLevel2.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 357));
         }
 
+        //STAIRWELLNODE - BOTTOM LEFT
         cantorLevel2.add(new GraphNode("BalconyBottomLeft", counter, 60, 330));
         cantorLevel2.add(new GraphNode("9200Door", counter, 80, 300));
         cantorLevel2.add(new GraphNode("9200Corridor", counter, 90, 300));
@@ -956,12 +961,37 @@ public class MapView extends AppCompatImageView {
         cantorLevel2.add(new GraphNode("9205Door", counter, 65, 60));
         cantorLevel2.add(new GraphNode("9206Door", counter, 90, 60));
         cantorLevel2.add(new GraphNode("9207Door", counter, 100, 60));
+
+        //STAIRWELLNODE - TOP
+
         cantorLevel2.add(new GraphNode("9208Door", counter, 125, 60));
         cantorLevel2.add(new GraphNode("9210And9211Door", counter, 160, 60));
         cantorLevel2.add(new GraphNode("9212Door", counter, 220, 60));
         cantorLevel2.add(new GraphNode("9214Door", counter, 245, 60));
 
         cantorLevel2.add(new GraphNode("9215Door", counter, 220, 90));
+        cantorLevel2.add(new GraphNode("9216And9217Door", counter, 220, 110));
+        cantorLevel2.add(new GraphNode("9218Door", counter, 220, 126));
+        cantorLevel2.add(new GraphNode("9219Door", counter, 220, 142));
+        cantorLevel2.add(new GraphNode("9220Door", counter, 220, 180));
+        cantorLevel2.add(new GraphNode("9221Door", counter, 220, 215));
+        cantorLevel2.add(new GraphNode("9222Door", counter, 220, 230));
+        cantorLevel2.add(new GraphNode("9223Door", counter, 220, 260));
+        cantorLevel2.add(new GraphNode("9224Corridor", counter, 220, 300));
+        cantorLevel2.add(new GraphNode("9224Door", counter, 208, 300));
+
+        cantorLevel2.add(new GraphNode("9226Corridor", counter, 215, 325));
+        cantorLevel2.add(new GraphNode("9226Door", counter, 225, 325));
+
+        //STAIRWELLNODE - BOTTOM RIGHT
+
+        cantorLevel2.add(new GraphNode("9228Door", counter, 215, 380));
+        cantorLevel2.add(new GraphNode("9231Door", counter, 190, 380));
+        cantorLevel2.add(new GraphNode("9232Door", counter, 165, 380));
+        cantorLevel2.add(new GraphNode("9233Door", counter, 105, 380));
+        cantorLevel2.add(new GraphNode("9234Door", counter, 80, 380));
+
+
 
         cantorLevel2.add(new GraphNode("9235Door", counter, 60, 380));
 
@@ -971,6 +1001,48 @@ public class MapView extends AppCompatImageView {
 
 
         addStep("9235Door", "StairsAndLiftBottomLeft");
+        addStep("StairsAndLiftBottomLeft", "BalconyBottomLeft");
+        addStep("BalconyBottomLeft", "9200Door");
+        addStep("9200Door", "9200Corridor");
+        addStep("9200Corridor", "9201Door");
+        addStep("9201Door", "9202Door");
+        addStep("9202Door", "9203Door");
+        addStep("9203Door", "9206Door");
+        addStep("9205Door", "9206Door");
+        addStep("9206Door", "9207Door");
+        addStep("9207Door", "StairsAndLiftTop");
+
+        addStep("StairsAndLiftTop", "9208Door");
+        addStep("9208Door", "9210And9211Door");
+        addStep("9210And9211Door", "9212Door");
+        addStep("9212Door", "9214Door");
+
+        addStep("9212Door", "9215Door");
+        addStep("9215Door", "9216And9217Door");
+        addStep("9216And9217Door", "9218Door");
+        addStep("9218Door", "9219Door");
+        addStep("9219Door", "9220Door");
+        addStep("9220Door", "9221Door");
+        addStep("9221Door", "9222Door");
+        addStep("9222Door", "9223Door");
+        addStep("9223Door", "9224Corridor");
+        addStep("9224Corridor", "9224Door");
+        addStep("9224Corridor", "9226Corridor");
+        addStep("9226Corridor", "9226Door");
+
+        if (!useLiftsOnly){
+            addStep("9226Corridor", "StairsOnlyBottomRight");
+            addStep("StairsOnlyBottomRight", "9228Door");
+        } else {
+            addStep("9226Corridor", "9228Door");
+        }
+
+        addStep("9228Door", "9231Door");
+        addStep("9231Door", "9232Door");
+        addStep("9232Door", "9233Door");
+        addStep("9233Door", "9234Door");
+        addStep("9234Door", "9235Door");
+
 
 
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
@@ -978,7 +1050,113 @@ public class MapView extends AppCompatImageView {
 
         //CANTOR LEVEL 2 - SET START
         if (levelFrom == roomCodeLevelFrom) {
+
+
             switch (roomFrom) {
+                case 9200: {
+                    setStartNode("9200Door");
+                    break;
+                }
+                case 9201: {
+                    setStartNode("9201Door");
+                    break;
+                }
+                case 9202: {
+                    setStartNode("9202Door");
+                    break;
+                }
+                case 9203: {
+                    setStartNode("9203Door");
+                    break;
+                }
+                case 9205: {
+                    setStartNode("9205Door");
+                    break;
+                }
+                case 9206: {
+                    setStartNode("9206Door");
+                    break;
+                }
+                case 9207: {
+                    setStartNode("9207Door");
+                    break;
+                }
+                case 9208: {
+                    setStartNode("9208Door");
+                    break;
+                }
+                case 9210: case 9211: {
+                    setStartNode("9210And9211Door");
+                    break;
+                }
+                case 9212: {
+                    setStartNode("9212Door");
+                    break;
+                }
+                case 9214: {
+                    setStartNode("9214Door");
+                    break;
+                }
+                case 9215: {
+                    setStartNode("9215Door");
+                    break;
+                }
+                case 9216: case 9217: {
+                    setStartNode("9216And9217Door");
+                    break;
+                }
+                case 9218: {
+                    setStartNode("9218Door");
+                    break;
+                }
+                case 9219: {
+                    setStartNode("9219Door");
+                    break;
+                }
+                case 9220: {
+                    setStartNode("9220Door");
+                    break;
+                }
+                case 9221: {
+                    setStartNode("9221Door");
+                    break;
+                }
+                case 9222: {
+                    setStartNode("9222Door");
+                    break;
+                }
+                case 9223: {
+                    setStartNode("9223Door");
+                    break;
+                }
+                case 9224: {
+                    setStartNode("9224Door");
+                    break;
+                }
+                case 9226: {
+                    setStartNode("9226Door");
+                    break;
+                }
+                case 9228: {
+                    setStartNode("9228Door");
+                    break;
+                }
+                case 9231: {
+                    setStartNode("9231Door");
+                    break;
+                }
+                case 9232: {
+                    setStartNode("9232Door");
+                    break;
+                }
+                case 9233: {
+                    setStartNode("9233Door");
+                    break;
+                }
+                case 9234: {
+                    setStartNode("9234Door");
+                    break;
+                }
                 case 9235: {
                     setStartNode("9235Door");
                     break;
@@ -1009,6 +1187,381 @@ public class MapView extends AppCompatImageView {
         //CANTOR LEVEL 2 - SET STOP
         if (roomCodeLevelTo == levelFrom) {
             switch (roomTo) {
+                case 9200: {
+                    setEndNode("9200Door");
+                    break;
+                }
+                case 9201: {
+                    setEndNode("9201Door");
+                    break;
+                }
+                case 9202: {
+                    setEndNode("9202Door");
+                    break;
+                }
+                case 9203: {
+                    setEndNode("9203Door");
+                    break;
+                }
+                case 9205: {
+                    setEndNode("9205Door");
+                    break;
+                }
+                case 9206: {
+                    setEndNode("9206Door");
+                    break;
+                }
+                case 9207: {
+                    setEndNode("9207Door");
+                    break;
+                }
+                case 9208: {
+                    setEndNode("9208Door");
+                    break;
+                }
+                case 9210: case 9211: {
+                    setEndNode("9210And9211Door");
+                    break;
+                }
+                case 9212: {
+                    setEndNode("9212Door");
+                    break;
+                }
+                case 9214: {
+                    setEndNode("9214Door");
+                    break;
+                }
+                case 9215: {
+                    setEndNode("9215Door");
+                    break;
+                }
+                case 9216: case 9217: {
+                    setEndNode("9216And9217Door");
+                    break;
+                }
+                case 9218: {
+                    setEndNode("9218Door");
+                    break;
+                }
+                case 9219: {
+                    setEndNode("9219Door");
+                    break;
+                }
+                case 9220: {
+                    setEndNode("9220Door");
+                    break;
+                }
+                case 9221: {
+                    setEndNode("9221Door");
+                    break;
+                }
+                case 9222: {
+                    setEndNode("9222Door");
+                    break;
+                }
+                case 9223: {
+                    setEndNode("9223Door");
+                    break;
+                }
+                case 9224: {
+                    setEndNode("9224Door");
+                    break;
+                }
+                case 9226: {
+                    setEndNode("9226Door");
+                    break;
+                }
+                case 9228: {
+                    setEndNode("9228Door");
+                    break;
+                }
+                case 9231: {
+                    setEndNode("9231Door");
+                    break;
+                }
+                case 9232: {
+                    setEndNode("9232Door");
+                    break;
+                }
+                case 9233: {
+                    setEndNode("9233Door");
+                    break;
+                }
+                case 9234: {
+                    setEndNode("9234Door");
+                    break;
+                }
+                case 9235: {
+                    setEndNode("9235Door");
+                    break;
+                }
+                default: {
+                    setEndNode("9235Door");
+                }
+            }
+        } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelTo) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    String[] stairsAndLiftsArray = new String[]{"StairsAndLiftBottomLeft", "StairsAndLiftTop"};
+                    String[] stairsOnlyArray = new String[]{"StairsOnlyBottomRight"};
+
+                    GraphNode startNode = graph.getN(start_x, start_y);
+                    GraphNode stairNode = getNearestStairNode(startNode, stairsAndLiftsArray, stairsOnlyArray);
+                    setEndNode(stairNode.name);
+                    break;
+                }
+                case 4: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
+            }
+        }
+
+    }
+
+    public void cantorLevel3NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
+        List<GraphNode> cantorLevel3 = new ArrayList<GraphNode>();
+        //StairsAndLifts
+        cantorLevel3.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
+        cantorLevel3.add(new GraphNode("StairsAndLiftTop", counter, 110, 60));
+
+        //StairsOnly
+        if (!useLiftsOnly) {
+            cantorLevel3.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 357));
+        }
+
+        cantorLevel3.add(new GraphNode("BalconyBottomLeft", counter, 65, 330));
+        cantorLevel3.add(new GraphNode("BalconyBottomLeft2", counter, 90, 300));
+        cantorLevel3.add(new GraphNode("9303Door", counter, 90, 255));
+        cantorLevel3.add(new GraphNode("9305Door", counter, 90, 240));
+        cantorLevel3.add(new GraphNode("9306Door", counter, 90, 190));
+        cantorLevel3.add(new GraphNode("9307Door", counter, 90, 120));
+
+        cantorLevel3.add(new GraphNode("9309Door", counter, 65, 60));
+        cantorLevel3.add(new GraphNode("9310Door", counter, 90, 60));
+        cantorLevel3.add(new GraphNode("9311Door", counter, 100, 60));
+
+        //STAIRWELLNODE - TOP
+
+        cantorLevel3.add(new GraphNode("9312Door", counter, 120, 60));
+        cantorLevel3.add(new GraphNode("9314And9316Door", counter, 150, 60));
+        cantorLevel3.add(new GraphNode("9315Door", counter, 218, 60));
+        cantorLevel3.add(new GraphNode("9318Door", counter, 245, 60));
+
+        cantorLevel3.add(new GraphNode("9320Door", counter, 218, 115));
+        cantorLevel3.add(new GraphNode("9321And9322Door", counter, 218, 135));
+        cantorLevel3.add(new GraphNode("9324Door", counter, 218, 155));
+        cantorLevel3.add(new GraphNode("9323And9325Door", counter, 218, 195));
+        cantorLevel3.add(new GraphNode("9327And9332Door", counter, 218, 210));
+        cantorLevel3.add(new GraphNode("9330Door", counter, 218, 240));
+        cantorLevel3.add(new GraphNode("9328And9329Door", counter, 218, 280));
+        cantorLevel3.add(new GraphNode("9331Door", counter, 218, 295));
+        cantorLevel3.add(new GraphNode("9326Door", counter, 215, 315));
+
+        //STAIRWELLNODE - BOTTOM RIGHT
+        cantorLevel3.add(new GraphNode("9335Door", counter, 215, 380));
+        cantorLevel3.add(new GraphNode("9336Door", counter, 200, 380));
+        cantorLevel3.add(new GraphNode("9339Door", counter, 150, 380));
+        cantorLevel3.add(new GraphNode("9342Door", counter, 140, 380));
+        cantorLevel3.add(new GraphNode("9340Door", counter, 130, 380));
+        cantorLevel3.add(new GraphNode("9344Door", counter, 80, 380));
+        cantorLevel3.add(new GraphNode("9343Door", counter, 60, 380));
+
+
+
+        for (int i = 0; i < cantorLevel3.size(); i++) {
+            graph.addNode(cantorLevel3.get(i));
+        }
+
+        addStep("StairsAndLiftBottomLeft", "BalconyBottomLeft");
+        addStep("BalconyBottomLeft", "BalconyBottomLeft2");
+        addStep("BalconyBottomLeft2", "9303Door");
+        addStep("9303Door", "9305Door");
+        addStep("9305Door", "9306Door");
+        addStep("9306Door", "9307Door");
+        addStep("9307Door", "9310Door");
+        addStep("9310Door", "9309Door");
+        addStep("9310Door", "9311Door");
+        addStep("9311Door", "StairsAndLiftTop");
+
+        addStep("StairsAndLiftTop", "9312Door");
+        addStep("9312Door", "9314And9316Door");
+        addStep("9314And9316Door", "9315Door");
+        addStep("9315Door", "9318Door");
+        addStep("9315Door", "9320Door");
+        addStep("9320Door", "9321And9322Door");
+        addStep("9321And9322Door", "9324Door");
+        addStep("9324Door", "9323And9325Door");
+        addStep("9323And9325Door", "9327And9332Door");
+        addStep("9327And9332Door", "9330Door");
+        addStep("9330Door", "9328And9329Door");
+        addStep("9328And9329Door", "9331Door");
+        addStep("9331Door", "9326Door");
+
+        if (!useLiftsOnly) {
+            addStep("9326Door", "StairsOnlyBottomRight");
+            addStep("StairsOnlyBottomRight", "9335Door");
+        } else {
+            addStep("9326Door", "9335Door");
+        }
+
+        addStep("9335Door", "9336Door");
+        addStep("9336Door", "9339Door");
+        addStep("9339Door", "9342Door");
+        addStep("9342Door", "9340Door");
+        addStep("9340Door", "9344Door");
+        addStep("9344Door", "9343Door");
+        addStep("9343Door", "StairsAndLiftBottomLeft");
+
+        int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
+        int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
+
+        //CANTOR LEVEL 2 - SET START
+        if (levelFrom == roomCodeLevelFrom) {
+
+
+            switch (roomFrom) {
+                case 9303: {
+                    setStartNode("9303Door");
+                    break;
+                }
+                case 9305: {
+                    setStartNode("9305Door");
+                    break;
+                }
+                case 9306: {
+                    setStartNode("9306Door");
+                    break;
+                }
+                case 9307: {
+                    setStartNode("9307Door");
+                    break;
+                }
+                case 9309: {
+                    setStartNode("9309Door");
+                    break;
+                }
+                case 9310: {
+                    setStartNode("9310Door");
+                    break;
+                }
+                case 9311: {
+                    setStartNode("9311Door");
+                    break;
+                }
+                case 9312: {
+                    setStartNode("9312Door");
+                    break;
+                }
+                case 9314: case 9316: {
+                    setStartNode("9314And9316Door");
+                    break;
+                }
+                case 9315: {
+                    setStartNode("9315Door");
+                    break;
+                }
+                case 9318: {
+                    setStartNode("9318Door");
+                    break;
+                }
+                case 9320: {
+                    setStartNode("9320Door");
+                    break;
+                }
+                case 9321: case 9322: {
+                    setStartNode("9321And9322Door");
+                    break;
+                }
+                case 9324: {
+                    setStartNode("9324Door");
+                    break;
+                }
+                case 9323: case 9325: {
+                    setStartNode("9323And9325Door");
+                    break;
+                }
+                case 9326: {
+                    setStartNode("9326Door");
+                    break;
+                }
+                case 9327: case 9332: {
+                    setStartNode("9327And9332Door");
+                    break;
+                }
+                case 9330: {
+                    setStartNode("9330Door");
+                    break;
+                }
+                case 9328: case 9329: {
+                    setStartNode("9328And9329Door");
+                    break;
+                }
+                case 9331: {
+                    setStartNode("9328And9329Door");
+                    break;
+                }
+                case 9335: {
+                    setStartNode("9335Door");
+                    break;
+                }
+                case 9336: {
+                    setStartNode("9336Door");
+                    break;
+                }
+                case 9339: {
+                    setStartNode("9339Door");
+                    break;
+                }
+                case 9342: {
+                    setStartNode("9342Door");
+                    break;
+                }
+                case 9340: {
+                    setStartNode("9340Door");
+                    break;
+                }
+                case 9343: {
+                    setStartNode("9343Door");
+                    break;
+                }
+                case 9344: {
+                    setStartNode("9344Door");
+                    break;
+                }
+
+                default: {
+                    setStartNode("9303Door");
+                    break;
+                }
+            }
+        } else if (roomCodeLevelTo == levelFrom) { // Route starts on this floor
+            switch (roomCodeLevelFrom) {
+                case 0:
+                case 1:
+                case 2:
+                case 3: { //entrance start node
+                    GraphNode stairwellFrom = getStairwellNode(stairwellNode);
+                    if (stairwellFrom != null)
+                        setStartNode(stairwellFrom.getName());
+                    break;
+                }
+                case 4: { //entrance start node
+                    setEndNode("StairsAndLiftBottomLeft");
+                    break;
+                }
+            }
+        }
+
+        //CANTOR LEVEL 2 - SET STOP
+        if (roomCodeLevelTo == levelFrom) {
+            switch (roomTo) {
+                case 9303: {
+                    setEndNode("9303Door");
+                }
                 default: {
                     setEndNode("9235Door");
                 }
