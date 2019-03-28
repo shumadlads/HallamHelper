@@ -189,7 +189,10 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         VectorChildFinder vector = new VectorChildFinder(getApplicationContext(),
                 bgDrawable, map);
         VectorDrawableCompat.VFullPath changePathTo = vector.findPathByName(roomToString);
-        changePathTo.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
+        if(changePathTo != null){
+            changePathTo.setFillColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
+
     }
 
 
