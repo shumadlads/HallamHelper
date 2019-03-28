@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences SharedPrefs;
     private SharedPreferences.Editor Editor;
     User CurrentUser;
+    boolean selected = false;
 
     EditText Username, Password;
     Switch KeepMeLoggedIn;
@@ -95,35 +96,28 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void SetupAppCard() {
 
-        Spinner spinner = (Spinner) findViewById(R.id.Colourblind_Spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.Colourblind_Spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colourblind, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-     //   Switch colorblind = findViewById(R.id.Colorblind_Spinner);
-     //   colorblind.setChecked(SharedPrefs.getBoolean(getString(R.string.SP_ColorBlindMode), false));
-     //   colorblind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      //      @Override
-       //     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-       //         Editor.putBoolean(getString(R.string.SP_ColorBlindMode), isChecked);
-         //       Editor.commit();
-        //    }
-       // });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(selected) {
+                    String mode = (String) parent.getItemAtPosition(position);
+                    Editor.putString(getString(R.string.SP_ColorBlindMode), mode);
+                    Editor.commit();
+                }
+                selected =true;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    public class SpinnerActivity extends SettingsActivity implements AdapterView.OnItemSelectedListener {
-    //...
-
-        public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            // An item was selected. You can retrieve the selected item using
-            // parent.getItemAtPosition(pos)
-            //shared preferences set
-        }
-
-        public void onNothingSelected(AdapterView<?> parent) {
-            // Another interface callback
-        }
-    }
 
     public void SetupNavCard() {
         Switch lift = findViewById(R.id.lift_settings_activity_switch);
