@@ -1746,8 +1746,15 @@ public class MapView extends AppCompatImageView {
 
     public void cantorLevel4NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<GraphNode> cantorLevel4 = new ArrayList<GraphNode>();
-        //StairsAndLifts
-        cantorLevel4.add(new GraphNode("StairsAndLiftTop", counter, 135, 80));
+        List<Node> data = SQLite.select().from(Node.class).where(Node_Table.Building.eq(1)).and(Node_Table.Floor.eq(4)).queryList();
+        for (Node node : data) {
+            if (node.getNodeName() == "StairsOnlyBottom"){
+                if (!useLiftsOnly)
+                    cantorLevel4.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+            } else
+                cantorLevel4.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+        }
+        /*cantorLevel4.add(new GraphNode("StairsAndLiftTop", counter, 135, 80));
         //StairsOnly
         if (!useLiftsOnly) {
             cantorLevel4.add(new GraphNode("StairsOnlyBottom", counter, 172, 367));
@@ -1771,7 +1778,7 @@ public class MapView extends AppCompatImageView {
         cantorLevel4.add(new GraphNode("9409Door", counter, 62, 367));
         cantorLevel4.add(new GraphNode("9410And9411Door", counter, 45, 367));
         cantorLevel4.add(new GraphNode("9406Door", counter, 140, 367));
-
+*/
         addListNodesToGraph(cantorLevel4);
 
         addStep("StairsAndLiftTop", "CorridorTop");
