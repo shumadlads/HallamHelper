@@ -17,7 +17,7 @@
     <string name="search_explore_icon_context">Search Explore Icon</string>
     <string name="SP_UserId">com.shumadlads.hallamhelper.hallamhelper.UserId</string>
     <string name="SP_Toggle">com.shumadlads.hallamhelper.hallamhelper.ToggleLogin</string>
-    <string name="SP_ColorBlindMode">com.shumadlads.hallamhelper.hallamhelper.ColorBlindMode</string>
+    <string name="SP_ColorBlindMode">com.shumadlads.hallamhelper.hallamhelper.ColorMode</string>
     <string name="SP_UseLift">com.shumadlads.hallamhelper.hallamhelper.UseLifts</string>
     <string name="SP_DisplayRoom">com.shumadlads.hallamhelper.hallamhelper.DisplayRoomNumber</string>
     <string name="Sp_DisplayFloor">com.shumadlads.hallamhelper.hallamhelper.DisplayFloorNumber</string>
