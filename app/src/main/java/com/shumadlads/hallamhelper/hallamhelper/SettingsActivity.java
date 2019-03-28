@@ -12,10 +12,13 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ShareActionProvider;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,7 +70,6 @@ public class SettingsActivity extends AppCompatActivity {
         SetupAppCard();
         SetupNavCard();
         SetupTimeCard();
-
     }
 
     public void SetupUserCard() {
@@ -92,15 +94,35 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void SetupAppCard() {
-        Switch colorblind = findViewById(R.id.ColorBlind_settings_activity_Switch);
-        colorblind.setChecked(SharedPrefs.getBoolean(getString(R.string.SP_ColorBlindMode), false));
-        colorblind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Editor.putBoolean(getString(R.string.SP_ColorBlindMode), isChecked);
-                Editor.commit();
-            }
-        });
+
+        Spinner spinner = (Spinner) findViewById(R.id.Colourblind_Spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colourblind, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+     //   Switch colorblind = findViewById(R.id.Colorblind_Spinner);
+     //   colorblind.setChecked(SharedPrefs.getBoolean(getString(R.string.SP_ColorBlindMode), false));
+     //   colorblind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      //      @Override
+       //     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+       //         Editor.putBoolean(getString(R.string.SP_ColorBlindMode), isChecked);
+         //       Editor.commit();
+        //    }
+       // });
+    }
+
+    public class SpinnerActivity extends SettingsActivity implements AdapterView.OnItemSelectedListener {
+    //...
+
+        public void onItemSelected(AdapterView<?> parent, View view,
+                                   int pos, long id) {
+            // An item was selected. You can retrieve the selected item using
+            // parent.getItemAtPosition(pos)
+            //shared preferences set
+        }
+
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Another interface callback
+        }
     }
 
     public void SetupNavCard() {

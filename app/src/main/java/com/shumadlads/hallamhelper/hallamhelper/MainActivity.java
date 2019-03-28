@@ -30,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         Editor = SharedPrefs.edit();
+
+        // To change theme just put your theme id.
+
+
+
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //For night mode theme
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); //For day mode theme
         setContentView(R.layout.main_activity);
-
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

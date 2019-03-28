@@ -26,13 +26,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string-array name="buildings">
-        <item>Cantor</item>
-        <item>Owen</item>
-        <item>Stoddart</item>
-        <item>Mcdonalds</item>
-        <item>EMB</item>
+    <string-array name="colourblind">
+        <item>None</item>
+        <item>Protanopia</item>
+        <item>Deuteranopia</item>
+        <item>Tritanopia</item>
+        <item>Achromatopsia</item>
     </string-array>
+
     <string name="title_activity_map">MapActivity</string>
 
 
