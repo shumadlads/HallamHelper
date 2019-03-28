@@ -237,29 +237,36 @@ public class MapView extends AppCompatImageView {
 
     public void cantorLevel0NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<GraphNode> cantorLevel0 = new ArrayList<GraphNode>();
+        List<Node> data = SQLite.select().from(Node.class).where(Node_Table.Building.eq(1)).and(Node_Table.Floor.eq(0)).queryList();
         //StairsAndLifts
-        cantorLevel0.add(new GraphNode("StairsAndLiftBottomLeft", counter, 45, 368));
-        cantorLevel0.add(new GraphNode("StairsAndLiftTop", counter, 105, 55));
+        //cantorLevel0.add(new GraphNode("StairsAndLiftBottomLeft", counter, 45, 368));
+        // cantorLevel0.add(new GraphNode("StairsAndLiftTop", counter, 105, 55));
         //StairsOnly
-
-        if (!useLiftsOnly) {
+        for (Node node : data) {
+            if (node.getNodeName() == "StairsToLevel1" || node.getNodeName() == "StairsOnlyBottomRight") {
+                if (!useLiftsOnly)
+                    cantorLevel0.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+            } else
+                cantorLevel0.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+        }
+       /* if (!useLiftsOnly) {
             cantorLevel0.add(new GraphNode("StairsToLevel1", counter, 140, 310));
             cantorLevel0.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 360));
 
         }
-        cantorLevel0.add(new GraphNode("9098", counter, 1000, 1000)); // EMPTY NODE FOR BUILDING DISPLAY
+        // cantorLevel0.add(new GraphNode("9098", counter, 1000, 1000)); // EMPTY NODE FOR BUILDING DISPLAY
 
-        cantorLevel0.add(new GraphNode("9099DoorEntrance", counter, 18, 320));
-        cantorLevel0.add(new GraphNode("InnerDoorTop", counter, 65, 320));
-        cantorLevel0.add(new GraphNode("CafeCorridor", counter, 65, 368));
+        //cantorLevel0.add(new GraphNode("9099DoorEntrance", counter, 18, 320));
+        //cantorLevel0.add(new GraphNode("InnerDoorTop", counter, 65, 320));
+        //cantorLevel0.add(new GraphNode("CafeCorridor", counter, 65, 368));
 
-        cantorLevel0.add(new GraphNode("BottomMainLobby", counter, 105, 320));
-        cantorLevel0.add(new GraphNode("BottomUnderStairs", counter, 140, 325));
+        //cantorLevel0.add(new GraphNode("BottomMainLobby", counter, 105, 320));
+        //cantorLevel0.add(new GraphNode("BottomUnderStairs", counter, 140, 325));
 
-        cantorLevel0.add(new GraphNode("9021Reception", counter, 140, 273));
-        cantorLevel0.add(new GraphNode("9021Corridor", counter, 105, 273));
+        //cantorLevel0.add(new GraphNode("9021Reception", counter, 140, 273));
+        //.add(new GraphNode("9021Corridor", counter, 105, 273));
 
-        cantorLevel0.add(new GraphNode("9001Door", counter, 95, 215));
+       /* cantorLevel0.add(new GraphNode("9001Door", counter, 95, 215));
         cantorLevel0.add(new GraphNode("9001Corridor", counter, 105, 215));
 
         cantorLevel0.add(new GraphNode("9002Door", counter, 95, 162));
@@ -282,7 +289,7 @@ public class MapView extends AppCompatImageView {
         cantorLevel0.add(new GraphNode("9019Corridor", counter, 205, 325));
         cantorLevel0.add(new GraphNode("9024And9025Door", counter, 215, 400));
         cantorLevel0.add(new GraphNode("AboveStairsOnlyBottomRight", counter, 215, 325));
-
+*/
         for (int i = 0; i < cantorLevel0.size(); i++) {
             GraphNode temp = cantorLevel0.get(i);
             graph.addNode(cantorLevel0.get(i));
@@ -294,10 +301,10 @@ public class MapView extends AppCompatImageView {
         if (!useLiftsOnly) {
             addStep("BottomMainLobby", "StairsToLevel1");
             // addStep("9021Corridor", "StairsToLevel1");
-            addStep( "AboveStairsOnlyBottomRight", "StairsOnlyBottomRight");
-            addStep( "StairsOnlyBottomRight", "9024And9025Door");
+            addStep("AboveStairsOnlyBottomRight", "StairsOnlyBottomRight");
+            addStep("StairsOnlyBottomRight", "9024And9025Door");
         } else {
-            addStep( "9024And9025Door", "AboveStairsOnlyBottomRight"); //Directly link these nodes since the corridor nodes rely on the stairwell
+            addStep("9024And9025Door", "AboveStairsOnlyBottomRight"); //Directly link these nodes since the corridor nodes rely on the stairwell
         }
 
         addStep("9099DoorEntrance", "InnerDoorTop");
@@ -305,27 +312,27 @@ public class MapView extends AppCompatImageView {
         addStep("CafeCorridor", "StairsAndLiftBottomLeft");
         addStep("InnerDoorTop", "BottomMainLobby");
         addStep("BottomMainLobby", "9021Corridor");
-        addStep( "9021Corridor", "9021Reception");
-        addStep( "9021Corridor", "9001Corridor");
-        addStep( "9001Corridor", "9001Door");
-        addStep( "9001Corridor", "9018Corridor");
-        addStep( "9018Corridor", "9018Door");
-        addStep( "9018Corridor", "9002And9022Corridor");
-        addStep( "9002And9022Corridor", "9002Door");
-        addStep( "9002And9022Corridor", "9022Door");
-        addStep( "9002And9022Corridor", "9003And9020Corridor");
-        addStep( "9003And9020Corridor", "9003Door");
-        addStep( "9003And9020Corridor", "9020Door");
-        addStep( "9003And9020Corridor", "StairsAndLiftTop");
-        addStep( "StairsAndLiftTop", "9006Door");
-        addStep( "9006Door", "9005Door"); // 9006 door doubles as corridor node
-        addStep( "StairsAndElevatorTop", "9011And9012Door"); // 9011And9012Door has only a door node
-        addStep( "9011And9012Door", "9013Door"); //9013Door has only a door node
-        addStep( "9013Door", "9015And9016Door");
-        addStep( "BottomMainLobby", "BottomUnderStairs");
-        addStep( "BottomUnderStairs", "9019Corridor");
-        addStep( "9019Corridor", "9019Door");
-        addStep( "9019Corridor", "AboveStairsOnlyBottomRight");
+        addStep("9021Corridor", "9021Reception");
+        addStep("9021Corridor", "9001Corridor");
+        addStep("9001Corridor", "9001Door");
+        addStep("9001Corridor", "9018Corridor");
+        addStep("9018Corridor", "9018Door");
+        addStep("9018Corridor", "9002And9022Corridor");
+        addStep("9002And9022Corridor", "9002Door");
+        addStep("9002And9022Corridor", "9022Door");
+        addStep("9002And9022Corridor", "9003And9020Corridor");
+        addStep("9003And9020Corridor", "9003Door");
+        addStep("9003And9020Corridor", "9020Door");
+        addStep("9003And9020Corridor", "StairsAndLiftTop");
+        addStep("StairsAndLiftTop", "9006Door");
+        addStep("9006Door", "9005Door"); // 9006 door doubles as corridor node
+        addStep("StairsAndElevatorTop", "9011And9012Door"); // 9011And9012Door has only a door node
+        addStep("9011And9012Door", "9013Door"); //9013Door has only a door node
+        addStep("9013Door", "9015And9016Door");
+        addStep("BottomMainLobby", "BottomUnderStairs");
+        addStep("BottomUnderStairs", "9019Corridor");
+        addStep("9019Corridor", "9019Door");
+        addStep("9019Corridor", "AboveStairsOnlyBottomRight");
 
 
         int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
@@ -363,7 +370,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9006Door");
                     break;
                 }
-                case 9011: case 9012: {
+                case 9011:
+                case 9012: {
                     setStartNode("9011And9012Door");
                     break;
                 }
@@ -371,7 +379,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9013Door");
                     break;
                 }
-                case 9015: case 9016: {
+                case 9015:
+                case 9016: {
                     setStartNode("9015And9016Door");
                     break;
                 }
@@ -395,7 +404,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9022Door");
                     break;
                 }
-                case 9024: case 9025: {
+                case 9024:
+                case 9025: {
                     setStartNode("9024And9025Door");
                     break;
                 }
@@ -428,7 +438,7 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9099DoorEntrance");
                     break;
                 }
-                case 9098:{
+                case 9098: {
                     setEndNode("9098");
                     break;
                 }
@@ -452,7 +462,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9006Door");
                     break;
                 }
-                case 9011: case 9012: {
+                case 9011:
+                case 9012: {
                     setEndNode("9011And9012Door");
                     break;
                 }
@@ -460,7 +471,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9013Door");
                     break;
                 }
-                case 9015: case 9016: {
+                case 9015:
+                case 9016: {
                     setEndNode("9015And9016Door");
                     break;
                 }
@@ -484,11 +496,12 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9022Door");
                     break;
                 }
-                case 9024: case 9025: {
+                case 9024:
+                case 9025: {
                     setEndNode("9024And9025Door");
                     break;
                 }
-                default:{
+                default: {
                     setEndNode("9099DoorEntrance");
                     break;
                 }
@@ -518,8 +531,16 @@ public class MapView extends AppCompatImageView {
 
     public void cantorLevel1NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<GraphNode> cantorLevel1 = new ArrayList<GraphNode>();
+        List<Node> data = SQLite.select().from(Node.class).where(Node_Table.Building.eq(1)).and(Node_Table.Floor.eq(1)).queryList();
+        for (Node node : data) {
+            if (node.getNodeName() == "StairsToLevel0" || node.getNodeName() == "StairsOnlyBottomRight") {
+                if (!useLiftsOnly)
+                    cantorLevel1.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+            } else
+                cantorLevel1.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+        }
         //StairsAndLifts
-        cantorLevel1.add(new GraphNode("StairsAndLiftBottomLeft", counter, 50, 365));
+      /*  cantorLevel1.add(new GraphNode("StairsAndLiftBottomLeft", counter, 50, 365));
         cantorLevel1.add(new GraphNode("StairsAndLiftTop", counter, 110, 55));
         //StairsOnly
 
@@ -585,7 +606,7 @@ public class MapView extends AppCompatImageView {
         cantorLevel1.add(new GraphNode("9139Door", counter, 120, 380));                  // Doubles as Corridor Node
         cantorLevel1.add(new GraphNode("9140Door", counter, 105, 380));                   // Doubles as Corridor Node
         cantorLevel1.add(new GraphNode("9141Door", counter, 58, 380));                   // Doubles as Corridor Node
-
+*/
 
         for (int i = 0; i < cantorLevel1.size(); i++) {
             GraphNode temp = cantorLevel1.get(i);
@@ -599,53 +620,53 @@ public class MapView extends AppCompatImageView {
         addStep("9101Corridor", "9101Door");
         addStep("9101Corridor", "CorridorBalconyBottomLeft");
 
-        addStep( "CorridorBalconyBottomLeft", "9102Door");
-        addStep( "9102Door", "9103Door");
-        addStep( "9103Door", "9104Door");
-        addStep( "9104Door", "9111Corridor");
-        addStep( "9111Corridor", "9111Door");
-        addStep( "9111Corridor", "9106Corridor");
-        addStep( "9106Corridor", "9106Door");
-        addStep( "9106Corridor", "9107And9109Door");
-        addStep( "9111Corridor", "9112Corridor");
-        addStep( "9112Corridor", "9112Door");
-        addStep( "9112Corridor", "StairsAndLiftTop");
-        addStep( "9112Corridor", "9114Corridor");
-        addStep( "9114Corridor", "9114Door");
-        addStep( "9114Corridor", "9115And9116Corridor");
-        addStep( "9115And9116Corridor", "9115Door");
-        addStep( "9115And9116Corridor", "9116Door");
-        addStep( "9115And9116Corridor", "9118Corridor");
-        addStep( "9118Corridor", "9118Door");
-        addStep( "9118Corridor", "9119And9120Door");
-        addStep( "9118Corridor", "9121Door");
-        addStep( "9121Door", "9122Door");
-        addStep( "9122Door", "9123And9124Door");
-        addStep( "9123And9124Door", "9125Door");
-        addStep( "9125Door", "9126Door");
+        addStep("CorridorBalconyBottomLeft", "9102Door");
+        addStep("9102Door", "9103Door");
+        addStep("9103Door", "9104Door");
+        addStep("9104Door", "9111Corridor");
+        addStep("9111Corridor", "9111Door");
+        addStep("9111Corridor", "9106Corridor");
+        addStep("9106Corridor", "9106Door");
+        addStep("9106Corridor", "9107And9109Door");
+        addStep("9111Corridor", "9112Corridor");
+        addStep("9112Corridor", "9112Door");
+        addStep("9112Corridor", "StairsAndLiftTop");
+        addStep("9112Corridor", "9114Corridor");
+        addStep("9114Corridor", "9114Door");
+        addStep("9114Corridor", "9115And9116Corridor");
+        addStep("9115And9116Corridor", "9115Door");
+        addStep("9115And9116Corridor", "9116Door");
+        addStep("9115And9116Corridor", "9118Corridor");
+        addStep("9118Corridor", "9118Door");
+        addStep("9118Corridor", "9119And9120Door");
+        addStep("9118Corridor", "9121Door");
+        addStep("9121Door", "9122Door");
+        addStep("9122Door", "9123And9124Door");
+        addStep("9123And9124Door", "9125Door");
+        addStep("9125Door", "9126Door");
 
-        addStep( "9126Door", "9128Door");
-        addStep( "9128Door", "9129Door");
-        addStep( "9129Door", "9131Door");
-        addStep( "9131Door", "9130Door");
-        addStep( "9132Door", "9132Corridor");
-        addStep( "9131Door", "9132Corridor");
-        addStep( "9130Door", "9132Corridor");
-        addStep( "StairsToLevel0Corridor", "9132Corridor");
-        addStep( "StairsToLevel0Corridor", "BalconyBottomRight");
+        addStep("9126Door", "9128Door");
+        addStep("9128Door", "9129Door");
+        addStep("9129Door", "9131Door");
+        addStep("9131Door", "9130Door");
+        addStep("9132Door", "9132Corridor");
+        addStep("9131Door", "9132Corridor");
+        addStep("9130Door", "9132Corridor");
+        addStep("StairsToLevel0Corridor", "9132Corridor");
+        addStep("StairsToLevel0Corridor", "BalconyBottomRight");
 
-        if(!useLiftsOnly){
-            addStep( "StairsToLevel0Corridor", "StairsToLevel0");
-            addStep( "StairsOnlyBottomRight", "BalconyBottomRight");
-            addStep( "StairsOnlyBottomRight", "9135Door");
+        if (!useLiftsOnly) {
+            addStep("StairsToLevel0Corridor", "StairsToLevel0");
+            addStep("StairsOnlyBottomRight", "BalconyBottomRight");
+            addStep("StairsOnlyBottomRight", "9135Door");
         } else {
-            addStep( "9135Door", "BalconyBottomRight");
+            addStep("9135Door", "BalconyBottomRight");
         }
 
-        addStep( "9135Door", "9136And9137And9138Door");
-        addStep( "9136And9137And9138Door", "9139Door");
-        addStep( "9139Door", "9140Door");
-        addStep( "9140Door", "9141Door");
+        addStep("9135Door", "9136And9137And9138Door");
+        addStep("9136And9137And9138Door", "9139Door");
+        addStep("9139Door", "9140Door");
+        addStep("9140Door", "9141Door");
 
         addStep("StairsAndLiftBottomLeftCorridor", "9141Door");
 
@@ -679,7 +700,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9106Door");
                     break;
                 }
-                case 9107: case 9109: {
+                case 9107:
+                case 9109: {
                     setStartNode("9107And9109Door");
                     break;
                 }
@@ -707,7 +729,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9118Door");
                     break;
                 }
-                case 9119: case 9120: {
+                case 9119:
+                case 9120: {
                     setStartNode("9119And9120Door");
                     break;
                 }
@@ -719,7 +742,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9122Door");
                     break;
                 }
-                case 9123: case 9124: {
+                case 9123:
+                case 9124: {
                     setStartNode("9123And9124Door");
                     break;
                 }
@@ -755,7 +779,9 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9135Door");
                     break;
                 }
-                case 9136: case 9137: case 9138: {
+                case 9136:
+                case 9137:
+                case 9138: {
                     setStartNode("9136And9137And9138Door");
                     break;
                 }
@@ -821,7 +847,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9106Door");
                     break;
                 }
-                case 9107: case 9109: {
+                case 9107:
+                case 9109: {
                     setEndNode("9107And9109Door");
                     break;
                 }
@@ -849,7 +876,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9118Door");
                     break;
                 }
-                case 9119: case 9120: {
+                case 9119:
+                case 9120: {
                     setEndNode("9119And9120Door");
                     break;
                 }
@@ -861,7 +889,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9122Door");
                     break;
                 }
-                case 9123: case 9124: {
+                case 9123:
+                case 9124: {
                     setEndNode("9123And9124Door");
                     break;
                 }
@@ -897,7 +926,9 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9135Door");
                     break;
                 }
-                case 9136: case 9137: case 9138: {
+                case 9136:
+                case 9137:
+                case 9138: {
                     setEndNode("9136And9137And9138Door");
                     break;
                 }
@@ -941,8 +972,16 @@ public class MapView extends AppCompatImageView {
 
     public void cantorLevel2NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<GraphNode> cantorLevel2 = new ArrayList<GraphNode>();
+        List<Node> data = SQLite.select().from(Node.class).where(Node_Table.Building.eq(1)).and(Node_Table.Floor.eq(2)).queryList();
+        for (Node node : data) {
+            if (node.getNodeName() == "StairsOnlyBottomRight"){
+                if (!useLiftsOnly)
+                    cantorLevel2.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+            } else
+                cantorLevel2.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+        }
         //StairsAndLifts
-        cantorLevel2.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
+        /*cantorLevel2.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
         cantorLevel2.add(new GraphNode("StairsAndLiftTop", counter, 110, 60));
 
         //StairsOnly
@@ -992,9 +1031,8 @@ public class MapView extends AppCompatImageView {
         cantorLevel2.add(new GraphNode("9234Door", counter, 80, 380));
 
 
-
         cantorLevel2.add(new GraphNode("9235Door", counter, 60, 380));
-
+*/
         for (int i = 0; i < cantorLevel2.size(); i++) {
             graph.addNode(cantorLevel2.get(i));
         }
@@ -1030,7 +1068,7 @@ public class MapView extends AppCompatImageView {
         addStep("9224Corridor", "9226Corridor");
         addStep("9226Corridor", "9226Door");
 
-        if (!useLiftsOnly){
+        if (!useLiftsOnly) {
             addStep("9226Corridor", "StairsOnlyBottomRight");
             addStep("StairsOnlyBottomRight", "9228Door");
         } else {
@@ -1042,7 +1080,6 @@ public class MapView extends AppCompatImageView {
         addStep("9232Door", "9233Door");
         addStep("9233Door", "9234Door");
         addStep("9234Door", "9235Door");
-
 
 
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
@@ -1085,7 +1122,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9208Door");
                     break;
                 }
-                case 9210: case 9211: {
+                case 9210:
+                case 9211: {
                     setStartNode("9210And9211Door");
                     break;
                 }
@@ -1101,7 +1139,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9215Door");
                     break;
                 }
-                case 9216: case 9217: {
+                case 9216:
+                case 9217: {
                     setStartNode("9216And9217Door");
                     break;
                 }
@@ -1219,7 +1258,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9208Door");
                     break;
                 }
-                case 9210: case 9211: {
+                case 9210:
+                case 9211: {
                     setEndNode("9210And9211Door");
                     break;
                 }
@@ -1235,7 +1275,8 @@ public class MapView extends AppCompatImageView {
                     setEndNode("9215Door");
                     break;
                 }
-                case 9216: case 9217: {
+                case 9216:
+                case 9217: {
                     setEndNode("9216And9217Door");
                     break;
                 }
@@ -1324,8 +1365,16 @@ public class MapView extends AppCompatImageView {
 
     public void cantorLevel3NodesAndRoutes(int levelFrom, int roomFrom, int roomTo) {
         List<GraphNode> cantorLevel3 = new ArrayList<GraphNode>();
+        List<Node> data = SQLite.select().from(Node.class).where(Node_Table.Building.eq(1)).and(Node_Table.Floor.eq(3)).queryList();
+        for (Node node : data) {
+            if (node.getNodeName() == "StairsOnlyBottomRight"){
+                if (!useLiftsOnly)
+                    cantorLevel3.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+            } else
+                cantorLevel3.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
+        }
         //StairsAndLifts
-        cantorLevel3.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
+        /*cantorLevel3.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
         cantorLevel3.add(new GraphNode("StairsAndLiftTop", counter, 110, 60));
 
         //StairsOnly
@@ -1369,8 +1418,7 @@ public class MapView extends AppCompatImageView {
         cantorLevel3.add(new GraphNode("9340Door", counter, 130, 380));
         cantorLevel3.add(new GraphNode("9344Door", counter, 80, 380));
         cantorLevel3.add(new GraphNode("9343Door", counter, 60, 380));
-
-
+*/
 
         for (int i = 0; i < cantorLevel3.size(); i++) {
             graph.addNode(cantorLevel3.get(i));
@@ -1456,7 +1504,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9312Door");
                     break;
                 }
-                case 9314: case 9316: {
+                case 9314:
+                case 9316: {
                     setStartNode("9314And9316Door");
                     break;
                 }
@@ -1472,7 +1521,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9320Door");
                     break;
                 }
-                case 9321: case 9322: {
+                case 9321:
+                case 9322: {
                     setStartNode("9321And9322Door");
                     break;
                 }
@@ -1480,7 +1530,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9324Door");
                     break;
                 }
-                case 9323: case 9325: {
+                case 9323:
+                case 9325: {
                     setStartNode("9323And9325Door");
                     break;
                 }
@@ -1488,7 +1539,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9326Door");
                     break;
                 }
-                case 9327: case 9332: {
+                case 9327:
+                case 9332: {
                     setStartNode("9327And9332Door");
                     break;
                 }
@@ -1496,7 +1548,8 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9330Door");
                     break;
                 }
-                case 9328: case 9329: {
+                case 9328:
+                case 9329: {
                     setStartNode("9328And9329Door");
                     break;
                 }
@@ -1594,8 +1647,8 @@ public class MapView extends AppCompatImageView {
         //This will be removed when graphNodes are added to the database
         List<Node> nodes = SQLite.select().from(Node.class).where(Node_Table.Building.eq(4)).queryList();
         List<GraphNode> embLevel2 = new ArrayList();
-        for (Node n:nodes) {
-            embLevel2.add(new GraphNode(n.getNodeName(),counter,n.getXCoord(),n.getYCoord()));
+        for (Node n : nodes) {
+            embLevel2.add(new GraphNode(n.getNodeName(), counter, n.getXCoord(), n.getYCoord()));
         }
 
         for (int i = 0; i < embLevel2.size(); i++) {
