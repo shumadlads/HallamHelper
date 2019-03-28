@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MyApp" parent="Theme.MaterialComponents.NoActionBar">
         <!-- enable window content transitions -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+       <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--   <item name="colorAccent">@color/colorAccent</item>
    -->

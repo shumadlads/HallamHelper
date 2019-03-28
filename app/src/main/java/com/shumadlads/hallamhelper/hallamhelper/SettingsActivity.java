@@ -12,10 +12,13 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ShareActionProvider;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences SharedPrefs;
     private SharedPreferences.Editor Editor;
     User CurrentUser;
+    boolean selected = false;
 
     EditText Username, Password;
     Switch KeepMeLoggedIn;
@@ -67,7 +71,6 @@ public class SettingsActivity extends AppCompatActivity {
         SetupAppCard();
         SetupNavCard();
         SetupTimeCard();
-
     }
 
     public void SetupUserCard() {
@@ -92,16 +95,29 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void SetupAppCard() {
-        Switch colorblind = findViewById(R.id.ColorBlind_settings_activity_Switch);
-        colorblind.setChecked(SharedPrefs.getBoolean(getString(R.string.SP_ColorBlindMode), false));
-        colorblind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        final Spinner spinner = (Spinner) findViewById(R.id.Colourblind_Spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colourblind, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Editor.putBoolean(getString(R.string.SP_ColorBlindMode), isChecked);
-                Editor.commit();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(selected) {
+                    String mode = (String) parent.getItemAtPosition(position);
+                    Editor.putString(getString(R.string.SP_ColorBlindMode), mode);
+                    Editor.commit();
+                }
+                selected =true;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }
+
 
     public void SetupNavCard() {
         Switch lift = findViewById(R.id.lift_settings_activity_switch);

@@ -141,19 +141,17 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp">
 
-                    <Switch
-                        android:id="@+id/ColorBlind_settings_activity_Switch"
+                    <Spinner
+                        android:id="@+id/Colourblind_Spinner"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="Color Blind Mode"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="Module"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/App_settings_activity_TextView"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintTop_toTopOf="parent"></Spinner>
 
                     <TextView
                         android:id="@+id/App_settings_activity_TextView"
@@ -161,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="App"
+                        android:text="Colour Blind Options"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>

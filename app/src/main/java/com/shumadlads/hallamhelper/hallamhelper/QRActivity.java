@@ -1,6 +1,8 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.app.ActivityOptions;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,16 +41,24 @@ import static com.shumadlads.hallamhelper.hallamhelper.MainActivity.TIMETABLE_FR
 
 public class QRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
-int currentuser =1;
+
     private static final int REQUEST_CAMERA = 1;
     private ActionBar toolbar;
     private ZXingScannerView scannerView;
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
+    private SharedPreferences SharedPrefs;
+    private SharedPreferences.Editor Editor;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Editor = SharedPrefs.edit();
 
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
@@ -141,7 +151,7 @@ int currentuser =1;
                 .create()
                 .show();
     }
-    
+
     private void redirect(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("LoadDefaultFragment", TIMETABLE_FRAGMENT);
@@ -188,7 +198,8 @@ int currentuser =1;
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(currentuser)).querySingle();
+                    int UserID = SharedPrefs.getInt(getString(R.string.SP_UserId), -1);
+                    User user = SQLite.select().from(User.class).where(User_Table.UserId.eq(UserID)).querySingle();
                     Module setmodule = SQLite.select().from(Module.class).where(Module_Table.ModuleId.eq(ModuleId)).querySingle();
                     Room setroom = SQLite.select().from(Room.class).where(Room_Table.RoomId.eq(RoomId)).querySingle();
 
