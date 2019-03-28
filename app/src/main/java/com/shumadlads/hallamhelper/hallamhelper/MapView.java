@@ -1467,7 +1467,7 @@ public class MapView extends AppCompatImageView {
         int roomCodeLevelFrom = (((roomFrom / 10) / 10) % 10); // get the second digit for floor number
         int roomCodeLevelTo = (((roomTo / 10) / 10) % 10); // get the second digit for floor number
 
-        //CANTOR LEVEL 2 - SET START
+        //CANTOR LEVEL 3 - SET START
         if (levelFrom == roomCodeLevelFrom) {
 
 
@@ -1585,7 +1585,6 @@ public class MapView extends AppCompatImageView {
                     setStartNode("9344Door");
                     break;
                 }
-
                 default: {
                     setStartNode("9303Door");
                     break;
@@ -1609,14 +1608,120 @@ public class MapView extends AppCompatImageView {
             }
         }
 
-        //CANTOR LEVEL 2 - SET STOP
+        //CANTOR LEVEL 3 - SET STOP
         if (roomCodeLevelTo == levelFrom) {
             switch (roomTo) {
                 case 9303: {
                     setEndNode("9303Door");
+                    break;
+                }
+                case 9305: {
+                    setEndNode("9305Door");
+                    break;
+                }
+                case 9306: {
+                    setEndNode("9306Door");
+                    break;
+                }
+                case 9307: {
+                    setEndNode("9307Door");
+                    break;
+                }
+                case 9309: {
+                    setEndNode("9309Door");
+                    break;
+                }
+                case 9310: {
+                    setEndNode("9310Door");
+                    break;
+                }
+                case 9311: {
+                    setEndNode("9311Door");
+                    break;
+                }
+                case 9312: {
+                    setEndNode("9312Door");
+                    break;
+                }
+                case 9314: case 9316: {
+                    setEndNode("9314And9316Door");
+                    break;
+                }
+                case 9315: {
+                    setEndNode("9315Door");
+                    break;
+                }
+                case 9318: {
+                    setEndNode("9318Door");
+                    break;
+                }
+                case 9320: {
+                    setEndNode("9320Door");
+                    break;
+                }
+                case 9321: case 9322: {
+                    setEndNode("9321And9322Door");
+                    break;
+                }
+                case 9324: {
+                    setEndNode("9324Door");
+                    break;
+                }
+                case 9323: case 9325: {
+                    setEndNode("9323And9325Door");
+                    break;
+                }
+                case 9326: {
+                    setEndNode("9326Door");
+                    break;
+                }
+                case 9327: case 9332: {
+                    setEndNode("9327And9332Door");
+                    break;
+                }
+                case 9330: {
+                    setEndNode("9330Door");
+                    break;
+                }
+                case 9328: case 9329: {
+                    setEndNode("9328And9329Door");
+                    break;
+                }
+                case 9331: {
+                    setEndNode("9328And9329Door");
+                    break;
+                }
+                case 9335: {
+                    setEndNode("9335Door");
+                    break;
+                }
+                case 9336: {
+                    setEndNode("9336Door");
+                    break;
+                }
+                case 9339: {
+                    setEndNode("9339Door");
+                    break;
+                }
+                case 9342: {
+                    setEndNode("9342Door");
+                    break;
+                }
+                case 9340: {
+                    setEndNode("9340Door");
+                    break;
+                }
+                case 9343: {
+                    setEndNode("9343Door");
+                    break;
+                }
+                case 9344: {
+                    setEndNode("9344Door");
+                    break;
                 }
                 default: {
-                    setEndNode("9235Door");
+                    setEndNode("9303Door");
+                    break;
                 }
             }
         } else if (roomCodeLevelFrom == levelFrom) { // Route starts on this floor
