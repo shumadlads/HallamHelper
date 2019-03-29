@@ -77,7 +77,7 @@ public class NavigateFragment extends Fragment implements NavigationRecyclerView
         InitToolBar(view);
         InitRecylcerView(view);
         Button searchFindIcon = view.findViewById(R.id.searchFindIcon);
-        ImageView switchIcon = view.findViewById(R.id.switchIcon);
+        //Button switchButton = view.findViewById(R.id.switchButton);
         final TextView toTextView = view.findViewById(R.id.textInputTo);
         final TextView fromTextView = view.findViewById(R.id.textInputFrom);
        /* final CardView cardCantor = view.findViewById(R.id.card_view_cantor);
@@ -138,15 +138,7 @@ public class NavigateFragment extends Fragment implements NavigationRecyclerView
             }
         });
         // onSwapTextfieldsClick
-        switchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CharSequence temp = toTextView.getText(); //set toText to temp variable
-                toTextView.setText(fromTextView.getText()); //set fromText
-                fromTextView.setText(temp);
 
-            }
-        });
         return view;
     }
 
