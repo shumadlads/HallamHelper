@@ -90,7 +90,7 @@
                 app:animationDuration="300"
                 app:cardCornerRadius="10dp"
                 app:expandOnClick="true"
-                app:icon="@drawable/ic_baseline_event_24px"
+                app:icon="@drawable/ic_event_timetable"
                 app:inner_view="@layout/timetable_newsession_date_item"
                 app:startExpanded="false"
                 app:title="Date" />

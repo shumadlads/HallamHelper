@@ -84,20 +84,25 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_newsession_activity);
         ModuleECard = findViewById(R.id.Module_timetable_newsession_activity_ExpandableCardView);
+
         CardView mcard = ModuleECard.findViewById(R.id.card);
         TextView mtitle = ModuleECard.findViewById(R.id.title);
+        mtitle.setTextColor(getResources().getColor(R.color.colorBackgroundlight));
 
         RoomECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
-        CardView rcard = ModuleECard.findViewById(R.id.card);
-        TextView rtitle = ModuleECard.findViewById(R.id.title);
+        CardView rcard = RoomECard.findViewById(R.id.card);
+        TextView rtitle = RoomECard.findViewById(R.id.title);
+        rtitle.setTextColor(getResources().getColor(R.color.colorBackgroundlight));
 
-        DateECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
-        CardView dcard = ModuleECard.findViewById(R.id.card);
-        TextView dtitle = ModuleECard.findViewById(R.id.title);
+        DateECard = findViewById(R.id.Date_timetable_newsession_activity_ExpandableCardView);
+        CardView dcard = DateECard.findViewById(R.id.card);
+        TextView dtitle = DateECard.findViewById(R.id.title);
+        dtitle.setTextColor(getResources().getColor(R.color.colorBackgroundlight));
 
-        InfoECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
-        CardView icard = ModuleECard.findViewById(R.id.card);
-        TextView ititle = ModuleECard.findViewById(R.id.title);
+        InfoECard = findViewById(R.id.Info_timetable_newsession_activity_ExpandableCardView);
+        CardView icard = InfoECard.findViewById(R.id.card);
+        TextView ititle = InfoECard.findViewById(R.id.title);
+        ititle.setTextColor(getResources().getColor(R.color.colorBackgroundlight));
 
 
         SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
