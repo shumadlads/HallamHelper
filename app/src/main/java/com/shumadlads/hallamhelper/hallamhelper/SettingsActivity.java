@@ -152,6 +152,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        /*
         Switch floor = findViewById(R.id.floor_settings_activity_switch);
         floor.setChecked(SharedPrefs.getBoolean(getString(R.string.Sp_DisplayFloor), false));
         floor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -161,6 +162,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Editor.commit();
             }
         });
+        */
     }
 
     public void SetupTimeCard() {
