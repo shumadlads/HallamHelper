@@ -96,10 +96,22 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void SetupAppCard() {
 
+        int spinnerPos = 0;
+        String colBlindCurrent = SharedPrefs.getString(getString(R.string.SP_ColorBlindMode), "");
+        String[] colourBlindArray = getResources().getStringArray(R.array.colourblind);
+        for(int i = 0; i < colourBlindArray.length; i++){ // This find position of array to get position of current colour blind mode
+            if (colBlindCurrent.equals(colourBlindArray[i]))
+            {
+                spinnerPos = i;
+                break;
+            }
+
+        }
         final Spinner spinner = (Spinner) findViewById(R.id.Colourblind_Spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colourblind, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setSelection(spinnerPos);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
