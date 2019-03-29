@@ -1559,7 +1559,7 @@ public class MapView extends AppCompatImageView {
                     break;
                 }
                 case 9331: {
-                    setStartNode("9328And9329Door");
+                    setStartNode("9331Door");
                     break;
                 }
                 case 9335: {
@@ -1681,7 +1681,7 @@ public class MapView extends AppCompatImageView {
                     break;
                 }
                 case 9331: {
-                    setEndNode("9328And9329Door");
+                    setEndNode("9331Door");
                     break;
                 }
                 case 9335: {

@@ -154,6 +154,9 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
             case 3: {
                 bgDrawableInt = R.drawable.ic_cantor_level_3;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_3));
+                if (roomTo == 9316){
+                    roomTo = 9314;
+                }
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
