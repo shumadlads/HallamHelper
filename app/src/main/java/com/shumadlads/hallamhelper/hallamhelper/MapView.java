@@ -89,14 +89,14 @@ public class MapView extends AppCompatImageView {
             paint.setColor(getResources().getColor(R.color.colorAccent));
             if (v.x == start_x && v.y == start_y) {
                 paint.setColor(colourStart);
-                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
+                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
             if (v.x == stop_x && v.y == stop_y) {
                 paint.setColor(colourEnd);
-                //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
+                canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
 
-            canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
+            //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), ((float) radius) * density, paint); // Uncomment for draws circles on all nodes
 
 
             paint.setColor(getResources().getColor(R.color.colorAccent));
@@ -105,22 +105,22 @@ public class MapView extends AppCompatImageView {
                 GraphNode v2 = v1.steps.get(j).destination;
 
                 if (v1.steps.get(j).isPath == 1) {
-/*                    paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
+                    paint.setColor(getResources().getColor(R.color.colorAccent));  // Comment when all edge debug
                     paint.setStyle(Paint.Style.STROKE);                            // Comment when all edge debug
                     paint.setStrokeWidth(5 * density);                            // Comment when all edge debug
                     paint.setStrokeCap(Paint.Cap.ROUND); //Cap rounds corners     // Comment when all edge debug
-                    canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug*/
+                    canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Comment when all edge debug
                 }
-                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
+/*                paint.setColor(getResources().getColor(R.color.colorAccent));      // Uncomment for all edge debug
                 paint.setStyle(Paint.Style.STROKE);                                // Uncomment for all edge debug
                 paint.setStrokeWidth(5 * density);                                 // Uncomment for all edge debug
-                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug
+                canvas.drawLine((((float) v1.x) * density), (((float) v1.y) * density), (((float) v2.x) * density), (((float) v2.y) * density), paint); // Uncomment for all edge debug*/
             }
 
-            paint.setColor(Color.BLUE);
+/*            paint.setColor(Color.BLUE);
             paint.setStyle(Paint.Style.FILL);
             paint.setTextSize(7 * density);
-            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);
+            canvas.drawText(v.getName(), ((float) v.x) * density, ((float) v.y - 10) * density, paint);*/
         }
     }
 
@@ -272,47 +272,7 @@ public class MapView extends AppCompatImageView {
             } else
                 cantorLevel0.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
         }
-       /* if (!useLiftsOnly) {
-            cantorLevel0.add(new GraphNode("StairsToLevel1", counter, 140, 310));
-            cantorLevel0.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 360));
-
-        }
-        // cantorLevel0.add(new GraphNode("9098", counter, 1000, 1000)); // EMPTY NODE FOR BUILDING DISPLAY
-
-        //cantorLevel0.add(new GraphNode("9099DoorEntrance", counter, 18, 320));
-        //cantorLevel0.add(new GraphNode("InnerDoorTop", counter, 65, 320));
-        //cantorLevel0.add(new GraphNode("CafeCorridor", counter, 65, 368));
-
-        //cantorLevel0.add(new GraphNode("BottomMainLobby", counter, 105, 320));
-        //cantorLevel0.add(new GraphNode("BottomUnderStairs", counter, 140, 325));
-
-        //cantorLevel0.add(new GraphNode("9021Reception", counter, 140, 273));
-        //.add(new GraphNode("9021Corridor", counter, 105, 273));
-
-       /* cantorLevel0.add(new GraphNode("9001Door", counter, 95, 215));
-        cantorLevel0.add(new GraphNode("9001Corridor", counter, 105, 215));
-
-        cantorLevel0.add(new GraphNode("9002Door", counter, 95, 162));
-        cantorLevel0.add(new GraphNode("9002And9022Corridor", counter, 105, 162));
-        cantorLevel0.add(new GraphNode("9003Door", counter, 95, 112));
-        cantorLevel0.add(new GraphNode("9003And9020Corridor", counter, 105, 112));
-        cantorLevel0.add(new GraphNode("9005Door", counter, 71, 55));
-        cantorLevel0.add(new GraphNode("9006Door", counter, 90, 55));
-
-        cantorLevel0.add(new GraphNode("9011And9012Door", counter, 165, 55));
-        cantorLevel0.add(new GraphNode("9013Door", counter, 200, 55));
-        cantorLevel0.add(new GraphNode("9015And9016Door", counter, 227, 55));
-        cantorLevel0.add(new GraphNode("9020Door", counter, 165, 112));
-        cantorLevel0.add(new GraphNode("9022Door", counter, 140, 162));
-
-        cantorLevel0.add(new GraphNode("9018Door", counter, 140, 185));
-        cantorLevel0.add(new GraphNode("9018Corridor", counter, 105, 185));
-
-        cantorLevel0.add(new GraphNode("9019Door", counter, 205, 295));
-        cantorLevel0.add(new GraphNode("9019Corridor", counter, 205, 325));
-        cantorLevel0.add(new GraphNode("9024And9025Door", counter, 215, 400));
-        cantorLevel0.add(new GraphNode("AboveStairsOnlyBottomRight", counter, 215, 325));
-*/
+        
         for (int i = 0; i < cantorLevel0.size(); i++) {
             GraphNode temp = cantorLevel0.get(i);
             graph.addNode(cantorLevel0.get(i));
@@ -563,74 +523,6 @@ public class MapView extends AppCompatImageView {
             } else
                 cantorLevel1.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
         }
-        //StairsAndLifts
-      /*  cantorLevel1.add(new GraphNode("StairsAndLiftBottomLeft", counter, 50, 365));
-        cantorLevel1.add(new GraphNode("StairsAndLiftTop", counter, 110, 55));
-        //StairsOnly
-
-        if (!useLiftsOnly) {
-            cantorLevel1.add(new GraphNode("StairsToLevel0", counter, 190, 308));
-            cantorLevel1.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 357));
-
-        }
-
-        cantorLevel1.add(new GraphNode("StairsAndLiftBottomLeftCorridor", counter, 58, 365));
-        cantorLevel1.add(new GraphNode("9100Door", counter, 50, 325));
-        cantorLevel1.add(new GraphNode("9100Corridor", counter, 58, 325));
-
-        cantorLevel1.add(new GraphNode("9101Door", counter, 50, 311));
-        cantorLevel1.add(new GraphNode("9101Corridor", counter, 58, 311));
-
-        cantorLevel1.add(new GraphNode("CorridorBalconyBottomLeft", counter, 90, 311));
-        cantorLevel1.add(new GraphNode("9102Door", counter, 90, 220));           // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9103Door", counter, 90, 165));           // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9104Door", counter, 90, 115));           // Doubles as Corridor Node'
-
-        cantorLevel1.add(new GraphNode("9106Door", counter, 52, 65));
-        cantorLevel1.add(new GraphNode("9106Corridor", counter, 52, 60));
-
-        cantorLevel1.add(new GraphNode("9107And9109Door", counter, 40, 55));     // Doubles as Corridor Node
-
-        cantorLevel1.add(new GraphNode("9111Door", counter, 90, 55));
-        cantorLevel1.add(new GraphNode("9111Corridor", counter, 90, 60));
-
-        cantorLevel1.add(new GraphNode("9112Door", counter, 110, 65));
-        cantorLevel1.add(new GraphNode("9112Corridor", counter, 110, 60));
-
-        cantorLevel1.add(new GraphNode("9114Door", counter, 145, 65));
-        cantorLevel1.add(new GraphNode("9114Corridor", counter, 145, 60));
-
-
-        cantorLevel1.add(new GraphNode("9115Door", counter, 163, 55));
-        cantorLevel1.add(new GraphNode("9116Door", counter, 163, 75));
-        cantorLevel1.add(new GraphNode("9115And9116Corridor", counter, 163, 60));
-
-        cantorLevel1.add(new GraphNode("9118Door", counter, 219, 55));
-        cantorLevel1.add(new GraphNode("9118Corridor", counter, 219, 60));
-
-        cantorLevel1.add(new GraphNode("9119And9120Door", counter, 250, 60));    // Doubles as Corridor Node
-
-        cantorLevel1.add(new GraphNode("9121Door", counter, 219, 75)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9122Door", counter, 219, 95)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9123And9124Door", counter, 219, 113)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9125Door", counter, 219, 128)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9126Door", counter, 219, 143)); // Doubles as Corridor Node
-
-        cantorLevel1.add(new GraphNode("9128Door", counter, 219, 185)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9129Door", counter, 219, 230)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9130Door", counter, 205, 250)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9131Door", counter, 219, 250)); // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9132Door", counter, 205, 285));
-        cantorLevel1.add(new GraphNode("9132Corridor", counter, 212, 285));
-        cantorLevel1.add(new GraphNode("StairsToLevel0Corridor", counter, 212, 308));
-        cantorLevel1.add(new GraphNode("BalconyBottomRight", counter, 215, 330));
-
-        cantorLevel1.add(new GraphNode("9135Door", counter, 215, 380));                  // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9136And9137And9138Door", counter, 165, 380));    // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9139Door", counter, 120, 380));                  // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9140Door", counter, 105, 380));                   // Doubles as Corridor Node
-        cantorLevel1.add(new GraphNode("9141Door", counter, 58, 380));                   // Doubles as Corridor Node
-*/
 
         for (int i = 0; i < cantorLevel1.size(); i++) {
             GraphNode temp = cantorLevel1.get(i);
@@ -1005,59 +897,7 @@ public class MapView extends AppCompatImageView {
             } else
                 cantorLevel2.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
         }
-        //StairsAndLifts
-        /*cantorLevel2.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
-        cantorLevel2.add(new GraphNode("StairsAndLiftTop", counter, 110, 60));
 
-        //StairsOnly
-        if (!useLiftsOnly) {
-            cantorLevel2.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 357));
-        }
-
-        //STAIRWELLNODE - BOTTOM LEFT
-        cantorLevel2.add(new GraphNode("BalconyBottomLeft", counter, 60, 330));
-        cantorLevel2.add(new GraphNode("9200Door", counter, 80, 300));
-        cantorLevel2.add(new GraphNode("9200Corridor", counter, 90, 300));
-        cantorLevel2.add(new GraphNode("9201Door", counter, 90, 210));
-        cantorLevel2.add(new GraphNode("9202Door", counter, 90, 165));
-        cantorLevel2.add(new GraphNode("9203Door", counter, 90, 120));
-
-        cantorLevel2.add(new GraphNode("9205Door", counter, 65, 60));
-        cantorLevel2.add(new GraphNode("9206Door", counter, 90, 60));
-        cantorLevel2.add(new GraphNode("9207Door", counter, 100, 60));
-
-        //STAIRWELLNODE - TOP
-
-        cantorLevel2.add(new GraphNode("9208Door", counter, 125, 60));
-        cantorLevel2.add(new GraphNode("9210And9211Door", counter, 160, 60));
-        cantorLevel2.add(new GraphNode("9212Door", counter, 220, 60));
-        cantorLevel2.add(new GraphNode("9214Door", counter, 245, 60));
-
-        cantorLevel2.add(new GraphNode("9215Door", counter, 220, 90));
-        cantorLevel2.add(new GraphNode("9216And9217Door", counter, 220, 110));
-        cantorLevel2.add(new GraphNode("9218Door", counter, 220, 126));
-        cantorLevel2.add(new GraphNode("9219Door", counter, 220, 142));
-        cantorLevel2.add(new GraphNode("9220Door", counter, 220, 180));
-        cantorLevel2.add(new GraphNode("9221Door", counter, 220, 215));
-        cantorLevel2.add(new GraphNode("9222Door", counter, 220, 230));
-        cantorLevel2.add(new GraphNode("9223Door", counter, 220, 260));
-        cantorLevel2.add(new GraphNode("9224Corridor", counter, 220, 300));
-        cantorLevel2.add(new GraphNode("9224Door", counter, 208, 300));
-
-        cantorLevel2.add(new GraphNode("9226Corridor", counter, 215, 325));
-        cantorLevel2.add(new GraphNode("9226Door", counter, 225, 325));
-
-        //STAIRWELLNODE - BOTTOM RIGHT
-
-        cantorLevel2.add(new GraphNode("9228Door", counter, 215, 380));
-        cantorLevel2.add(new GraphNode("9231Door", counter, 190, 380));
-        cantorLevel2.add(new GraphNode("9232Door", counter, 165, 380));
-        cantorLevel2.add(new GraphNode("9233Door", counter, 105, 380));
-        cantorLevel2.add(new GraphNode("9234Door", counter, 80, 380));
-
-
-        cantorLevel2.add(new GraphNode("9235Door", counter, 60, 380));
-*/
         for (int i = 0; i < cantorLevel2.size(); i++) {
             graph.addNode(cantorLevel2.get(i));
         }
@@ -1390,52 +1230,6 @@ public class MapView extends AppCompatImageView {
             } else
                 cantorLevel3.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
         }
-        //StairsAndLifts
-        /*cantorLevel3.add(new GraphNode("StairsAndLiftBottomLeft", counter, 60, 365));
-        cantorLevel3.add(new GraphNode("StairsAndLiftTop", counter, 110, 60));
-
-        //StairsOnly
-        if (!useLiftsOnly) {
-            cantorLevel3.add(new GraphNode("StairsOnlyBottomRight", counter, 215, 357));
-        }
-
-        cantorLevel3.add(new GraphNode("BalconyBottomLeft", counter, 65, 330));
-        cantorLevel3.add(new GraphNode("BalconyBottomLeft2", counter, 90, 300));
-        cantorLevel3.add(new GraphNode("9303Door", counter, 90, 255));
-        cantorLevel3.add(new GraphNode("9305Door", counter, 90, 240));
-        cantorLevel3.add(new GraphNode("9306Door", counter, 90, 190));
-        cantorLevel3.add(new GraphNode("9307Door", counter, 90, 120));
-
-        cantorLevel3.add(new GraphNode("9309Door", counter, 65, 60));
-        cantorLevel3.add(new GraphNode("9310Door", counter, 90, 60));
-        cantorLevel3.add(new GraphNode("9311Door", counter, 100, 60));
-
-        //STAIRWELLNODE - TOP
-
-        cantorLevel3.add(new GraphNode("9312Door", counter, 120, 60));
-        cantorLevel3.add(new GraphNode("9314And9316Door", counter, 150, 60));
-        cantorLevel3.add(new GraphNode("9315Door", counter, 218, 60));
-        cantorLevel3.add(new GraphNode("9318Door", counter, 245, 60));
-
-        cantorLevel3.add(new GraphNode("9320Door", counter, 218, 115));
-        cantorLevel3.add(new GraphNode("9321And9322Door", counter, 218, 135));
-        cantorLevel3.add(new GraphNode("9324Door", counter, 218, 155));
-        cantorLevel3.add(new GraphNode("9323And9325Door", counter, 218, 195));
-        cantorLevel3.add(new GraphNode("9327And9332Door", counter, 218, 210));
-        cantorLevel3.add(new GraphNode("9330Door", counter, 218, 240));
-        cantorLevel3.add(new GraphNode("9328And9329Door", counter, 218, 280));
-        cantorLevel3.add(new GraphNode("9331Door", counter, 218, 295));
-        cantorLevel3.add(new GraphNode("9326Door", counter, 215, 315));
-
-        //STAIRWELLNODE - BOTTOM RIGHT
-        cantorLevel3.add(new GraphNode("9335Door", counter, 215, 380));
-        cantorLevel3.add(new GraphNode("9336Door", counter, 200, 380));
-        cantorLevel3.add(new GraphNode("9339Door", counter, 150, 380));
-        cantorLevel3.add(new GraphNode("9342Door", counter, 140, 380));
-        cantorLevel3.add(new GraphNode("9340Door", counter, 130, 380));
-        cantorLevel3.add(new GraphNode("9344Door", counter, 80, 380));
-        cantorLevel3.add(new GraphNode("9343Door", counter, 60, 380));
-*/
 
         for (int i = 0; i < cantorLevel3.size(); i++) {
             graph.addNode(cantorLevel3.get(i));
@@ -1766,31 +1560,7 @@ public class MapView extends AppCompatImageView {
             } else
                 cantorLevel4.add(new GraphNode(node.getNodeName(), counter, node.getXCoord(), node.getYCoord()));
         }
-        /*cantorLevel4.add(new GraphNode("StairsAndLiftTop", counter, 135, 80));
-        //StairsOnly
-        if (!useLiftsOnly) {
-            cantorLevel4.add(new GraphNode("StairsOnlyBottom", counter, 172, 367));
-        }
 
-        cantorLevel4.add(new GraphNode("CorridorTop", counter, 108, 108));
-        cantorLevel4.add(new GraphNode("9420Door", counter, 80, 108));
-        cantorLevel4.add(new GraphNode("9418And9419Door", counter, 60, 108));
-
-        cantorLevel4.add(new GraphNode("9416Door", counter, 108, 140));
-        cantorLevel4.add(new GraphNode("9415And9400Door", counter, 108, 180));
-
-        cantorLevel4.add(new GraphNode("CorridorMid", counter, 108, 210));
-        cantorLevel4.add(new GraphNode("9417Door", counter, 60, 210));
-        cantorLevel4.add(new GraphNode("9402And9414Door", counter, 108, 225));
-        cantorLevel4.add(new GraphNode("9404Door", counter, 108, 245));
-        cantorLevel4.add(new GraphNode("9403And9413Door", counter, 108, 305));
-
-        cantorLevel4.add(new GraphNode("9407Door", counter, 108, 367));
-        cantorLevel4.add(new GraphNode("9408And9412Door", counter, 85, 367));
-        cantorLevel4.add(new GraphNode("9409Door", counter, 62, 367));
-        cantorLevel4.add(new GraphNode("9410And9411Door", counter, 45, 367));
-        cantorLevel4.add(new GraphNode("9406Door", counter, 140, 367));
-*/
         addListNodesToGraph(cantorLevel4);
 
         addStep("StairsAndLiftTop", "CorridorTop");
