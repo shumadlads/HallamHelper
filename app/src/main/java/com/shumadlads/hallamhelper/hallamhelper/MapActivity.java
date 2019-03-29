@@ -1,12 +1,15 @@
 package com.shumadlads.hallamhelper.hallamhelper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +25,7 @@ import static java.lang.Integer.parseInt;
 
 public class MapActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private SharedPreferences SharedPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,33 +131,47 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void displayCantorMapBg(int levelFrom, int roomTo, MapView mapBg){
-
+        ImageView numbersOverlay = findViewById(R.id.numbersOverlay);
         mapBg.requestLayout();
         mapBg.getLayoutParams().height = (int) getResources().getDimension(R.dimen.cantorMapBg_height);
         mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorMapBg_width);
+        numbersOverlay.getLayoutParams().height = (int) getResources().getDimension(R.dimen.cantorMapBg_height);
+        numbersOverlay.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorMapBg_width);
         int bgDrawableInt;
         switch (levelFrom){
             case 0: {
                 bgDrawableInt = R.drawable.ic_cantor_level_0;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_0));
+                if (checkNumbersEnabled()){
+                    numbersOverlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_0_numbers_final));
+                }
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 1: {
                 bgDrawableInt = R.drawable.ic_cantor_level_1;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_1));
+                if (checkNumbersEnabled()){
+                    numbersOverlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_1_numbers_final));
+                }
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 2: {
                 bgDrawableInt = R.drawable.ic_cantor_level_2;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_2));
+                if (checkNumbersEnabled()){
+                    numbersOverlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_2_numbers_final));
+                }
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
             case 3: {
                 bgDrawableInt = R.drawable.ic_cantor_level_3;
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_3));
+                if (checkNumbersEnabled()){
+                    numbersOverlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_3_numbers_final));
+                }
                 if (roomTo == 9316){
                     roomTo = 9314;
                 }
@@ -163,7 +181,11 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
             case 4: {
                 bgDrawableInt = R.drawable.ic_cantor_level_4;
                 mapBg.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorTopMapBg_width);
+                numbersOverlay.getLayoutParams().width = (int) getResources().getDimension(R.dimen.cantorTopMapBg_width);
                 mapBg.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_4));
+                if (checkNumbersEnabled()){
+                    numbersOverlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_cantor_level_4_numbers_final));
+                }
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
@@ -177,9 +199,13 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
         int bgDrawableInt;
         switch (levelFrom) {
             case 1: {
+                ImageView numbersOverlay = findViewById(R.id.numbersOverlay);
                 bgDrawable = getResources().getDrawable(R.drawable.ic_emb_level_2);
                 bgDrawableInt = R.drawable.ic_emb_level_2;
                 mapBg.setImageDrawable(bgDrawable);
+                if (checkNumbersEnabled()){
+                    numbersOverlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_emb_level_1_numbers_final));
+                }
                 changeRoomColour(roomTo, bgDrawableInt);
                 break;
             }
@@ -244,6 +270,11 @@ public class MapActivity extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public boolean checkNumbersEnabled(){
+        SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        return SharedPrefs.getBoolean(getString(R.string.SP_DisplayRoom), false);
     }
 
 }
