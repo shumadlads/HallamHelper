@@ -19,7 +19,6 @@
         android:gravity="left|center_vertical"
         android:paddingLeft="15dip"
         android:textColor="#FFFFFF"
-        android:drawablePadding="10dp"
         android:textAllCaps="false"
         android:textSize="20sp"/>
 
