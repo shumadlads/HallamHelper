@@ -14,13 +14,4 @@
     <item android:id="@+id/logout"
         android:title="@string/log_out"
         app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/routedebug"
-        android:title="@string/route_debug"
-        app:showAsAction="never" />
-
-
-
-
 </menu>

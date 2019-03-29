@@ -12,7 +12,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="Room"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/floortetx2" />
 
@@ -45,7 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="Building"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buildingtext" />
 
@@ -56,7 +56,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="Floor"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/floortetx" />
 

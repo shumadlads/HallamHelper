@@ -130,10 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.routedebug:
-                intent = new Intent(this, RouteNavigationTestActivity.class);
-                startActivity(intent);
-                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
