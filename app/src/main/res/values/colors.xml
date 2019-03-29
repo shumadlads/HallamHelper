@@ -9,6 +9,12 @@
     <color name="colorText">#000</color>
     <color name="colorRule">#90909090</color>
 
+    <color name="defaultStart">#00FF00</color>
+    <color name="defaultEnd">#FF0000</color>
+    <color name="standardCBStart">#006ba8</color>
+    <color name="standardCBEnd">#ff800b</color>
+    <color name="monoCBStart">#ffffff</color>
+    <color name="monoCBEnd">#343434</color>
 
     <color name="colorError">#c23616</color>
     <color name="switchColor">#c23616</color>

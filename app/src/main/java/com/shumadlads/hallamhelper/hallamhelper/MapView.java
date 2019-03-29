@@ -68,7 +68,19 @@ public class MapView extends AppCompatImageView {
 
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
+        int colourStart = getResources().getColor(R.color.defaultStart);
+        int colourEnd = getResources().getColor(R.color.defaultEnd);
+        SharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String colourBlindMode = SharedPrefs.getString(getContext().getString(R.string.SP_ColorBlindMode), "None");
+        if (colourBlindMode.equals("Protanopia") || colourBlindMode.equals("Deuteranopia") || colourBlindMode.equals("Tritanopia")){
+            colourStart = getResources().getColor(R.color.standardCBStart);
+            colourEnd = getResources().getColor(R.color.standardCBEnd);
+        }
+        if (colourBlindMode.equals("Achromatopsia"))
+        {
+            colourStart = getResources().getColor(R.color.monoCBStart);
+            colourEnd = getResources().getColor(R.color.monoCBEnd);
+        }
         for (int i = 0; i < graph.graphNodes.size(); i++) {
 
             GraphNode v = graph.graphNodes.get(i);
@@ -76,11 +88,11 @@ public class MapView extends AppCompatImageView {
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(getResources().getColor(R.color.colorAccent));
             if (v.x == start_x && v.y == start_y) {
-                paint.setColor(Color.GREEN);
+                paint.setColor(colourStart);
                 //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
             if (v.x == stop_x && v.y == stop_y) {
-                paint.setColor(Color.RED);
+                paint.setColor(colourEnd);
                 //canvas.drawCircle((((float) v.x) * density), (((float) v.y) * density), radius * density, paint); // comment out when all node drawn debug is uncommented
             }
 
