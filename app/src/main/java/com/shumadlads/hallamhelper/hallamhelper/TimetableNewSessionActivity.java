@@ -189,12 +189,12 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         End_EditText.setInputType(InputType.TYPE_NULL);
         Type_EditText = findViewById(R.id.type_timetable_newsession_activity_TextInputEditText);
 
-      /*  Repeat_Switch = findViewById(R.id.repeat_timetable_newsession_activity_Switch);
+       Repeat_Switch = findViewById(R.id.repeat_timetable_newsession_activity_Switch);
         Semester1_Switch = findViewById(R.id.sem1_timetable_newsession_activity_Switch);
         Semester2_Switch = findViewById(R.id.sem2_timetable_newsession_activity_Switch);
         Chirstmas_Switch = findViewById(R.id.christmas_timetable_newsession_activity_Switch);
         Easter_Switch = findViewById(R.id.easter_timetable_newsession_activity_Switch);
-*/
+
         AddSession_Button = findViewById(R.id.addandfinishSession_Button);
         AddAnother_Buttton = findViewById(R.id.AddAnotherSession_Button);
 
