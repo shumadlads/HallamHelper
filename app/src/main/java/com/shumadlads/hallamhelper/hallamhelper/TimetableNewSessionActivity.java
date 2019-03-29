@@ -65,6 +65,9 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     private int UserId;
     private ExpandableCardView ModuleECard;
     private ExpandableCardView RoomECard;
+    private ExpandableCardView DateECard;
+    private ExpandableCardView InfoECard;
+
 
     private Spinner Module_Spinner, Building_Spinner, Floor_Spinner, Room_Spinner;
     private TextInputEditText Date_EditText, Start_EditText, End_EditText, Type_EditText;
@@ -87,6 +90,14 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         RoomECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
         CardView rcard = ModuleECard.findViewById(R.id.card);
         TextView rtitle = ModuleECard.findViewById(R.id.title);
+
+        DateECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
+        CardView dcard = ModuleECard.findViewById(R.id.card);
+        TextView dtitle = ModuleECard.findViewById(R.id.title);
+
+        InfoECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
+        CardView icard = ModuleECard.findViewById(R.id.card);
+        TextView ititle = ModuleECard.findViewById(R.id.title);
 
 
         SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -112,22 +123,10 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
 
         Module_Spinner = findViewById(R.id.Module_Spinner);
         List<Module> Modules = SQLite.select().from(Module.class).queryList();
-        ArrayAdapter<Module> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Modules);
+        ArrayAdapter<Module> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.timetable_spinner_item, Modules);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Module_Spinner.setAdapter(adapter);
-        Module_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                ModuleECard.setIcon(R.drawable.ic_tick_timetable);
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     public void SetupRoomSpinner() {
@@ -136,7 +135,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         Room_Spinner = findViewById(R.id.Room_Spinner);
 
         List<Building> Buildings = SQLite.select().from(Building.class).queryList();
-        ArrayAdapter<Building> Badapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Buildings);
+        ArrayAdapter<Building> Badapter = new ArrayAdapter<>(getApplicationContext(),R.layout.timetable_spinner_item, Buildings);
         Badapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Building_Spinner.setAdapter(Badapter);
 
@@ -150,7 +149,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
                 for (int i = 0; i < floors; i++) {
                     items[i] = i;
                 }
-                ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_item, items);
+                ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getApplicationContext(), R.layout.timetable_spinner_item, items);
                 Floor_Spinner.setAdapter(adapter);
                 Floor_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -159,20 +158,9 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
                         int f = (int) Floor_Spinner.getSelectedItem();
                         List<Room> Rooms = SQLite.select().from(Room.class).leftOuterJoin(Node.class).on(Room_Table.Node.withTable().eq(Node_Table.NodeId.withTable())).where(Node_Table.Building.eq(b)).and(Node_Table.Floor.eq(f)).queryList();
 
-                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Rooms);
+                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.timetable_spinner_item, Rooms);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         Room_Spinner.setAdapter(adapter);
-                        Room_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                RoomECard.setIcon(R.drawable.ic_tick_timetable);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
                     }
 
                     @Override
@@ -201,12 +189,12 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         End_EditText.setInputType(InputType.TYPE_NULL);
         Type_EditText = findViewById(R.id.type_timetable_newsession_activity_TextInputEditText);
 
-        Repeat_Switch = findViewById(R.id.repeat_timetable_newsession_activity_Switch);
+      /*  Repeat_Switch = findViewById(R.id.repeat_timetable_newsession_activity_Switch);
         Semester1_Switch = findViewById(R.id.sem1_timetable_newsession_activity_Switch);
         Semester2_Switch = findViewById(R.id.sem2_timetable_newsession_activity_Switch);
         Chirstmas_Switch = findViewById(R.id.christmas_timetable_newsession_activity_Switch);
         Easter_Switch = findViewById(R.id.easter_timetable_newsession_activity_Switch);
-
+*/
         AddSession_Button = findViewById(R.id.addandfinishSession_Button);
         AddAnother_Buttton = findViewById(R.id.AddAnotherSession_Button);
 

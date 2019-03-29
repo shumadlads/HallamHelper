@@ -45,7 +45,7 @@
                 app:animationDuration="300"
                 app:cardCornerRadius="10dp"
                 app:expandOnClick="true"
-                app:icon="@drawable/ic_warincomplete_timetable"
+                app:icon="@drawable/ic_mod_timetable"
                 app:inner_view="@layout/timetable_newsession_modulecard_item"
                 app:startExpanded="false"
                 app:title="Module" />
@@ -60,25 +60,10 @@
                 app:animationDuration="300"
                 app:cardCornerRadius="10dp"
                 app:expandOnClick="true"
-                app:icon="@drawable/ic_warincomplete_timetable"
+                app:icon="@drawable/ic_location_timetable"
                 app:inner_view="@layout/timetable_newsession_roomcard_item"
                 app:startExpanded="false"
                 app:title="Room" />
-
-            <com.alespero.expandablecardview.ExpandableCardView
-                android:id="@+id/Date_timetable_newsession_activity_ExpandableCardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-
-                android:orientation="vertical"
-                app:animationDuration="300"
-                app:cardCornerRadius="10dp"
-                app:expandOnClick="true"
-                app:icon="@drawable/ic_warincomplete_timetable"
-                app:inner_view="@layout/timetable_newsession_date_item"
-                app:startExpanded="false"
-                app:title="Date" />
 
             <com.alespero.expandablecardview.ExpandableCardView
                 android:id="@+id/Info_timetable_newsession_activity_ExpandableCardView"
@@ -90,10 +75,31 @@
                 app:animationDuration="300"
                 app:cardCornerRadius="10dp"
                 app:expandOnClick="true"
-                app:icon="@drawable/ic_warincomplete_timetable"
+                app:icon="@drawable/ic_info_timetable"
                 app:inner_view="@layout/timetable_newsession_infocard_item"
                 app:startExpanded="false"
                 app:title="Info" />
+
+            <com.alespero.expandablecardview.ExpandableCardView
+                android:id="@+id/Date_timetable_newsession_activity_ExpandableCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:orientation="vertical"
+                app:animationDuration="300"
+                app:cardCornerRadius="10dp"
+                app:expandOnClick="true"
+                app:icon="@drawable/ic_baseline_event_24px"
+                app:inner_view="@layout/timetable_newsession_date_item"
+                app:startExpanded="false"
+                app:title="Date" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fixed pls" />
 
         </LinearLayout>
         <!--  <android.support.design.card.MaterialCardView

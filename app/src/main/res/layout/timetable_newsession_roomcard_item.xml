@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/floortetx3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:text="Room"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floortetx2" />
+
     <TextView
         android:id="@+id/buildingtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Please Select Building"
+        android:text="Please Select Room Details"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,56 +31,58 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:hint="Building"
+        app:layout_constraintBottom_toBottomOf="@+id/floortetx"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buildingtext"></Spinner>
+        app:layout_constraintStart_toEndOf="@+id/floortetx"
+        app:layout_constraintTop_toTopOf="@+id/floortetx"></Spinner>
 
     <TextView
         android:id="@+id/floortetx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Please Select Floor"
+        android:layout_marginTop="32dp"
+        android:text="Building"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Building_Spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/buildingtext" />
+
+    <TextView
+        android:id="@+id/floortetx2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
+        android:text="Floor"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floortetx" />
 
     <Spinner
         android:id="@+id/Floor_Spinner"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginStart="8dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:hint="Building"
+        app:layout_constraintBottom_toBottomOf="@+id/floortetx2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/floortetx"></Spinner>
-
-    <TextView
-        android:id="@+id/roomtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Please Select Room"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Floor_Spinner" />
+        app:layout_constraintStart_toEndOf="@+id/floortetx2"
+        app:layout_constraintTop_toTopOf="@+id/floortetx2"></Spinner>
 
     <Spinner
         android:id="@+id/Room_Spinner"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:hint="Room"
+        app:layout_constraintBottom_toBottomOf="@+id/floortetx3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roomtext"></Spinner>
+        app:layout_constraintStart_toEndOf="@+id/floortetx3"
+        app:layout_constraintTop_toTopOf="@+id/floortetx3"></Spinner>
 
 </android.support.constraint.ConstraintLayout>
