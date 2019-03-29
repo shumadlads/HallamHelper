@@ -27,7 +27,7 @@
         android:layout_marginBottom="0dp"
 
         android:layout_gravity="bottom"
-        android:isScrollContainer="false"
+
         android:visibility="visible"
         app:menu="@menu/addsession_bottomsheet_menu" />
 

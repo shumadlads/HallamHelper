@@ -5,31 +5,41 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 
+import com.shumadlads.hallamhelper.hallamhelper.Models.Building;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Module;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Node;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Node_Table;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Room;
+import com.shumadlads.hallamhelper.hallamhelper.Models.Room_Table;
 import com.shumadlads.hallamhelper.hallamhelper.Models.Session;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User_Session;
 import com.shumadlads.hallamhelper.hallamhelper.Models.User_Table;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +50,7 @@ import java.util.regex.Matcher;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.regex.Pattern;
@@ -51,9 +62,11 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     // public static final int NAVIAGTE_FRAGMENT = 1;
     // public static final int SLACK_FRAGMENT = 2;
     private SharedPreferences SharedPrefs;
-    private  int UserId;
+    private int UserId;
+    private ExpandableCardView ModuleECard;
+    private ExpandableCardView RoomECard;
 
-    private Spinner Module_Spinner, Room_Spinner;
+    private Spinner Module_Spinner, Building_Spinner, Floor_Spinner, Room_Spinner;
     private TextInputEditText Date_EditText, Start_EditText, End_EditText, Type_EditText;
     private Switch Repeat_Switch, Semester1_Switch, Semester2_Switch, Chirstmas_Switch, Easter_Switch;
     private DatePickerDialog Date_Dialog;
@@ -67,43 +80,119 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_newsession_activity);
+        ModuleECard = findViewById(R.id.Module_timetable_newsession_activity_ExpandableCardView);
+        CardView mcard = ModuleECard.findViewById(R.id.card);
+        TextView mtitle = ModuleECard.findViewById(R.id.title);
+
+        RoomECard = findViewById(R.id.Room_timetable_newsession_activity_ExpandableCardView);
+        CardView rcard = ModuleECard.findViewById(R.id.card);
+        TextView rtitle = ModuleECard.findViewById(R.id.title);
+
+
         SharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         UserId = SharedPrefs.getInt(getString(R.string.SP_UserId), -1);
-        if(UserId == -1){
+        if (UserId == -1) {
             //EXIT
         }
         SetupModuleSpinner();
         SetupRoomSpinner();
-        SetupInputs();
+       SetupInputs();
         SetupDateandTimeDialogs();
         InitToolBar();
         AddSession();
         SetDate();
         SetStartTime();
         SetEndTime();
-        SetRepeat();
+
+
 
     }
 
     public void SetupModuleSpinner() {
+
         Module_Spinner = findViewById(R.id.Module_Spinner);
         List<Module> Modules = SQLite.select().from(Module.class).queryList();
         ArrayAdapter<Module> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Modules);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Module_Spinner.setAdapter(adapter);
+        Module_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                ModuleECard.setIcon(R.drawable.ic_tick_timetable);
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void SetupRoomSpinner() {
+        Building_Spinner = findViewById(R.id.Building_Spinner);
+        Floor_Spinner = findViewById(R.id.Floor_Spinner);
         Room_Spinner = findViewById(R.id.Room_Spinner);
-        List<Room> Rooms = SQLite.select().from(Room.class).queryList();
-        ArrayAdapter<Room> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Rooms);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Room_Spinner.setAdapter(adapter);
+
+        List<Building> Buildings = SQLite.select().from(Building.class).queryList();
+        ArrayAdapter<Building> Badapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Buildings);
+        Badapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Building_Spinner.setAdapter(Badapter);
+
+
+        Building_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                int floors = ((Building) Building_Spinner.getSelectedItem()).getFloors();
+                Integer[] items = new Integer[floors];
+                for (int i = 0; i < floors; i++) {
+                    items[i] = i;
+                }
+                ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_item, items);
+                Floor_Spinner.setAdapter(adapter);
+                Floor_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        int b = ((Building) Building_Spinner.getSelectedItem()).getBuildingId();
+                        int f = (int) Floor_Spinner.getSelectedItem();
+                        List<Room> Rooms = SQLite.select().from(Room.class).leftOuterJoin(Node.class).on(Room_Table.Node.withTable().eq(Node_Table.NodeId.withTable())).where(Node_Table.Building.eq(b)).and(Node_Table.Floor.eq(f)).queryList();
+
+                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, Rooms);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        Room_Spinner.setAdapter(adapter);
+                        Room_Spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                RoomECard.setIcon(R.drawable.ic_tick_timetable);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
     }
 
     public void SetupInputs() {
-        DateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
+       DateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.UK);
         Date_EditText = findViewById(R.id.date_timetable_newsession_activity_TextInputEditText);
         Date_EditText.setInputType(InputType.TYPE_NULL);
         Start_EditText = findViewById(R.id.starttime_timetable_newsession_activity_TextInputEditText);
@@ -128,20 +217,7 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
         return matcher.matches();
     }
 
-    public void SetRepeat() {
-        Repeat_Switch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int vis = View.GONE;
-                if (Repeat_Switch.isChecked())
-                    vis = View.VISIBLE;
-                Semester1_Switch.setVisibility(vis);
-                Semester2_Switch.setVisibility(vis);
-                Chirstmas_Switch.setVisibility(vis);
-                Easter_Switch.setVisibility(vis);
-            }
-        });
-    }
+
 
     public void SetupDateandTimeDialogs() {
         pattern = Pattern.compile(TIME12HOURS_PATTERN);
@@ -200,7 +276,8 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
             newUSession.setSession(session);
             newUSession.save();
             return true;
-        } else return false;
+        } else
+        return false;
     }
 
     public void SubmitAndLeave() {
@@ -217,8 +294,6 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
             Start_EditText.setText("");
             End_EditText.setText("");
             Type_EditText.setText("");
-            if (Repeat_Switch.isChecked())
-                Repeat_Switch.callOnClick();
         }
     }
 
@@ -269,9 +344,9 @@ public class TimetableNewSessionActivity extends AppCompatActivity {
     }
 
     public boolean ValidateEnd(Session session) {
-        if (Start_EditText.getText() != null) {
-            if (validate(Start_EditText.getText().toString())) {
-                session.setEndTime(Start_EditText.getText().toString());
+        if (End_EditText.getText() != null) {
+            if (validate(End_EditText.getText().toString())) {
+                session.setEndTime(End_EditText.getText().toString());
                 return true;
             } else
                 return false;

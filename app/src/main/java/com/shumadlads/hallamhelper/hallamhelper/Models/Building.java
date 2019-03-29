@@ -26,6 +26,9 @@ public class Building extends BaseModel {
     @Column
     Blob BuildingImage;
 
+    @Column
+    int Floors;
+
     List<Node> Nodes;
 
     public int getBuildingId() { return BuildingId; }
@@ -39,6 +42,9 @@ public class Building extends BaseModel {
     }
     public void setBuildingImage(Blob buildingImage) { BuildingImage = buildingImage; }
 
+    public int getFloors() { return Floors; }
+    public void setFloors(int floors) { Floors = floors; }
+
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "Nodes")
     public List<Node> getNodes() {
         if (Nodes == null || Nodes.isEmpty()) {
@@ -50,4 +56,9 @@ public class Building extends BaseModel {
         return Nodes;
     }
     public void setNodes(List<Node> nodes) { Nodes = nodes; }
+
+    @Override
+    public String toString() {
+        return getBuildingName();
+    }
 }
